@@ -24,10 +24,8 @@
   --amber-soft: #fffbeb;
   --code-bg: #f1f5f9;
 
-  /* 宽度：默认容器（首页/博客，文字为主，不宜过宽） */
+  /* 宽度：四页统一 */
   --max: 1280px;
-  /* 宽容器（项目/服务，卡片网格铺满宽屏） */
-  --max-wide: 1400px;
   --prose: 760px;
 
   --radius: 12px;
@@ -61,16 +59,9 @@ p { color: var(--text-2); }
 ::selection { background: var(--brand-soft); color: var(--brand-hover); }
 :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
 
-/* ---------- 统一容器（所有页面共用） ---------- */
+/* ---------- 统一容器（四页共用） ---------- */
 .container {
   max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 24px;
-  min-width: 0;
-}
-/* 宽容器：项目/服务页（卡片网格铺满宽屏） */
-.container-wide {
-  max-width: var(--max-wide);
   margin: 0 auto;
   padding: 0 24px;
   min-width: 0;
@@ -238,8 +229,44 @@ main.main { flex: 1; }
 .post-item:hover h3 { color: var(--brand); }
 .post-item .excerpt { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.6; }
 
-/* ---------- 文章正文（统一页面框，正文居中可读宽度） ---------- */
+/* ---------- 文章正文 + 目录侧栏 ---------- */
+.article-layout { display: grid; gap: 0; }
+.article-layout.has-toc {
+  grid-template-columns: 200px minmax(0, 720px);
+  gap: 48px;
+  align-items: start;
+  justify-content: center;
+}
+@media (max-width: 1024px) {
+  .article-layout.has-toc { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* 目录侧栏 */
+.toc {
+  position: sticky;
+  top: 88px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.toc .back-link { margin-bottom: 20px; }
+.toc-label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted-2); margin-bottom: 12px; padding-left: 12px;
+}
+.toc-nav { display: grid; gap: 2px; border-left: 1px solid var(--border); }
+.toc-link {
+  display: block; font-size: 13px; line-height: 1.5; color: var(--muted);
+  padding: 5px 12px; border-radius: 0 6px 6px 0; transition: color 0.15s ease, background 0.15s ease;
+}
+.toc-link:hover { color: var(--brand); background: var(--brand-soft); text-decoration: none; }
+.toc-d3 { padding-left: 24px; font-size: 12.5px; color: var(--muted-2); }
+@media (max-width: 1024px) {
+  .toc { position: static; max-height: none; margin-bottom: 24px; }
+}
+
 .article { max-width: var(--prose); margin: 0 auto; }
+.article-layout.has-toc .article { max-width: none; }
 .article-head { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
 .article-head .date { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
 .article-head h1 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); }

@@ -13,21 +13,44 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 
 const fmt = (d) =>
   d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
 ---
 <Base title={post.data.title} description={post.data.excerpt}>
   <section class="page">
-    <div class="article">
-      <a class="back-link" href="/blog"><Icon name="arrow-left" size={15} />返回博客</a>
-      <header class="article-head">
-        <div class="date">{fmt(post.data.date)}</div>
-        <h1>{post.data.title}</h1>
-      </header>
-      <div class="prose">
-        <Content />
+    <div class={`article-layout ${tocItems.length ? "has-toc" : ""}`}>
+      {
+        tocItems.length > 0 && (
+          <aside class="toc">
+            <a class="back-link" href="/blog">
+              <Icon name="arrow-left" size={15} />返回博客
+            </a>
+            <div class="toc-label">目录</div>
+            <nav class="toc-nav">
+              {tocItems.map((h) => (
+                <a href={`#${h.slug}`} class={`toc-link toc-d${h.depth}`}>
+                  {h.text}
+                </a>
+              ))}
+            </nav>
+          </aside>
+        )
+      }
+
+      <div class="article">
+        {tocItems.length === 0 && (
+          <a class="back-link" href="/blog"><Icon name="arrow-left" size={15} />返回博客</a>
+        )}
+        <header class="article-head">
+          <div class="date">{fmt(post.data.date)}</div>
+          <h1>{post.data.title}</h1>
+        </header>
+        <div class="prose">
+          <Content />
+        </div>
       </div>
     </div>
     <Comments slug={post.id} />

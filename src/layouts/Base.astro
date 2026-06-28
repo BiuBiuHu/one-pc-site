@@ -3,12 +3,11 @@ import "../styles/global.css";
 import { site } from "../data/site";
 import Icon from "../components/Icon.astro";
 
-const { title, description, wide = false } = Astro.props;
+const { title, description } = Astro.props;
 const path = Astro.url.pathname;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · 个人站点`;
 const desc =
   description || "One PC 的个人站点 —— 开源项目、日常思考，以及邮件、AI 等可直接使用的服务。";
-const wrap = wide ? "container-wide" : "container";
 
 const NAV = [
   { href: "/", label: "首页", match: (p) => p === "/" },
@@ -34,7 +33,7 @@ const year = new Date().getFullYear();
   <body>
     <div class="site">
       <header class="topbar">
-        <div class={`nav ${wrap}`}>
+        <div class="container nav">
           <a class="brand" href="/">
             <span class="brand-mark">OP</span>
             <span>{site.name}</span>
@@ -57,12 +56,12 @@ const year = new Date().getFullYear();
         </div>
       </header>
 
-      <main class={`main ${wrap}`}>
+      <main class="main container">
         <slot />
       </main>
 
       <footer class="footer">
-        <div class={`footer-inner ${wrap}`}>
+        <div class="container footer-inner">
           <div class="footer-brand">
             <span class="brand-mark">OP</span>
             <span>{site.name} · 个人站点</span>
