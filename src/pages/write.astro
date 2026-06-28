@@ -1,0 +1,68 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="写作">
+  <section class="page">
+    <div class="article" style="max-width:var(--max)">
+      <div class="section-head">
+        <h1 style="font-size:28px">写一篇新文章</h1>
+        <p>填好内容点发布，会自动提交到仓库并部署上线。需要写作口令。</p>
+      </div>
+
+      <form class="write-form" id="write-form">
+        <label class="field">
+          <span>写作口令</span>
+          <input type="password" name="password" required autocomplete="current-password" placeholder="WRITE_PASSWORD" />
+        </label>
+        <label class="field">
+          <span>标题</span>
+          <input type="text" name="title" required placeholder="文章标题" />
+        </label>
+        <label class="field">
+          <span>摘要（可选）</span>
+          <input type="text" name="excerpt" placeholder="一句话摘要" />
+        </label>
+        <label class="field">
+          <span>正文（Markdown）</span>
+          <textarea name="body" rows="16" required placeholder="# 标题&#10;&#10;正文支持 Markdown…"></textarea>
+        </label>
+        <div class="write-actions">
+          <span class="write-hint" id="write-hint"></span>
+          <button type="submit" class="btn primary" id="write-submit">发布</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+  const form = document.getElementById("write-form");
+  const hint = document.getElementById("write-hint");
+  const btn = document.getElementById("write-submit");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    btn.disabled = true; btn.textContent = "发布中…";
+    hint.textContent = "";
+    try {
+      const r = await fetch("/api/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          password: fd.get("password"),
+          title: fd.get("title"),
+          excerpt: fd.get("excerpt"),
+          body: fd.get("body")
+        })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        hint.innerHTML = `✅ 已发布！正在部署，稍后可访问 <a href="${d.url}">${d.url}</a>`;
+        form.reset();
+      } else {
+        hint.textContent = "❌ " + (d.message || "发布失败");
+      }
+    } catch { hint.textContent = "❌ 网络错误"; }
+    btn.disabled = false; btn.textContent = "发布";
+  });
+</script>

@@ -1,35 +1,72 @@
 ---
-import { site } from "../data/site";
-const g = site.giscus;
-const configured = g.repoId && g.categoryId;
+// 自托管评论组件。传入文章 slug。
+const { slug } = Astro.props;
 ---
-<section class="comments">
-  <h2>评论</h2>
-  {
-    configured ? (
-      <script
-        src="https://giscus.app/client.js"
-        data-repo={`${site.githubUser}/${site.repo}`}
-        data-repo-id={g.repoId}
-        data-category={g.category}
-        data-category-id={g.categoryId}
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async
-      />
-    ) : (
-      <p style="color:var(--muted);font-size:14px">
-        评论系统（Giscus）配置中。需要在 <a href="https://giscus.app" target="_blank" rel="noreferrer">giscus.app</a>{" "}
-        生成仓库 ID 后填入 <code>src/data/site.js</code>。
-      </p>
-    )
-  }
-  <div class="giscus"></div>
+<section class="comments" id="comments" data-slug={slug}>
+  <h2>评论 <span class="comment-count"></span></h2>
+  <div class="comment-list">加载中…</div>
+  <form class="comment-form" id="comment-form">
+    <input class="comment-input" name="name" type="text" placeholder="你的名字（可选）" maxlength="40" />
+    <textarea class="comment-textarea" name="body" placeholder="写下你的想法…" maxlength="2000" required rows="3"></textarea>
+    <div class="comment-form-row">
+      <span class="comment-hint">评论通过 GitHub 安全存储，提交后稍等片刻显示。</span>
+      <button type="submit" class="btn primary sm">发送</button>
+    </div>
+  </form>
 </section>
+
+<script is:inline define:vars={{ slug }}>
+  const section = document.getElementById("comments");
+  const listEl = section.querySelector(".comment-list");
+  const countEl = section.querySelector(".comment-count");
+  const form = document.getElementById("comment-form");
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+  function fmtTime(t) {
+    try { return new Date(t).toLocaleString("zh-CN"); } catch { return ""; };
+  }
+  function render(list) {
+    countEl.textContent = list.length ? `(${list.length})` : "";
+    if (!list.length) { listEl.innerHTML = '<p class="comment-empty">还没有评论，来写第一条吧。</p>'; return; }
+    listEl.innerHTML = list.map((c) => `
+      <div class="comment-item">
+        <div class="comment-head">
+          <strong>${esc(c.name || "匿名")}</strong>
+          <span class="comment-time">${fmtTime(c.time)}</span>
+        </div>
+        <div class="comment-body">${esc(c.body)}</div>
+      </div>`).join("");
+  }
+
+  async function load() {
+    try {
+      const r = await fetch(`/api/comments?slug=${encodeURIComponent(slug)}`);
+      const d = await r.json();
+      render(d.comments || []);
+    } catch { listEl.innerHTML = '<p class="comment-empty">评论加载失败。</p>'; }
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const btn = form.querySelector("button");
+    btn.disabled = true; btn.textContent = "发送中…";
+    try {
+      const r = await fetch("/api/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, name: fd.get("name"), body: fd.get("body") })
+      });
+      const d = await r.json();
+      if (d.ok) { render(d.comments || []); form.reset(); }
+      else { alert(d.message || "发送失败"); }
+    } catch { alert("网络错误"); }
+    btn.disabled = false; btn.textContent = "发送";
+  });
+
+  load();
+</script>

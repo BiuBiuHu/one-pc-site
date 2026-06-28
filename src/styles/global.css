@@ -249,7 +249,39 @@ main.main { flex: 1; }
 /* ---------- 评论（Giscus） ---------- */
 .comments { max-width: var(--prose); margin: 56px auto 0; padding-top: 32px; border-top: 1px solid var(--border); }
 .comments h2 { font-size: 18px; margin: 0 0 20px; }
-.giscus { min-height: 80px; }
+
+.comment-list { display: grid; gap: 14px; margin-bottom: 24px; }
+.comment-empty { color: var(--muted); font-size: 14px; margin: 0; }
+.comment-item { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.comment-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.comment-head strong { font-size: 14px; color: var(--text); }
+.comment-time { font-size: 12px; color: var(--muted-2); }
+.comment-body { font-size: 14px; line-height: 1.6; color: var(--text-2); white-space: pre-wrap; word-break: break-word; }
+
+.comment-form { display: grid; gap: 10px; }
+.comment-input, .comment-textarea {
+  width: 100%; font-family: inherit; font-size: 14px; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 10px 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.comment-input:focus, .comment-textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.comment-textarea { resize: vertical; line-height: 1.6; }
+.comment-form-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.comment-hint { font-size: 12px; color: var(--muted-2); }
+
+/* ---------- 写作表单 ---------- */
+.write-form { display: grid; gap: 16px; max-width: 720px; }
+.field { display: grid; gap: 6px; }
+.field > span { font-size: 13px; font-weight: 600; color: var(--text-2); }
+.field input, .field textarea {
+  width: 100%; font-family: inherit; font-size: 14px; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 10px 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; resize: vertical; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.write-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.write-hint { font-size: 13px; color: var(--green); }
 
 /* ---------- 系统状态 ---------- */
 .status-bar { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
