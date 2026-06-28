@@ -1,0 +1,80 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+import Icon from "../components/Icon.astro";
+
+const { title, description } = Astro.props;
+const path = Astro.url.pathname;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · 个人站点`;
+const desc =
+  description || "One PC 的个人站点 —— 开源项目、日常思考，以及邮件、AI 等可直接使用的服务。";
+
+const NAV = [
+  { href: "/", label: "首页", match: (p) => p === "/" },
+  { href: "/projects", label: "项目", match: (p) => p.startsWith("/projects") },
+  { href: "/blog", label: "博客", match: (p) => p.startsWith("/blog") },
+  { href: "/services", label: "服务", match: (p) => p.startsWith("/services") }
+];
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={desc} />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div class="site">
+      <header class="topbar">
+        <div class="container nav">
+          <a class="brand" href="/">
+            <span class="brand-mark">OP</span>
+            <span>{site.name}</span>
+          </a>
+          <nav class="menu">
+            {NAV.map((item) => (
+              <a href={item.href} aria-current={item.match(path) ? "page" : undefined}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div class="nav-actions">
+            <a class="icon-link" href={site.repoUrl} target="_blank" rel="noreferrer" aria-label="GitHub">
+              <Icon name="github" size={18} />
+            </a>
+            <a class="icon-link" href={`mailto:${site.email}`} aria-label="邮箱">
+              <Icon name="mail" size={18} />
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main class="main container">
+        <slot />
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-inner">
+          <div class="footer-brand">
+            <span class="brand-mark">OP</span>
+            <span>{site.name} · 个人站点</span>
+          </div>
+          <div class="footer-links">
+            <a href="/projects">项目</a>
+            <a href="/blog">博客</a>
+            <a href="/services">服务</a>
+            <a href={site.repoUrl} target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+          <div>© {year} {site.name}</div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

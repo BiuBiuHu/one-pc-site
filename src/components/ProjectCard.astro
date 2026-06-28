@@ -1,0 +1,34 @@
+---
+import Icon from "./Icon.astro";
+import { statusLabel } from "../data/projects";
+const { project } = Astro.props;
+const isWip = project.status === "wip";
+---
+<article class="card hover project-card">
+  <div class="project-top">
+    <span class="lang">
+      <span class="dot" style={`background:${project.languageColor}`}></span>
+      {project.language}
+    </span>
+    <span class="stars"><Icon name="star" size={13} />{project.stars}</span>
+  </div>
+
+  <h3>{project.name}</h3>
+  <p class="tagline">{project.tagline}</p>
+  <p class="desc">{project.description}</p>
+
+  <div class="project-tags">
+    {project.tags.map((t) => <span class="tag">{t}</span>)}
+  </div>
+
+  <div class="project-footer">
+    <span class={`status ${isWip ? "wip" : ""}`}>
+      <span class="pulse"></span>
+      {statusLabel(project.status)}
+    </span>
+    <a class="repo-link" href={project.repo} target="_blank" rel="noreferrer">
+      <Icon name={project.homepage ? "external-link" : "github"} size={14} />
+      {project.homepage ? "访问" : "仓库"}
+    </a>
+  </div>
+</article>

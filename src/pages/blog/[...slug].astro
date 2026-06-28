@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import Comments from "../../components/Comments.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmt = (d) =>
+  d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+---
+<Base title={post.data.title} description={post.data.excerpt}>
+  <section class="page">
+    <div class="article">
+      <a class="back-link" href="/blog"><Icon name="arrow-left" size={15} />返回博客</a>
+      <header class="article-head">
+        <div class="date">{fmt(post.data.date)}</div>
+        <h1>{post.data.title}</h1>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+    <Comments />
+  </section>
+</Base>

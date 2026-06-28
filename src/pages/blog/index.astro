@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const fmt = (d) =>
+  d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+---
+<Base title="博客">
+  <section class="page">
+    <div class="section-head">
+      <span class="eyebrow"><Icon name="notebook" size={14} />博客</span>
+      <h2 style="margin-top:14px">日常思考</h2>
+      <p>关于 AI 研发、独立开发和工程化的记录，写得少而准。</p>
+    </div>
+    <div class="post-list">
+      {posts.map((post) => (
+        <a class="post-item" href={`/blog/${post.id}`}>
+          <div class="date">{fmt(post.data.date)}</div>
+          <h3>{post.data.title}</h3>
+          <p class="excerpt">{post.data.excerpt}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

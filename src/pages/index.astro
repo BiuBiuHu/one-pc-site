@@ -1,0 +1,102 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Icon from "../components/Icon.astro";
+import { getFeaturedProjects } from "../data/projects";
+import { services } from "../data/services";
+import { getCollection } from "astro:content";
+
+const featured = getFeaturedProjects(3);
+const allPosts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const latest = allPosts.slice(0, 3);
+const topServices = services.slice(0, 2);
+
+const fmt = (d) =>
+  d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+---
+<Base>
+  <section class="page">
+    <div class="hero-split">
+      <div class="hero">
+        <span class="eyebrow"><Icon name="sparkles" size={14} />开源 · 思考 · 服务</span>
+        <h1>把想法做成产品，把经验写成文字</h1>
+        <p class="lead">
+          我是 One PC，一个独立开发者。这里收集我的开源项目、日常思考，
+          以及邮件、AI 等可以直接用的服务。欢迎逛逛，也欢迎一起聊聊。
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/projects">看项目 <Icon name="arrow-right" size={16} /></a>
+          <a class="btn ghost" href="/blog">读文章</a>
+          <a class="btn ghost" href="/services">看服务</a>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">Astro</span>
+          <span class="tag">AI / LLM</span>
+          <span class="tag">基础设施</span>
+          <span class="tag">独立开发</span>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <p class="label">What I do</p>
+        <h3>开源 + 写作 + 服务</h3>
+        <p>用开源沉淀能力，用文章分享思考，用服务把能力变成可以直接用的东西。</p>
+        <div class="hero-stats">
+          <div class="stat"><strong>{featured.length}+</strong><span>精选项目</span></div>
+          <div class="stat"><strong>{allPosts.length}</strong><span>篇文章</span></div>
+          <div class="stat"><strong>{services.length}</strong><span>项服务</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="stack-vertical" style="margin-top:56px">
+      <section>
+        <div class="section-head">
+          <h2>精选项目</h2>
+          <p>我正在维护和打磨的开源项目，大多围绕 AI 和开发者效率。</p>
+          <a class="more" href="/projects">查看全部项目 <Icon name="arrow-right" size={15} /></a>
+        </div>
+        <div class="grid cols-3">
+          {featured.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>最新文章</h2>
+          <p>关于 AI 研发、独立开发和工程化的日常思考。</p>
+          <a class="more" href="/blog">查看全部文章 <Icon name="arrow-right" size={15} /></a>
+        </div>
+        <div class="post-list">
+          {latest.map((post) => (
+            <a class="post-item" href={`/blog/${post.id}`}>
+              <div class="date">{fmt(post.data.date)}</div>
+              <h3>{post.data.title}</h3>
+              <p class="excerpt">{post.data.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>提供的服务</h2>
+          <p>把下面这些能力直接拿来用，或者找我定制。</p>
+          <a class="more" href="/services">查看全部服务 <Icon name="arrow-right" size={15} /></a>
+        </div>
+        <div class="grid cols-2">
+          {topServices.map((s) => (
+            <article class="card service-card">
+              <div class="service-icon"><Icon name={s.icon} size={20} /></div>
+              <h3>{s.name}</h3>
+              <p class="summary">{s.summary}</p>
+              <a class="btn ghost sm" href="/services">了解更多 <Icon name="arrow-up-right" size={14} /></a>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  </section>
+</Base>

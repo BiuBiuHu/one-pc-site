@@ -1,0 +1,35 @@
+# Decap CMS 配置
+# 仓库地址改为你的：owner/repo
+backend:
+  name: github
+  repo: BiuBiuHu/one-pc-site
+  branch: main
+  # OAuth 代理（同域部署在本站 /api 下）
+  base_url: https://blog-orcin-eta-43.vercel.app
+  auth_endpoint: /api/auth
+
+# 图片上传目录
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# 自动生成中文 slug
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_re: "[^a-z0-9-_]"
+
+collections:
+  - name: "blog"
+    label: "博客文章"
+    label_singular: "文章"
+    folder: "src/content/blog"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime" }
+      - { label: "摘要", name: "excerpt", widget: "text", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }

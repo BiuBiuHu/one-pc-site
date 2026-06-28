@@ -1,0 +1,16 @@
+---
+import Icon from "./Icon.astro";
+const { service } = Astro.props;
+---
+<article class={`card service-card ${service.highlight ? "highlight" : ""}`}>
+  <div class="service-icon"><Icon name={service.icon} size={20} /></div>
+  <h3>{service.name}</h3>
+  <p class="summary">{service.summary}</p>
+  <ul class="feature-list">
+    {service.features.map((f) => <li>{f}</li>)}
+  </ul>
+  <a class={`btn ${service.highlight ? "primary" : "ghost"} sm`} href={service.cta.href}>
+    {service.cta.label}
+    <Icon name="arrow-up-right" size={14} />
+  </a>
+</article>

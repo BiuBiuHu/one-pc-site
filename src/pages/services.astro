@@ -1,0 +1,41 @@
+---
+import Base from "../layouts/Base.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Icon from "../components/Icon.astro";
+import { services } from "../data/services";
+---
+<Base title="服务">
+  <section class="page">
+    <div class="section-head">
+      <span class="eyebrow"><Icon name="arrow-up-right" size={14} />服务</span>
+      <h2 style="margin-top:14px">我可以提供的能力</h2>
+      <p>下面这些服务都来自我自己的项目和经验，可以直接用，也可以按需定制。</p>
+    </div>
+
+    <div class="grid cols-3">
+      {services.map((s) => <ServiceCard service={s} />)}
+    </div>
+
+    <div class="card" style="margin-top:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <Icon name="activity" size={18} />
+      <strong style="margin-right:4px">服务状态</strong>
+      <span class="status-bar" id="service-status">
+        <span class="pulse"></span>
+        <span class="status-text">检查中…</span>
+      </span>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const el = document.getElementById("service-status");
+  const text = el?.querySelector(".status-text");
+  fetch("/api/health")
+    .then((r) => r.json())
+    .then((d) => {
+      if (text) text.textContent = d.ok ? `运行正常 · ${d.service || "api"}` : `服务异常 · ${d.service || "unknown"}`;
+    })
+    .catch(() => {
+      if (text) text.textContent = "接口暂未接入，可后续配置";
+    });
+</script>
