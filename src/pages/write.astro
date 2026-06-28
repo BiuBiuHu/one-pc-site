@@ -23,6 +23,10 @@ import Base from "../layouts/Base.astro";
           <input type="text" name="excerpt" placeholder="一句话摘要" />
         </label>
         <label class="field">
+          <span>分类（用于归档目录）</span>
+          <input type="text" name="category" placeholder="如：AI / 工程 / 思考" />
+        </label>
+        <label class="field">
           <span>正文（Markdown）</span>
           <textarea name="body" rows="16" required placeholder="# 标题&#10;&#10;正文支持 Markdown…"></textarea>
         </label>
@@ -52,6 +56,7 @@ import Base from "../layouts/Base.astro";
           password: fd.get("password"),
           title: fd.get("title"),
           excerpt: fd.get("excerpt"),
+          category: fd.get("category"),
           body: fd.get("body")
         })
       });

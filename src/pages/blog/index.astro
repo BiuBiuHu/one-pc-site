@@ -7,24 +7,57 @@ const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 
+// 按分类归档
+const groups = new Map();
+for (const p of posts) {
+  const cat = p.data.category || "其他";
+  if (!groups.has(cat)) groups.set(cat, []);
+  groups.get(cat).push(p);
+}
+const categories = [...groups.keys()];
+
 const fmt = (d) =>
   d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+
+const slug = (s, i) => `cat-${i}`;
 ---
 <Base title="博客">
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="notebook" size={14} />博客</span>
-      <h2 style="margin-top:14px">日常思考</h2>
-      <p>关于 AI 研发、独立开发和工程化的记录，写得少而准。</p>
+      <h2 style="margin-top:14px">目录与归档</h2>
+      <p>按分类归档的全部文章，共 {posts.length} 篇。</p>
     </div>
-    <div class="post-list">
-      {posts.map((post) => (
-        <a class="post-item" href={`/blog/${post.id}`}>
-          <div class="date">{fmt(post.data.date)}</div>
-          <h3>{post.data.title}</h3>
-          <p class="excerpt">{post.data.excerpt}</p>
-        </a>
-      ))}
+
+    <div class="archive-layout">
+      <aside class="archive-toc">
+        <div class="toc-label">分类目录</div>
+        <nav class="toc-nav">
+          {categories.map((cat, i) => (
+            <a href={`#${slug(cat, i)}`} class="toc-link">
+              {cat}
+              <span class="toc-count">{groups.get(cat).length}</span>
+            </a>
+          ))}
+        </nav>
+      </aside>
+
+      <div class="archive-main">
+        {categories.map((cat, i) => (
+          <section class="archive-group" id={slug(cat, i)}>
+            <h3 class="archive-cat">{cat}</h3>
+            <div class="post-list archive-posts">
+              {groups.get(cat).map((post) => (
+                <a class="post-item" href={`/blog/${post.id}`}>
+                  <div class="date">{fmt(post.data.date)}</div>
+                  <h3>{post.data.title}</h3>
+                  <p class="excerpt">{post.data.excerpt}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   </section>
 </Base>
