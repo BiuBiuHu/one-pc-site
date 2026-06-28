@@ -11,3 +11,6 @@ dist
 docs/
 .boss/
 src/content/notes/
+
+# 运行时评论数据（API 写入，不入库）
+comments.json
