@@ -5,7 +5,7 @@ export const site = {
   githubUser: "BiuBiuHu",
   // 仓库名
   repo: "one-pc-site",
-  email: "hello@onepc.dev",
+  email: "biubiu_hu@qq.com",
   // 仓库完整地址（公开仓库）
   get repoUrl() {
     return `https://github.com/${this.githubUser}/${this.repo}`;

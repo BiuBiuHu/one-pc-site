@@ -1,4 +1,6 @@
 // 服务数据 —— 改成你的真实服务
+import { site } from "./site.js";
+
 export const services = [
   {
     icon: "mail",
@@ -39,7 +41,7 @@ export const services = [
       "RAG 检索与评测体系搭建",
       "工程化与成本优化"
     ],
-    cta: { label: "联系我", href: "mailto:hello@onepc.dev" },
+    cta: { label: "联系我", href: `mailto:${site.email}` },
     highlight: false
   }
 ];
