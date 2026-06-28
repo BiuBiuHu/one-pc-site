@@ -10,11 +10,11 @@ export const site = {
   get repoUrl() {
     return `https://github.com/${this.githubUser}/${this.repo}`;
   },
-  // Giscus 配置 —— 在 https://giscus.app 生成后填这两项
+  // Giscus 配置 —— 已通过 GitHub API 生成
   giscus: {
-    repoId: "", // TODO: 在 giscus.app 生成
+    repoId: "R_kgDOTHKYMg",
     category: "Announcements",
-    categoryId: "" // TODO: 在 giscus.app 生成
+    categoryId: "DIC_kwDOTHKYMs4DAB1p"
   },
   // Decap CMS 后台的 OAuth 代理地址（部署后用线上域名）
   oauthProxy: "/api/auth"
