@@ -24,8 +24,10 @@
   --amber-soft: #fffbeb;
   --code-bg: #f1f5f9;
 
-  /* 宽度：所有页面统一（适配宽屏，2000px 屏约占 80%） */
-  --max: 1600px;
+  /* 宽度：默认容器（首页/博客，文字为主，不宜过宽） */
+  --max: 1280px;
+  /* 宽容器（项目/服务，卡片网格铺满宽屏） */
+  --max-wide: 1560px;
   --prose: 760px;
 
   --radius: 12px;
@@ -62,6 +64,13 @@ p { color: var(--text-2); }
 /* ---------- 统一容器（所有页面共用） ---------- */
 .container {
   max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+  min-width: 0;
+}
+/* 宽容器：项目/服务页（卡片网格铺满宽屏） */
+.container-wide {
+  max-width: var(--max-wide);
   margin: 0 auto;
   padding: 0 24px;
   min-width: 0;
@@ -151,8 +160,16 @@ main.main { flex: 1; }
 }
 .card.hover:hover { border-color: var(--border-strong); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
 .grid { display: grid; gap: 24px; min-width: 0; }
-.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+/* 固定列数：容器变宽时卡片变大，而不是增加列数（避免越宽越挤） */
+.grid.cols-2 { grid-template-columns: 1fr; }
+.grid.cols-3 { grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1040px) {
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
 
 /* ---------- 首页 Hero ---------- */
 .hero-split {
