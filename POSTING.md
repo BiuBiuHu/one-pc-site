@@ -7,10 +7,11 @@ description: One PC 个人站点的发文与写作指南
 
 本站点基于 Astro + Markdown。两种写作方式：
 
-## 方式一：网页后台编辑器（推荐）
+## 方式一：网页写作页（推荐）
 
-访问 `/admin`（Decap CMS），在浏览器里写文章、填 frontmatter，提交即发布。
-需要先在 GitHub 上配置好仓库与 OAuth（见 `docs/` 部署记录）。
+访问 `/write`：Vditor 即时渲染编辑器，打字时 Markdown 标记自动隐藏，写什么即看到什么。
+草稿自动存浏览器本地（刷新不丢），想清楚了填写作口令一键发布，自动提交到仓库并部署上线。
+需要写作口令（环境变量 `WRITE_PASSWORD`）。
 
 ## 方式二：本地写 Markdown
 

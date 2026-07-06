@@ -1,73 +1,510 @@
 ---
 import Base from "../layouts/Base.astro";
+// 写作页：Vditor 即时渲染（IR）+ localStorage 草稿 + 沉浸模式 + 折叠发布抽屉。
+// Vditor 经 CDN 引入（不打包），所有编辑器代码在 <script is:inline> 客户端执行，
+// 避免 Astro 静态构建在 Node 端引用 window/document 而失败。
 ---
 <Base title="写作">
-  <section class="page">
-    <div class="article" style="max-width:var(--max)">
-      <div class="section-head">
-        <h1 style="font-size:28px">写一篇新文章</h1>
-        <p>填好内容点发布，会自动提交到仓库并部署上线。需要写作口令。</p>
-      </div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.11.2/dist/index.css" />
 
-      <form class="write-form" id="write-form">
-        <label class="field">
-          <span>写作口令</span>
-          <input type="password" name="password" required autocomplete="current-password" placeholder="WRITE_PASSWORD" />
-        </label>
-        <label class="field">
-          <span>标题</span>
-          <input type="text" name="title" required placeholder="文章标题" />
-        </label>
-        <label class="field">
-          <span>摘要（可选）</span>
-          <input type="text" name="excerpt" placeholder="一句话摘要" />
-        </label>
-        <label class="field">
-          <span>分类（用于归档目录）</span>
-          <input type="text" name="category" placeholder="如：AI / 工程 / 思考" />
-        </label>
-        <label class="field">
-          <span>正文（Markdown）</span>
-          <textarea name="body" rows="16" required placeholder="# 标题&#10;&#10;正文支持 Markdown…"></textarea>
-        </label>
-        <div class="write-actions">
-          <span class="write-hint" id="write-hint"></span>
+  <section class="page write-page">
+    <div class="write-topbar">
+      <a href="/blog" class="back-link">← 博客</a>
+      <div class="topbar-right">
+        <span class="write-hint" id="write-hint" role="status" aria-live="polite"></span>
+        <button
+          type="button"
+          class="btn ghost sm zen-toggle"
+          id="zen-btn"
+          aria-label="沉浸模式"
+          title="沉浸模式（Esc 退出）"
+        >
+          沉浸
+        </button>
+      </div>
+    </div>
+
+    <div class="write-canvas">
+      <input
+        class="write-title"
+        id="f-title"
+        type="text"
+        placeholder="标题"
+        aria-label="文章标题"
+        autocomplete="off"
+      />
+      <div id="vditor" aria-label="正文编辑器"></div>
+    </div>
+
+    <form class="write-drawer" id="write-form">
+      <div class="drawer-inner">
+        <details class="drawer-options">
+          <summary>摘要 · 分类（可选）</summary>
+          <label class="field">
+            <span>摘要</span>
+            <input type="text" id="f-excerpt" placeholder="一句话摘要" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span>分类</span>
+            <select id="f-category">
+              <option value="思考">思考</option>
+              <option value="AI">AI</option>
+              <option value="工程">工程</option>
+              <option value="__other">其他…</option>
+            </select>
+            <input
+              type="text"
+              id="f-category-other"
+              placeholder="自定义分类"
+              hidden
+              autocomplete="off"
+            />
+          </label>
+        </details>
+        <div class="drawer-actions">
+          <label class="field write-pw">
+            <span>写作口令</span>
+            <input
+              type="password"
+              id="f-password"
+              required
+              autocomplete="current-password"
+              placeholder="发布口令"
+            />
+          </label>
           <button type="submit" class="btn primary" id="write-submit">发布</button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </section>
-</Base>
 
-<script is:inline>
-  const form = document.getElementById("write-form");
-  const hint = document.getElementById("write-hint");
-  const btn = document.getElementById("write-submit");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const fd = new FormData(form);
-    btn.disabled = true; btn.textContent = "发布中…";
-    hint.textContent = "";
-    try {
-      const r = await fetch("/api/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          password: fd.get("password"),
-          title: fd.get("title"),
-          excerpt: fd.get("excerpt"),
-          category: fd.get("category"),
-          body: fd.get("body")
-        })
-      });
-      const d = await r.json();
-      if (d.ok) {
-        hint.innerHTML = `✅ 已发布！正在部署，稍后可访问 <a href="${d.url}">${d.url}</a>`;
-        form.reset();
-      } else {
-        hint.textContent = "❌ " + (d.message || "发布失败");
+  <style>
+    .write-page {
+      position: relative;
+      padding: 16px 0 0;
+      min-height: calc(100vh - 200px);
+    }
+
+    .write-topbar {
+      max-width: var(--prose);
+      margin: 0 auto 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .back-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .back-link:hover {
+      color: var(--brand);
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .write-hint {
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 18px;
+    }
+    .write-hint.ok {
+      color: var(--green);
+    }
+    .write-hint.err {
+      color: var(--amber);
+    }
+    .write-hint a {
+      color: var(--brand);
+      text-decoration: underline;
+    }
+    .zen-toggle {
+      white-space: nowrap;
+    }
+
+    .write-canvas {
+      max-width: var(--prose);
+      margin: 0 auto;
+    }
+    .write-title {
+      width: 100%;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.3;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 8px 0 16px;
+      color: var(--text);
+    }
+    .write-title::placeholder {
+      color: var(--muted-2);
+      font-weight: 400;
+    }
+
+    /* Vditor IR 渲染对齐站点 .prose —— 容器内子节点由 Vditor 动态生成，必须 :global */
+    :global(#vditor) {
+      min-height: 60vh;
+      border: none !important;
+    }
+    :global(#vditor .vditor-toolbar) {
+      background: transparent;
+      border: none;
+      padding: 0 0 10px;
+    }
+    :global(#vditor .vditor-content) {
+      background: transparent;
+      border: none;
+    }
+    :global(#vditor .vditor-reset),
+    :global(#vditor .vditor-ir) {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-2);
+    }
+    :global(#vditor .vditor-reset h1),
+    :global(#vditor .vditor-reset h2),
+    :global(#vditor .vditor-reset h3),
+    :global(#vditor .vditor-ir h1),
+    :global(#vditor .vditor-ir h2),
+    :global(#vditor .vditor-ir h3) {
+      color: var(--text);
+    }
+    :global(#vditor .vditor-reset blockquote),
+    :global(#vditor .vditor-ir blockquote) {
+      border-left: 3px solid var(--brand-line);
+      background: var(--brand-soft);
+      color: var(--text-2);
+      padding: 0.5em 0.9em;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 1em 0;
+    }
+    :global(#vditor .vditor-reset a),
+    :global(#vditor .vditor-ir a) {
+      color: var(--brand);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    :global(#vditor .vditor-reset code),
+    :global(#vditor .vditor-ir code) {
+      background: var(--code-bg);
+      color: var(--text);
+      padding: 0.15em 0.35em;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    :global(#vditor .vditor-reset table th),
+    :global(#vditor .vditor-ir table th) {
+      background: var(--bg-subtle);
+    }
+
+    /* 发布抽屉：sticky 在视口底部，写作时折叠、发布时展开 */
+    .write-drawer {
+      position: sticky;
+      bottom: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 12px 0;
+      margin-top: 32px;
+      box-shadow: var(--shadow-sm);
+      z-index: 10;
+    }
+    .drawer-inner {
+      max-width: var(--prose);
+      margin: 0 auto;
+    }
+    .drawer-options summary {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-2);
+      cursor: pointer;
+      padding: 4px 0;
+      list-style: none;
+    }
+    .drawer-options summary::-webkit-details-marker {
+      display: none;
+    }
+    .drawer-options[open] summary {
+      margin-bottom: 12px;
+    }
+    .drawer-options .field {
+      margin-bottom: 10px;
+    }
+    .drawer-options .field:last-child {
+      margin-bottom: 0;
+    }
+    .drawer-actions {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .drawer-actions .write-pw {
+      flex: 1;
+    }
+    .drawer-actions .btn {
+      flex-shrink: 0;
+    }
+
+    /* 沉浸模式：隐藏全站 topbar/footer，写作区顶天立地 */
+    :global(body.zen .topbar),
+    :global(body.zen .footer) {
+      display: none !important;
+    }
+    :global(body.zen .main) {
+      padding-top: 0 !important;
+    }
+    :global(body.zen) .write-page {
+      padding-top: 32px;
+    }
+    :global(body.zen) .back-link {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .write-title {
+        font-size: 24px;
       }
-    } catch { hint.textContent = "❌ 网络错误"; }
-    btn.disabled = false; btn.textContent = "发布";
-  });
-</script>
+      .drawer-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .drawer-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <script is:inline src="https://cdn.jsdelivr.net/npm/vditor@3.11.2/dist/index.min.js"></script>
+  <script is:inline>
+    (function () {
+      var DRAFT_KEY = "write:draft:v1";
+      var PROMPTS = [
+        "今天想说什么？",
+        "最近哪件事让你改变了想法？",
+        "如果只能写一段，你会写什么？",
+        "有什么是你以前相信、现在不信的？",
+        "借这个机会，把脑子里那团乱麻理一理。",
+        "你最近反复在想的一个问题是什么？",
+        "写下第一句，剩下的会跟上来。",
+        "假设没人会看到这篇，你想说什么？"
+      ];
+      var TOOLBAR = [
+        "emoji", "headings", "bold", "italic", "link", "inline-code",
+        "|", "list", "ordered-list", "check", "outdent", "indent",
+        "|", "quote", "code", "line", "table",
+        "|", "undo", "redo", "edit-mode",
+        "|", "fullscreen", "preview"
+      ];
+
+      var hint = document.getElementById("write-hint");
+      var fTitle = document.getElementById("f-title");
+      var fExcerpt = document.getElementById("f-excerpt");
+      var fCategory = document.getElementById("f-category");
+      var fCategoryOther = document.getElementById("f-category-other");
+      var fPassword = document.getElementById("f-password");
+      var submitBtn = document.getElementById("write-submit");
+      var zenBtn = document.getElementById("zen-btn");
+      var form = document.getElementById("write-form");
+
+      var vditor = null;
+      var saveTimer = null;
+      var restoring = false;
+
+      function readDraft() {
+        try {
+          return JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+        } catch (e) {
+          return null;
+        }
+      }
+      function writeDraft() {
+        if (!vditor) return;
+        var d = {
+          ts: Date.now(),
+          title: fTitle.value,
+          excerpt: fExcerpt.value,
+          category: currentCategory(),
+          body: vditor.getValue()
+        };
+        try {
+          localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+        } catch (e) {}
+        var t = new Date();
+        var hh = String(t.getHours()).padStart(2, "0");
+        var mm = String(t.getMinutes()).padStart(2, "0");
+        hint.textContent = "草稿已存于 " + hh + ":" + mm;
+        hint.className = "write-hint ok";
+      }
+      function clearDraft() {
+        try {
+          localStorage.removeItem(DRAFT_KEY);
+        } catch (e) {}
+      }
+      function currentCategory() {
+        if (fCategory.value === "__other") {
+          return (fCategoryOther.value || "").trim() || "思考";
+        }
+        return fCategory.value;
+      }
+      function restoreCategory(val) {
+        if (!val) {
+          fCategory.value = "思考";
+          fCategoryOther.hidden = true;
+          return;
+        }
+        var opts = Array.prototype.map.call(fCategory.options, function (o) {
+          return o.value;
+        });
+        if (opts.indexOf(val) >= 0) {
+          fCategory.value = val;
+          fCategoryOther.hidden = true;
+        } else {
+          fCategory.value = "__other";
+          fCategoryOther.hidden = false;
+          fCategoryOther.value = val;
+        }
+      }
+      function onInput() {
+        if (restoring) return;
+        hint.textContent = "保存中…";
+        hint.className = "write-hint";
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(writeDraft, 600);
+      }
+
+      // 标题、摘要、分类变更也纳入草稿
+      [fTitle, fExcerpt, fCategoryOther].forEach(function (el) {
+        el.addEventListener("input", onInput);
+      });
+      fCategory.addEventListener("change", function () {
+        fCategoryOther.hidden = fCategory.value !== "__other";
+        if (fCategory.value === "__other") fCategoryOther.focus();
+        onInput();
+      });
+
+      // 沉浸模式
+      function toggleZen(force) {
+        var on =
+          typeof force === "boolean"
+            ? force
+            : !document.body.classList.contains("zen");
+        document.body.classList.toggle("zen", on);
+        zenBtn.textContent = on ? "退出沉浸" : "沉浸";
+      }
+      zenBtn.addEventListener("click", function () {
+        toggleZen();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") toggleZen(false);
+        if ((e.metaKey || e.ctrlKey) && (e.key === "s" || e.key === "S")) {
+          e.preventDefault();
+          writeDraft();
+        }
+      });
+
+      // 发布：复用 /api/post 契约
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var title = fTitle.value.trim();
+        var body = vditor ? vditor.getValue() : "";
+        if (!title) {
+          hint.textContent = "❌ 还缺标题";
+          hint.className = "write-hint err";
+          fTitle.focus();
+          return;
+        }
+        if (!body.trim()) {
+          hint.textContent = "❌ 正文是空的";
+          hint.className = "write-hint err";
+          return;
+        }
+        submitBtn.disabled = true;
+        submitBtn.textContent = "发布中…";
+        if (vditor) vditor.disabled();
+        try {
+          var r = await fetch("/api/post", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              password: fPassword.value,
+              title: title,
+              excerpt: fExcerpt.value,
+              category: currentCategory(),
+              body: body
+            })
+          });
+          var d = await r.json();
+          if (d.ok) {
+            hint.innerHTML =
+              '✅ 已发布！正在部署，稍后可访问 <a href="' + d.url + '">' + d.url + "</a>";
+            hint.className = "write-hint ok";
+            // 清理：restoring 短路 onInput，避免 setValue("") 又触发一次草稿写入
+            restoring = true;
+            clearDraft();
+            if (vditor) {
+              vditor.setValue("");
+              vditor.clearStack();
+              vditor.enable();
+            }
+            fTitle.value = "";
+            fExcerpt.value = "";
+            fPassword.value = "";
+            fCategory.value = "思考";
+            fCategoryOther.hidden = true;
+            fCategoryOther.value = "";
+            restoring = false;
+          } else {
+            hint.textContent = "❌ " + (d.message || "发布失败");
+            hint.className = "write-hint err";
+            if (vditor) vditor.enable();
+          }
+        } catch (err) {
+          hint.textContent = "❌ 网络错误，草稿已保留";
+          hint.className = "write-hint err";
+          if (vditor) vditor.enable();
+        }
+        submitBtn.disabled = false;
+        submitBtn.textContent = "发布";
+      });
+
+      // Vditor 就绪后初始化（CDN 同步加载，轮询兜底应对慢加载）
+      function start() {
+        if (typeof Vditor === "undefined") {
+          return setTimeout(start, 50);
+        }
+        vditor = new Vditor("vditor", {
+          height: "auto",
+          mode: "ir",
+          placeholder: PROMPTS[Math.floor(Math.random() * PROMPTS.length)],
+          cache: { enable: false },
+          counter: { enable: true, type: "markdown" },
+          toolbar: TOOLBAR,
+          toolbarConfig: { pin: true },
+          preview: { hljs: { lineNumber: false, style: "github-dark" } },
+          input: onInput,
+          after: function () {
+            var d = readDraft();
+            if (d && d.body) {
+              restoring = true;
+              vditor.setValue(d.body);
+              fTitle.value = d.title || "";
+              fExcerpt.value = d.excerpt || "";
+              restoreCategory(d.category);
+              restoring = false;
+              var t = new Date(d.ts);
+              var hh = String(t.getHours()).padStart(2, "0");
+              var mm = String(t.getMinutes()).padStart(2, "0");
+              hint.textContent = "已恢复草稿（" + hh + ":" + mm + "）";
+              hint.className = "write-hint ok";
+            }
+          }
+        });
+      }
+      start();
+    })();
+  </script>
+</Base>
