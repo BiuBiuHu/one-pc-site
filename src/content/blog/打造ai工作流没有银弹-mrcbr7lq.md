@@ -1,6 +1,7 @@
 ---
 title: 打造AI工作流没有银弹
 date: 2026-07-08
+excerpt: Loop Engineering 的最佳载体是垂直场景的 Skills，核心是 spec + TDD，而不是追求大而全的自动驾驶。
 category: 思考
 ---
 
