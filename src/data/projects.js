@@ -1,6 +1,20 @@
 // 开源项目数据 —— 改成你的真实项目
 export const projects = [
   {
+    name: "OPC Skills",
+    tagline: "C 端 + B 端研发流水线 Codex Skill",
+    description:
+      "面向 OPC/Dida 类产品的 Codex Skill，把需求澄清、产品设计、B 端运营页、架构治理、研发、测试、联调、发布门禁串成一套可复用工作流，让 Agent 在复杂业务里持续做正确判断。",
+    language: "Shell",
+    languageColor: "#89e051",
+    stars: 1,
+    repo: "https://github.com/BiuBiuHu/opc-skills",
+    homepage: "",
+    tags: ["Skill", "研发流水线", "Agent"],
+    status: "active",
+    featured: true
+  },
+  {
     name: "AI Gateway",
     tagline: "统一的多模型中转网关",
     description:
