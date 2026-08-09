@@ -97,7 +97,7 @@ import Base from "../layouts/Base.astro";
   <div class="drawer-overlay" id="drawer-overlay" hidden></div>
   <aside class="posts-drawer" id="posts-drawer" aria-hidden="true">
     <div class="drawer-head">
-      <h3>我的文章</h3>
+      <h3>我的文章<span class="drawer-count" id="drawer-count"></span></h3>
       <div class="drawer-head-actions">
         <button type="button" class="btn ghost sm" id="new-post-btn">写新文章</button>
         <button type="button" class="icon-btn" id="drawer-close" aria-label="关闭">✕</button>
@@ -366,13 +366,53 @@ import Base from "../layouts/Base.astro";
       padding: 12px 16px;
     }
     .post-row {
-      padding: 12px;
+      position: relative;
+      padding: 12px 12px 12px 14px;
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       margin-bottom: 10px;
       display: flex;
       gap: 10px;
       align-items: flex-start;
+      cursor: pointer;
+      overflow: hidden;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .post-row::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: transparent;
+      transition: background 0.15s ease;
+    }
+    .post-row:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+    .post-row:hover::before {
+      background: var(--brand-line);
+    }
+    .post-row.editing {
+      background: var(--brand-soft);
+      border-color: var(--brand-line);
+    }
+    .post-row.editing::before {
+      background: var(--brand);
+    }
+    .post-row.confirming {
+      background: #fffbeb;
+      border-color: #fde68a;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+    .post-row.confirming::before {
+      background: var(--amber);
     }
     .post-row-main {
       flex: 1;
@@ -381,12 +421,38 @@ import Base from "../layouts/Base.astro";
     .post-row-date {
       font-size: 12px;
       color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .post-cat {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 99px;
+      line-height: 1.6;
+    }
+    .post-cat[data-cat="AI"] {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+    .post-cat[data-cat="工程"] {
+      background: var(--green-soft);
+      color: #047857;
+    }
+    .post-cat[data-cat="思考"] {
+      background: #f3e8ff;
+      color: #6b21a8;
+    }
+    .post-cat[data-cat="其他"] {
+      background: var(--bg-section);
+      color: var(--text-2);
     }
     .post-row-title {
       font-size: 14px;
       font-weight: 600;
       color: var(--text);
-      margin: 2px 0;
+      margin: 4px 0 2px;
       word-break: break-word;
     }
     .post-row-excerpt {
@@ -403,8 +469,24 @@ import Base from "../layouts/Base.astro";
       gap: 6px;
       flex-shrink: 0;
     }
+    .confirm-text {
+      font-size: 13px;
+      color: var(--amber);
+      font-weight: 600;
+      padding: 8px 0;
+    }
     .btn.danger {
       color: var(--amber);
+    }
+    .btn.danger:hover {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .drawer-count {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 6px;
     }
     .drawer-empty {
       text-align: center;
@@ -661,18 +743,24 @@ import Base from "../layouts/Base.astro";
         }
       }
       function renderList(items) {
+        var count = document.getElementById("drawer-count");
         if (!items || !items.length) {
-          postsList.innerHTML = '<div class="drawer-empty">还没有文章</div>';
+          if (count) count.textContent = "";
+          postsList.innerHTML =
+            '<div class="drawer-empty"><strong>还没有文章</strong><br>写一篇试试，发布后会出现在这里。</div>';
           return;
         }
+        if (count) count.textContent = " · " + items.length + " 篇";
         postsList.innerHTML = "";
         items.forEach(function (it) {
           var row = document.createElement("div");
-          row.className = "post-row";
+          row.className = "post-row" + (it.slug === editingSlug ? " editing" : "");
           var main = document.createElement("div");
           main.className = "post-row-main";
+          var cat = it.category || "思考";
           main.innerHTML =
-            '<div class="post-row-date">' + escapeHtml(it.date) + "</div>" +
+            '<div class="post-row-date">' + escapeHtml(it.date) +
+            ' <span class="post-cat" data-cat="' + escapeHtml(cat) + '">' + escapeHtml(cat) + "</span></div>" +
             '<div class="post-row-title">' + escapeHtml(it.title) + "</div>" +
             '<div class="post-row-excerpt">' + escapeHtml(it.excerpt) + "</div>";
           var actions = document.createElement("div");
@@ -680,14 +768,21 @@ import Base from "../layouts/Base.astro";
           var editBtn = document.createElement("button");
           editBtn.className = "btn ghost sm";
           editBtn.textContent = "编辑";
-          editBtn.addEventListener("click", function () {
+          editBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
             editPost(it.slug);
           });
           var delBtn = document.createElement("button");
           delBtn.className = "btn ghost sm danger";
           delBtn.textContent = "删除";
-          delBtn.addEventListener("click", function () {
-            deletePost(it.slug, it.title, it.sha);
+          delBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            askDelete(row, it.slug, it.title, it.sha);
+          });
+          // 点行主体（非按钮区）也进编辑
+          row.addEventListener("click", function (e) {
+            if (e.target.closest(".post-row-actions")) return;
+            editPost(it.slug);
           });
           actions.appendChild(editBtn);
           actions.appendChild(delBtn);
@@ -734,8 +829,31 @@ import Base from "../layouts/Base.astro";
           hint.className = "write-hint err";
         }
       }
+      function askDelete(row, slug, title, sha) {
+        row.classList.add("confirming");
+        var main = row.querySelector(".post-row-main");
+        var actions = row.querySelector(".post-row-actions");
+        main.innerHTML =
+          '<div class="confirm-text">确认删除《' + escapeHtml(title) + "》？不可恢复。</div>";
+        actions.innerHTML = "";
+        var yes = document.createElement("button");
+        yes.className = "btn ghost sm danger";
+        yes.textContent = "确认删除";
+        yes.addEventListener("click", function (e) {
+          e.stopPropagation();
+          deletePost(slug, title, sha);
+        });
+        var no = document.createElement("button");
+        no.className = "btn ghost sm";
+        no.textContent = "取消";
+        no.addEventListener("click", function (e) {
+          e.stopPropagation();
+          loadList();
+        });
+        actions.appendChild(yes);
+        actions.appendChild(no);
+      }
       async function deletePost(slug, title, sha) {
-        if (!confirm("确认删除《" + title + "》？\n删除后立即生效、不可恢复。")) return;
         var pw = fPassword.value;
         if (!pw) {
           hint.textContent = "❌ 先填写作口令";
@@ -755,6 +873,7 @@ import Base from "../layouts/Base.astro";
             if (!gd.ok) {
               hint.textContent = "❌ " + (gd.message || "读取失败");
               hint.className = "write-hint err";
+              loadList();
               return;
             }
             finalSha = gd.sha;
@@ -773,10 +892,12 @@ import Base from "../layouts/Base.astro";
           } else {
             hint.textContent = "❌ " + (d.message || "删除失败");
             hint.className = "write-hint err";
+            loadList();
           }
         } catch (e) {
           hint.textContent = "❌ 网络错误";
           hint.className = "write-hint err";
+          loadList();
         }
       }
 
