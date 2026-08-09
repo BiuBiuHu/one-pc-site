@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-// 写作页：Vditor 即时渲染（IR）+ localStorage 草稿 + 沉浸模式 + 折叠发布抽屉。
+// 写作页：Vditor 即时渲染（IR）+ 草稿 + 沉浸 + 「我的文章」抽屉（编辑/删除）。
 // Vditor 经 CDN 引入（不打包），所有编辑器代码在 <script is:inline> 客户端执行，
 // 避免 Astro 静态构建在 Node 端引用 window/document 而失败。
 ---
@@ -14,6 +14,15 @@ import Base from "../layouts/Base.astro";
         <span class="write-hint" id="write-hint" role="status" aria-live="polite"></span>
         <button
           type="button"
+          class="btn ghost sm"
+          id="my-posts-btn"
+          aria-label="我的文章"
+          title="管理已发布文章（编辑 / 删除）"
+        >
+          我的文章
+        </button>
+        <button
+          type="button"
           class="btn ghost sm zen-toggle"
           id="zen-btn"
           aria-label="沉浸模式"
@@ -22,6 +31,12 @@ import Base from "../layouts/Base.astro";
           沉浸
         </button>
       </div>
+    </div>
+
+    <!-- 编辑模式提示条 -->
+    <div class="edit-banner" id="edit-banner" hidden>
+      <span>正在编辑：<strong id="edit-banner-title"></strong></span>
+      <button type="button" class="link-btn" id="edit-cancel">取消，写新文章</button>
     </div>
 
     <div class="write-canvas">
@@ -78,6 +93,19 @@ import Base from "../layouts/Base.astro";
     </form>
   </section>
 
+  <!-- 「我的文章」抽屉 -->
+  <div class="drawer-overlay" id="drawer-overlay" hidden></div>
+  <aside class="posts-drawer" id="posts-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>我的文章</h3>
+      <div class="drawer-head-actions">
+        <button type="button" class="btn ghost sm" id="new-post-btn">写新文章</button>
+        <button type="button" class="icon-btn" id="drawer-close" aria-label="关闭">✕</button>
+      </div>
+    </div>
+    <div class="drawer-body" id="posts-list"></div>
+  </aside>
+
   <style>
     .write-page {
       position: relative;
@@ -123,6 +151,37 @@ import Base from "../layouts/Base.astro";
     }
     .zen-toggle {
       white-space: nowrap;
+    }
+
+    .edit-banner {
+      max-width: 960px;
+      margin: 0 auto 8px;
+      background: var(--brand-soft);
+      border: 1px solid var(--brand-line);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--text-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .edit-banner strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .link-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--brand);
+      padding: 0;
+      white-space: nowrap;
+    }
+    .link-btn:hover {
+      text-decoration: underline;
     }
 
     .write-canvas {
@@ -249,6 +308,112 @@ import Base from "../layouts/Base.astro";
       flex-shrink: 0;
     }
 
+    /* 「我的文章」抽屉 */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      z-index: 50;
+    }
+    .posts-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(420px, 90vw);
+      background: var(--surface);
+      box-shadow: var(--shadow-lg);
+      z-index: 51;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+    }
+    .posts-drawer.open {
+      transform: translateX(0);
+    }
+    .drawer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .drawer-head h3 {
+      font-size: 16px;
+      margin: 0;
+    }
+    .drawer-head-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--muted);
+      padding: 4px 8px;
+      line-height: 1;
+    }
+    .icon-btn:hover {
+      color: var(--text);
+    }
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 16px;
+    }
+    .post-row {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .post-row-main {
+      flex: 1;
+      min-width: 0;
+    }
+    .post-row-date {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .post-row-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2px 0;
+      word-break: break-word;
+    }
+    .post-row-excerpt {
+      font-size: 12px;
+      color: var(--text-2);
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .post-row-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .btn.danger {
+      color: var(--amber);
+    }
+    .drawer-empty {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 40px 0;
+      line-height: 1.6;
+    }
+
     /* 沉浸模式：隐藏全站 topbar/footer，写作区顶天立地 */
     :global(body.zen .topbar),
     :global(body.zen .footer) {
@@ -274,6 +439,9 @@ import Base from "../layouts/Base.astro";
       }
       .drawer-actions .btn {
         width: 100%;
+      }
+      .write-hint {
+        display: none;
       }
     }
   </style>
@@ -309,10 +477,29 @@ import Base from "../layouts/Base.astro";
       var submitBtn = document.getElementById("write-submit");
       var zenBtn = document.getElementById("zen-btn");
       var form = document.getElementById("write-form");
+      var editBanner = document.getElementById("edit-banner");
+      var editBannerTitle = document.getElementById("edit-banner-title");
+      var editCancel = document.getElementById("edit-cancel");
+      var myPostsBtn = document.getElementById("my-posts-btn");
+      var drawer = document.getElementById("posts-drawer");
+      var overlay = document.getElementById("drawer-overlay");
+      var drawerClose = document.getElementById("drawer-close");
+      var newPostBtn = document.getElementById("new-post-btn");
+      var postsList = document.getElementById("posts-list");
 
       var vditor = null;
       var saveTimer = null;
       var restoring = false;
+      // 编辑态：有 editingSlug = 编辑模式（更新），无 = 新建模式
+      var editingSlug = null;
+      var editingSha = null;
+      var editingDate = null;
+
+      function escapeHtml(s) {
+        return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+      }
 
       function readDraft() {
         try {
@@ -376,7 +563,38 @@ import Base from "../layouts/Base.astro";
         saveTimer = setTimeout(writeDraft, 600);
       }
 
-      // 标题、摘要、分类变更也纳入草稿
+      // 模式切换：edit = 编辑已有（更新），new = 新建
+      function setMode(mode) {
+        if (mode === "edit") {
+          submitBtn.textContent = "更新";
+          editBanner.hidden = false;
+        } else {
+          submitBtn.textContent = "发布";
+          editBanner.hidden = true;
+          editingSlug = null;
+          editingSha = null;
+          editingDate = null;
+        }
+      }
+      // 清空编辑器，回到「写新文章」
+      function newPost() {
+        restoring = true;
+        if (vditor) {
+          vditor.setValue("");
+          vditor.clearStack();
+        }
+        fTitle.value = "";
+        fExcerpt.value = "";
+        fCategory.value = "思考";
+        fCategoryOther.hidden = true;
+        fCategoryOther.value = "";
+        clearDraft();
+        setMode("new");
+        restoring = false;
+        hint.textContent = "";
+      }
+
+      // 标题、摘要、分类变更也纳入草稿（仅新建模式下；编辑模式不污染草稿）
       [fTitle, fExcerpt, fCategoryOther].forEach(function (el) {
         el.addEventListener("input", onInput);
       });
@@ -399,14 +617,181 @@ import Base from "../layouts/Base.astro";
         toggleZen();
       });
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") toggleZen(false);
+        if (e.key === "Escape") {
+          toggleZen(false);
+          if (drawer.classList.contains("open")) closeDrawer();
+        }
         if ((e.metaKey || e.ctrlKey) && (e.key === "s" || e.key === "S")) {
           e.preventDefault();
           writeDraft();
         }
       });
 
-      // 发布：复用 /api/post 契约
+      // 「我的文章」抽屉
+      function openDrawer() {
+        overlay.hidden = false;
+        drawer.classList.add("open");
+        drawer.setAttribute("aria-hidden", "false");
+        loadList();
+      }
+      function closeDrawer() {
+        overlay.hidden = true;
+        drawer.classList.remove("open");
+        drawer.setAttribute("aria-hidden", "true");
+      }
+      async function loadList() {
+        var pw = fPassword.value;
+        if (!pw) {
+          postsList.innerHTML =
+            '<div class="drawer-empty">先在下方填写作口令，<br>再管理已发布文章。</div>';
+          return;
+        }
+        postsList.innerHTML = '<div class="drawer-empty">加载中…</div>';
+        try {
+          var r = await fetch("/api/list?password=" + encodeURIComponent(pw));
+          var d = await r.json();
+          if (!d.ok) {
+            postsList.innerHTML =
+              '<div class="drawer-empty">❌ ' + escapeHtml(d.message || "加载失败") + "</div>";
+            return;
+          }
+          renderList(d.items);
+        } catch (e) {
+          postsList.innerHTML = '<div class="drawer-empty">❌ 网络错误</div>';
+        }
+      }
+      function renderList(items) {
+        if (!items || !items.length) {
+          postsList.innerHTML = '<div class="drawer-empty">还没有文章</div>';
+          return;
+        }
+        postsList.innerHTML = "";
+        items.forEach(function (it) {
+          var row = document.createElement("div");
+          row.className = "post-row";
+          var main = document.createElement("div");
+          main.className = "post-row-main";
+          main.innerHTML =
+            '<div class="post-row-date">' + escapeHtml(it.date) + "</div>" +
+            '<div class="post-row-title">' + escapeHtml(it.title) + "</div>" +
+            '<div class="post-row-excerpt">' + escapeHtml(it.excerpt) + "</div>";
+          var actions = document.createElement("div");
+          actions.className = "post-row-actions";
+          var editBtn = document.createElement("button");
+          editBtn.className = "btn ghost sm";
+          editBtn.textContent = "编辑";
+          editBtn.addEventListener("click", function () {
+            editPost(it.slug);
+          });
+          var delBtn = document.createElement("button");
+          delBtn.className = "btn ghost sm danger";
+          delBtn.textContent = "删除";
+          delBtn.addEventListener("click", function () {
+            deletePost(it.slug, it.title, it.sha);
+          });
+          actions.appendChild(editBtn);
+          actions.appendChild(delBtn);
+          row.appendChild(main);
+          row.appendChild(actions);
+          postsList.appendChild(row);
+        });
+      }
+      async function editPost(slug) {
+        var pw = fPassword.value;
+        if (!pw) {
+          hint.textContent = "❌ 先填写作口令";
+          hint.className = "write-hint err";
+          return;
+        }
+        hint.textContent = "加载中…";
+        hint.className = "write-hint";
+        try {
+          var r = await fetch(
+            "/api/get?slug=" + encodeURIComponent(slug) + "&password=" + encodeURIComponent(pw)
+          );
+          var d = await r.json();
+          if (!d.ok) {
+            hint.textContent = "❌ " + (d.message || "加载失败");
+            hint.className = "write-hint err";
+            return;
+          }
+          restoring = true;
+          vditor.setValue(d.body);
+          fTitle.value = d.title;
+          fExcerpt.value = d.excerpt;
+          restoreCategory(d.category);
+          editingSlug = d.slug;
+          editingSha = d.sha;
+          editingDate = d.date;
+          setMode("edit");
+          editBannerTitle.textContent = d.title;
+          restoring = false;
+          hint.textContent = "已加载，改完点「更新」";
+          hint.className = "write-hint ok";
+          closeDrawer();
+        } catch (e) {
+          hint.textContent = "❌ 网络错误";
+          hint.className = "write-hint err";
+        }
+      }
+      async function deletePost(slug, title, sha) {
+        if (!confirm("确认删除《" + title + "》？\n删除后立即生效、不可恢复。")) return;
+        var pw = fPassword.value;
+        if (!pw) {
+          hint.textContent = "❌ 先填写作口令";
+          hint.className = "write-hint err";
+          return;
+        }
+        hint.textContent = "删除中…";
+        hint.className = "write-hint";
+        // sha 可能为空（列表加载后文件被改动）；保险起见缺 sha 时先 get
+        var finalSha = sha;
+        try {
+          if (!finalSha) {
+            var gr = await fetch(
+              "/api/get?slug=" + encodeURIComponent(slug) + "&password=" + encodeURIComponent(pw)
+            );
+            var gd = await gr.json();
+            if (!gd.ok) {
+              hint.textContent = "❌ " + (gd.message || "读取失败");
+              hint.className = "write-hint err";
+              return;
+            }
+            finalSha = gd.sha;
+          }
+          var r = await fetch("/api/delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password: pw, slug: slug, sha: finalSha })
+          });
+          var d = await r.json();
+          if (d.ok) {
+            hint.textContent = "✅ 已删除《" + title + "》";
+            hint.className = "write-hint ok";
+            if (editingSlug === slug) newPost();
+            loadList();
+          } else {
+            hint.textContent = "❌ " + (d.message || "删除失败");
+            hint.className = "write-hint err";
+          }
+        } catch (e) {
+          hint.textContent = "❌ 网络错误";
+          hint.className = "write-hint err";
+        }
+      }
+
+      myPostsBtn.addEventListener("click", openDrawer);
+      drawerClose.addEventListener("click", closeDrawer);
+      overlay.addEventListener("click", closeDrawer);
+      newPostBtn.addEventListener("click", function () {
+        newPost();
+        closeDrawer();
+      });
+      editCancel.addEventListener("click", function () {
+        newPost();
+      });
+
+      // 发布 / 更新：复用 /api/post（更新带 slug+sha+date）
       form.addEventListener("submit", async function (e) {
         e.preventDefault();
         var title = fTitle.value.trim();
@@ -422,53 +807,68 @@ import Base from "../layouts/Base.astro";
           hint.className = "write-hint err";
           return;
         }
+        var isUpdate = !!editingSlug;
         submitBtn.disabled = true;
-        submitBtn.textContent = "发布中…";
+        submitBtn.textContent = isUpdate ? "更新中…" : "发布中…";
         if (vditor) vditor.disabled();
+        var payload = {
+          password: fPassword.value,
+          title: title,
+          excerpt: fExcerpt.value,
+          category: currentCategory(),
+          body: body
+        };
+        if (isUpdate) {
+          payload.slug = editingSlug;
+          payload.sha = editingSha;
+          payload.date = editingDate;
+        }
         try {
           var r = await fetch("/api/post", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              password: fPassword.value,
-              title: title,
-              excerpt: fExcerpt.value,
-              category: currentCategory(),
-              body: body
-            })
+            body: JSON.stringify(payload)
           });
           var d = await r.json();
           if (d.ok) {
-            hint.innerHTML =
-              '✅ 已发布！正在部署，稍后可访问 <a href="' + d.url + '">' + d.url + "</a>";
-            hint.className = "write-hint ok";
-            // 清理：restoring 短路 onInput，避免 setValue("") 又触发一次草稿写入
-            restoring = true;
-            clearDraft();
-            if (vditor) {
-              vditor.setValue("");
-              vditor.clearStack();
-              vditor.enable();
+            if (isUpdate) {
+              hint.innerHTML =
+                '✅ 已更新！正在部署，稍后可访问 <a href="' + d.url + '">' + d.url + "</a>";
+              hint.className = "write-hint ok";
+              editingSha = d.sha; // 更新 sha，便于继续改后再更新
+              editBannerTitle.textContent = title;
+              if (vditor) vditor.enable();
+            } else {
+              hint.innerHTML =
+                '✅ 已发布！正在部署，稍后可访问 <a href="' + d.url + '">' + d.url + "</a>";
+              hint.className = "write-hint ok";
+              restoring = true;
+              clearDraft();
+              if (vditor) {
+                vditor.setValue("");
+                vditor.clearStack();
+                vditor.enable();
+              }
+              fTitle.value = "";
+              fExcerpt.value = "";
+              fPassword.value = "";
+              fCategory.value = "思考";
+              fCategoryOther.hidden = true;
+              fCategoryOther.value = "";
+              restoring = false;
             }
-            fTitle.value = "";
-            fExcerpt.value = "";
-            fPassword.value = "";
-            fCategory.value = "思考";
-            fCategoryOther.hidden = true;
-            fCategoryOther.value = "";
-            restoring = false;
           } else {
-            hint.textContent = "❌ " + (d.message || "发布失败");
+            hint.textContent = "❌ " + (d.message || (isUpdate ? "更新失败" : "发布失败"));
             hint.className = "write-hint err";
             if (vditor) vditor.enable();
           }
         } catch (err) {
-          hint.textContent = "❌ 网络错误，草稿已保留";
+          hint.textContent = "❌ 网络错误，内容已保留";
           hint.className = "write-hint err";
           if (vditor) vditor.enable();
         }
         submitBtn.disabled = false;
-        submitBtn.textContent = "发布";
+        submitBtn.textContent = isUpdate ? "更新" : "发布";
       });
 
       // Vditor 就绪后初始化（CDN 同步加载，轮询兜底应对慢加载）
