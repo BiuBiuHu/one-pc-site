@@ -92,7 +92,12 @@ const fmt = (d) =>
               <div class="service-icon"><Icon name={s.icon} size={20} /></div>
               <h3>{s.name}</h3>
               <p class="summary">{s.summary}</p>
-              <a class="btn ghost sm" href="/services">了解更多 <Icon name="arrow-up-right" size={14} /></a>
+              <a
+                class="btn ghost sm"
+                href={s.cta.external ? s.cta.href : "/services"}
+                target={s.cta.external ? "_blank" : undefined}
+                rel={s.cta.external ? "noopener noreferrer" : undefined}
+              >了解更多 <Icon name="arrow-up-right" size={14} /></a>
             </article>
           ))}
         </div>

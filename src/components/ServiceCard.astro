@@ -9,7 +9,12 @@ const { service } = Astro.props;
   <ul class="feature-list">
     {service.features.map((f) => <li>{f}</li>)}
   </ul>
-  <a class={`btn ${service.highlight ? "primary" : "ghost"} sm`} href={service.cta.href}>
+  <a
+    class={`btn ${service.highlight ? "primary" : "ghost"} sm`}
+    href={service.cta.href}
+    target={service.cta.external ? "_blank" : undefined}
+    rel={service.cta.external ? "noopener noreferrer" : undefined}
+  >
     {service.cta.label}
     <Icon name="arrow-up-right" size={14} />
   </a>

@@ -27,7 +27,7 @@ export const services = [
       "按 Key 的配额、限流与计费",
       "请求日志与成本看板"
     ],
-    cta: { label: "了解 AI 服务", href: "/blog/ai-gateway-01" },
+    cta: { label: "了解 AI 服务", href: "https://apistation.cn/", external: true },
     highlight: true
   },
   {
