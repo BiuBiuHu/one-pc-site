@@ -1,6 +1,19 @@
 // 开源项目数据 —— 改成你的真实项目
 export const projects = [
   {
+    name: "Anpai.Life",
+    tagline: "AI 驱动的跨端任务管理",
+    description:
+      "任务 + 日历 + AI 规划的效率应用，PC 与客户端同步，支持自然语言建任务和智能排期。",
+    language: "TypeScript",
+    languageColor: "#3178c6",
+    repo: "",
+    homepage: "https://www.anpai.life/",
+    tags: ["效率", "跨端", "AI"],
+    status: "active",
+    featured: true
+  },
+  {
     name: "OPC Skills",
     tagline: "C 端 + B 端研发流水线 Codex Skill",
     description:
@@ -39,19 +52,6 @@ export const projects = [
     repo: "https://github.com/BiuBiuHu/mail-service",
     homepage: "",
     tags: ["Email", "API", "基础设施"],
-    status: "active",
-    featured: true
-  },
-  {
-    name: "Anpai.Life",
-    tagline: "AI 驱动的跨端任务管理",
-    description:
-      "任务 + 日历 + AI 规划的效率应用，PC 与客户端同步，支持自然语言建任务和智能排期。",
-    language: "TypeScript",
-    languageColor: "#3178c6",
-    repo: "",
-    homepage: "https://www.anpai.life/",
-    tags: ["效率", "跨端", "AI"],
     status: "active",
     featured: true
   }
