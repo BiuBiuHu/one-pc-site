@@ -1005,6 +1005,8 @@ import Base from "../layouts/Base.astro";
           counter: { enable: true, type: "markdown" },
           toolbar: TOOLBAR,
           toolbarConfig: { pin: true },
+          // mermaid / katex / echarts 等渲染依赖默认从 unpkg 加载，国内不稳，这里指定走 jsdelivr
+          cdn: "https://cdn.jsdelivr.net/npm/vditor@3.11.2",
           preview: { hljs: { lineNumber: false, style: "github-dark" } },
           input: onInput,
           after: function () {

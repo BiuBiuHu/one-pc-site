@@ -55,4 +55,41 @@ const fmt = (d) =>
     </div>
     <Comments slug={post.id} />
   </section>
+
+  <script is:inline>
+    // mermaid 代码块渲染：Astro 只把 ```mermaid 做了语法高亮，这里用 mermaid.js 把 <pre data-language="mermaid"> 替换成 SVG 图
+    (function () {
+      var blocks = document.querySelectorAll('pre[data-language="mermaid"]');
+      if (!blocks.length) return;
+
+      function renderAll() {
+        if (!window.mermaid) return;
+        mermaid.initialize({ startOnLoad: false, theme: "default" });
+        var i = 0;
+        Array.prototype.forEach.call(blocks, function (pre) {
+          var codeEl = pre.querySelector("code");
+          var code = codeEl ? codeEl.textContent : pre.textContent;
+          mermaid
+            .render("mermaid-" + i++, code)
+            .then(function (r) {
+              var wrap = document.createElement("div");
+              wrap.className = "mermaid-wrap";
+              wrap.innerHTML = r.svg;
+              pre.replaceWith(wrap);
+            })
+            .catch(function (e) {
+              console.error("mermaid render failed:", e);
+            });
+        });
+      }
+
+      var s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+      s.onload = renderAll;
+      s.onerror = function () {
+        console.error("mermaid script load failed");
+      };
+      document.head.appendChild(s);
+    })();
+  </script>
 </Base>

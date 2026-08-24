@@ -336,6 +336,10 @@ main.main { flex: 1; }
 .prose img { max-width: 100%; border-radius: var(--radius-sm); }
 .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2em 0; }
 
+/* ---------- Mermaid 图 ---------- */
+.mermaid-wrap { margin: 1.5em 0; text-align: center; overflow-x: auto; }
+.mermaid-wrap svg { max-width: 100%; height: auto; }
+
 /* ---------- 评论（Giscus） ---------- */
 .comments { max-width: var(--prose); margin: 56px auto 0; padding-top: 32px; border-top: 1px solid var(--border); }
 .comments h2 { font-size: 18px; margin: 0 0 20px; }
