@@ -77,5 +77,28 @@ const year = new Date().getFullYear();
         </div>
       </footer>
     </div>
+
+    <script is:inline>
+      // 项目 star 数同步：静态数字仅作占位，运行时调 GitHub API 拉真实值并刷新
+      (function () {
+        var nodes = document.querySelectorAll(".stars[data-repo]");
+        if (!nodes.length) return;
+        var repos = Array.from(new Set(Array.prototype.map.call(nodes, function (n) {
+          return n.getAttribute("data-repo");
+        })));
+        repos.forEach(function (repo) {
+          fetch("https://api.github.com/repos/" + repo)
+            .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+            .then(function (d) {
+              if (typeof d.stargazers_count !== "number") return;
+              var cnt = d.stargazers_count;
+              document.querySelectorAll('.stars[data-repo="' + repo + '"] .star-count').forEach(function (el) {
+                el.textContent = cnt;
+              });
+            })
+            .catch(function () { /* 拉取失败保留静态占位值，不打扰用户 */ });
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -3,6 +3,8 @@ import Icon from "./Icon.astro";
 import { statusLabel } from "../data/projects";
 const { project } = Astro.props;
 const isWip = project.status === "wip";
+// 从 repo URL 提取 owner/repo，供前端调 GitHub API 同步真实 star 数
+const repoFull = (project.repo || "").replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "");
 ---
 <article class="card hover project-card">
   <div class="project-top">
@@ -10,7 +12,7 @@ const isWip = project.status === "wip";
       <span class="dot" style={`background:${project.languageColor}`}></span>
       {project.language}
     </span>
-    <span class="stars"><Icon name="star" size={13} />{project.stars}</span>
+    <span class="stars" data-repo={repoFull}><Icon name="star" size={13} /><span class="star-count">{project.stars}</span></span>
   </div>
 
   <h3>{project.name}</h3>
