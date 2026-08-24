@@ -3,8 +3,13 @@ import Icon from "./Icon.astro";
 import { statusLabel } from "../data/projects";
 const { project } = Astro.props;
 const isWip = project.status === "wip";
+// 区分「开源仓库」（有 GitHub repo，显示 star、跳仓库）与「产品官网」（只有 homepage，跳官网）
+const isRepo = !!(project.repo || "").includes("github.com");
 // 从 repo URL 提取 owner/repo，供前端调 GitHub API 同步真实 star 数
-const repoFull = (project.repo || "").replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "");
+const repoFull = isRepo ? project.repo.replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "") : "";
+const linkHref = isRepo ? project.repo : project.homepage || "#";
+const linkIcon = isRepo ? "github" : "external-link";
+const linkLabel = isRepo ? "仓库" : "访问";
 ---
 <article class="card hover project-card">
   <div class="project-top">
@@ -12,7 +17,9 @@ const repoFull = (project.repo || "").replace(/^https?:\/\/github\.com\//, "").r
       <span class="dot" style={`background:${project.languageColor}`}></span>
       {project.language}
     </span>
-    <span class="stars" data-repo={repoFull}><Icon name="star" size={13} /><span class="star-count">{project.stars}</span></span>
+    {isRepo && (
+      <span class="stars" data-repo={repoFull}><Icon name="star" size={13} /><span class="star-count">{project.stars}</span></span>
+    )}
   </div>
 
   <h3>{project.name}</h3>
@@ -28,9 +35,9 @@ const repoFull = (project.repo || "").replace(/^https?:\/\/github\.com\//, "").r
       <span class="pulse"></span>
       {statusLabel(project.status)}
     </span>
-    <a class="repo-link" href={project.repo} target="_blank" rel="noreferrer">
-      <Icon name={project.homepage ? "external-link" : "github"} size={14} />
-      {project.homepage ? "访问" : "仓库"}
+    <a class="repo-link" href={linkHref} target="_blank" rel="noreferrer">
+      <Icon name={linkIcon} size={14} />
+      {linkLabel}
     </a>
   </div>
 </article>
