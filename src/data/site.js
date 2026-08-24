@@ -6,6 +6,10 @@ export const site = {
   // 仓库名
   repo: "one-pc-site",
   email: "biubiu_hu@qq.com",
+  // GitHub 个人主页
+  get githubUrl() {
+    return `https://github.com/${this.githubUser}`;
+  },
   // 仓库完整地址（公开仓库）
   get repoUrl() {
     return `https://github.com/${this.githubUser}/${this.repo}`;

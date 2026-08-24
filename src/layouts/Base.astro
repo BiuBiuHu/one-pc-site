@@ -46,7 +46,7 @@ const year = new Date().getFullYear();
             ))}
           </nav>
           <div class="nav-actions">
-            <a class="icon-link" href={site.repoUrl} target="_blank" rel="noreferrer" aria-label="GitHub">
+            <a class="icon-link" href={site.githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub" title={site.githubUrl}>
               <Icon name="github" size={18} />
             </a>
             <a class="icon-link" href={`mailto:${site.email}`} aria-label="邮箱" title={site.email}>
@@ -70,7 +70,7 @@ const year = new Date().getFullYear();
             <a href="/projects">项目</a>
             <a href="/blog">博客</a>
             <a href="/services">服务</a>
-            <a href={site.repoUrl} target="_blank" rel="noreferrer">GitHub</a>
+            <a href={site.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
             <a href={`mailto:${site.email}`}>联系我 · {site.email}</a>
           </div>
           <div>© {year} {site.name}</div>
