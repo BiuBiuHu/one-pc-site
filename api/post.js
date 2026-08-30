@@ -8,17 +8,6 @@ const TOKEN = process.env.GH_TOKEN;
 const PASSWORD = process.env.WRITE_PASSWORD;
 const API = "https://api.github.com";
 
-function slugify(s) {
-  return String(s)
-    .toLowerCase()
-    .trim()
-    .replace(/[\s_]+/g, "-")
-    .replace(/[^\w一-龥-]/g, "")
-    .replace(/-+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 50);
-}
-
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") return res.status(204).end();
@@ -33,7 +22,8 @@ export default async function handler(req, res) {
   if (isUpdate && !sha) return res.status(400).json({ ok: false, message: "更新需要 sha" });
 
   const stamp = date || new Date().toISOString().slice(0, 10);
-  const finalSlug = isUpdate ? slug : (slugify(title) || "post") + "-" + Date.now().toString(36);
+  // 短 slug：只用一个 8 位 base36 时间戳，不再拼中文标题（URL 太长不适合分享）
+  const finalSlug = isUpdate ? slug : Date.now().toString(36);
   const fm = [
     "---",
     `title: ${String(title).replace(/\n/g, " ")}`,
