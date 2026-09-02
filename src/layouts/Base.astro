@@ -13,7 +13,8 @@ const NAV = [
   { href: "/", label: "首页", match: (p) => p === "/" },
   { href: "/projects", label: "项目", match: (p) => p.startsWith("/projects") },
   { href: "/blog", label: "博客", match: (p) => p.startsWith("/blog") },
-  { href: "/services", label: "服务", match: (p) => p.startsWith("/services") }
+  { href: "/services", label: "服务", match: (p) => p.startsWith("/services") },
+  { href: "/write", label: "写作", match: (p) => p.startsWith("/write") }
 ];
 const year = new Date().getFullYear();
 ---
@@ -70,6 +71,7 @@ const year = new Date().getFullYear();
             <a href="/projects">项目</a>
             <a href="/blog">博客</a>
             <a href="/services">服务</a>
+            <a href="/write">写作</a>
             <a href={site.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
             <a href={`mailto:${site.email}`}>联系我 · {site.email}</a>
           </div>
