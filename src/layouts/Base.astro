@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { site } from "../data/site";
 import Icon from "../components/Icon.astro";
+import Analytics from "@vercel/analytics/astro";
 
 const { title, description } = Astro.props;
 const path = Astro.url.pathname;
@@ -102,5 +103,7 @@ const year = new Date().getFullYear();
         });
       })();
     </script>
+
+    <Analytics />
   </body>
 </html>
