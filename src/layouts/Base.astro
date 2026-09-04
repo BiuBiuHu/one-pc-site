@@ -18,6 +18,8 @@ const NAV = [
   { href: "/write", label: "写作", match: (p) => p.startsWith("/write") }
 ];
 const year = new Date().getFullYear();
+// GA4 Measurement ID：从环境变量读取（Vercel 配 PUBLIC_GA_ID），未配置则不注入
+const gaId = import.meta.env.PUBLIC_GA_ID;
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -105,5 +107,36 @@ const year = new Date().getFullYear();
     </script>
 
     <Analytics />
+
+    {
+      /* Google Analytics 4：空闲时异步加载，零阻塞首屏（未配 PUBLIC_GA_ID 时不注入） */
+      gaId && (
+        <script
+          is:inline
+          data-ga-id={gaId}
+        >
+          (function () {
+            var GA_ID = document.currentScript.getAttribute("data-ga-id");
+            if (!GA_ID) return;
+            var load = function () {
+              var s = document.createElement("script");
+              s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+              s.async = true;
+              document.head.appendChild(s);
+              window.dataLayer = window.dataLayer || [];
+              window.gtag = function () { window.dataLayer.push(arguments); };
+              window.gtag("js", new Date());
+              window.gtag("config", GA_ID, { send_page_view: true });
+            };
+            // 优先空闲时加载，兼容旧浏览器降级为 setTimeout
+            if ("requestIdleCallback" in window) {
+              window.requestIdleCallback(load, { timeout: 2000 });
+            } else {
+              setTimeout(load, 2000);
+            }
+          })();
+        </script>
+      )
+    }
   </body>
 </html>
