@@ -1,0 +1,105 @@
+---
+import Comments from "./Comments.astro";
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+import { render } from "astro:content";
+
+interface Props {
+  post: any;
+  lang: "zh" | "en";
+}
+
+const { post, lang } = Astro.props;
+const isEn = lang === "en";
+const { Content, headings } = await render(post);
+const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+
+const slug = post.id.replace(/-en$/, "");
+const blogPath = isEn ? "/en/blog" : "/blog";
+const dateLocale = isEn ? "en-US" : "zh-CN";
+const fmt = (d) =>
+  d.toLocaleDateString(dateLocale, { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+
+const canonical = new URL(`${isEn ? "/en" : ""}/blog/${slug}`, Astro.site).href;
+const zhUrl = new URL(`/blog/${slug}`, Astro.site).href;
+const enUrl = new URL(`/en/blog/${slug}`, Astro.site).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.excerpt || undefined,
+  datePublished: post.data.date.toISOString(),
+  url: canonical,
+  author: { "@type": "Person", name: site.name },
+  inLanguage: isEn ? "en-US" : "zh-CN"
+};
+
+const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博客", toc: "目录" };
+---
+<script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<link slot="head" rel="alternate" hreflang="zh" href={zhUrl} />
+<link slot="head" rel="alternate" hreflang="en" href={enUrl} />
+<link slot="head" rel="alternate" hreflang="x-default" href={zhUrl} />
+
+<section class="page">
+  <div class={`article-layout ${tocItems.length ? "has-toc" : ""}`}>
+    {
+      tocItems.length > 0 && (
+        <aside class="toc">
+          <a class="back-link" href={blogPath}>
+            <Icon name="arrow-left" size={15} />{ui.back}
+          </a>
+          <div class="toc-label">{ui.toc}</div>
+          <nav class="toc-nav">
+            {tocItems.map((h) => (
+              <a href={`#${h.slug}`} class={`toc-link toc-d${h.depth}`}>
+                {h.text}
+              </a>
+            ))}
+          </nav>
+        </aside>
+      )
+    }
+
+    <div class="article">
+      {tocItems.length === 0 && (
+        <a class="back-link" href={blogPath}><Icon name="arrow-left" size={15} />{ui.back}</a>
+      )}
+      <header class="article-head">
+        <div class="date">{fmt(post.data.date)}</div>
+        <h1>{post.data.title}</h1>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </div>
+  <Comments slug={slug} />
+</section>
+
+<script>
+  import mermaid from "mermaid";
+
+  // mermaid 代码块渲染：把 <pre data-language="mermaid"> 替换成 SVG 图（本地打包，不依赖 CDN）
+  const blocks = document.querySelectorAll('pre[data-language="mermaid"]');
+  if (blocks.length) {
+    mermaid.initialize({ startOnLoad: false, theme: "default" });
+    let i = 0;
+    blocks.forEach((pre) => {
+      const codeEl = pre.querySelector("code");
+      const code = codeEl ? codeEl.textContent : pre.textContent;
+      mermaid
+        .render("mermaid-" + i++, code)
+        .then((r) => {
+          const wrap = document.createElement("div");
+          wrap.className = "mermaid-wrap";
+          wrap.innerHTML = r.svg;
+          pre.replaceWith(wrap);
+        })
+        .catch((e) => {
+          console.error("mermaid render failed:", e);
+        });
+    });
+  }
+</script>

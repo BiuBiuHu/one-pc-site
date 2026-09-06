@@ -5,6 +5,11 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://www.peak-lake.com",
   output: "static",
+  i18n: {
+    defaultLocale: "zh",
+    locales: ["zh", "en"],
+    routing: { prefixDefaultLocale: false }
+  },
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {

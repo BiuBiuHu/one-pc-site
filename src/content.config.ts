@@ -8,7 +8,8 @@ const blog = defineCollection({
     date: z.coerce.date(),
     excerpt: z.string().optional(),
     category: z.string().default("思考"),
-    ogImage: z.string().optional()
+    ogImage: z.string().optional(),
+    lang: z.string().default("zh")
   })
 });
 

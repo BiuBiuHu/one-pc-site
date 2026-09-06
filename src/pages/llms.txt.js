@@ -4,9 +4,9 @@ import { site } from "../data/site";
 // llms.txt：让 LLM 爬虫 / AI 工具（agent、IDE）快速读懂站点内容地图
 // 规范：https://llmstxt.org
 export async function GET(context) {
-  const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime()
-  );
+  const posts = (await getCollection("blog"))
+    .filter((p) => (p.data.lang ?? "zh") === "zh")
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
   const base = context.site.origin;
 
   const out = [];

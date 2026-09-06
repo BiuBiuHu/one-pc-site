@@ -112,6 +112,13 @@ main.main { flex: 1; }
   color: var(--muted); transition: background 0.15s ease, color 0.15s ease;
 }
 .icon-link:hover { color: var(--text); background: var(--bg-subtle); }
+.lang-switch {
+  display: inline-flex; align-items: center;
+  height: 36px; padding: 0 10px; border-radius: var(--radius-sm);
+  color: var(--muted); font-size: 14px; font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lang-switch:hover { color: var(--text); background: var(--bg-subtle); }
 
 /* ---------- 区块 ---------- */
 .section-head { margin-bottom: 28px; }

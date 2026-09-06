@@ -3,9 +3,9 @@ import { getCollection } from "astro:content";
 import { site } from "../data/site";
 
 export async function GET(context) {
-  const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime()
-  );
+  const posts = (await getCollection("blog"))
+    .filter((p) => (p.data.lang ?? "zh") === "zh")
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
     title: `${site.name} · 博客`,

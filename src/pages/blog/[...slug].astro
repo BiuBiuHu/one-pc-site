@@ -1,98 +1,31 @@
 ---
 import Base from "../../layouts/Base.astro";
-import Comments from "../../components/Comments.astro";
-import Icon from "../../components/Icon.astro";
-import { site } from "../../data/site";
-import { getCollection, render } from "astro:content";
+import ArticlePost from "../../components/ArticlePost.astro";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  return posts.map((post) => ({
+  const zh = posts.filter((p) => (p.data.lang ?? "zh") === "zh");
+  const enIds = new Set(
+    posts.filter((p) => p.data.lang === "en").map((p) => p.id.replace(/-en$/, ""))
+  );
+  return zh.map((post) => ({
     params: { slug: post.id },
-    props: { post }
+    props: { post, hasEn: enIds.has(post.id) }
   }));
 }
 
-const { post } = Astro.props;
-const { Content, headings } = await render(post);
-const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
-
-const fmt = (d) =>
-  d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
-
-const canonical = new URL(`/blog/${post.id}`, Astro.site).href;
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.data.title,
-  description: post.data.excerpt || undefined,
-  datePublished: post.data.date.toISOString(),
-  url: canonical,
-  author: { "@type": "Person", name: site.name },
-  inLanguage: "zh-CN"
-};
+const { post, hasEn } = Astro.props;
+const slug = post.id.replace(/\.en$/, "");
+const altLocaleUrl = hasEn ? `/en/blog/${slug}/` : "/en/blog/";
 ---
-<Base title={post.data.title} description={post.data.excerpt} type="article" image={post.data.ogImage}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  <section class="page">
-    <div class={`article-layout ${tocItems.length ? "has-toc" : ""}`}>
-      {
-        tocItems.length > 0 && (
-          <aside class="toc">
-            <a class="back-link" href="/blog">
-              <Icon name="arrow-left" size={15} />返回博客
-            </a>
-            <div class="toc-label">目录</div>
-            <nav class="toc-nav">
-              {tocItems.map((h) => (
-                <a href={`#${h.slug}`} class={`toc-link toc-d${h.depth}`}>
-                  {h.text}
-                </a>
-              ))}
-            </nav>
-          </aside>
-        )
-      }
 
-      <div class="article">
-        {tocItems.length === 0 && (
-          <a class="back-link" href="/blog"><Icon name="arrow-left" size={15} />返回博客</a>
-        )}
-        <header class="article-head">
-          <div class="date">{fmt(post.data.date)}</div>
-          <h1>{post.data.title}</h1>
-        </header>
-        <div class="prose">
-          <Content />
-        </div>
-      </div>
-    </div>
-    <Comments slug={post.id} />
-  </section>
-
-  <script>
-    import mermaid from "mermaid";
-
-    // mermaid 代码块渲染：把 <pre data-language="mermaid"> 替换成 SVG 图（本地打包，不依赖 CDN）
-    const blocks = document.querySelectorAll('pre[data-language="mermaid"]');
-    if (blocks.length) {
-      mermaid.initialize({ startOnLoad: false, theme: "default" });
-      let i = 0;
-      blocks.forEach((pre) => {
-        const codeEl = pre.querySelector("code");
-        const code = codeEl ? codeEl.textContent : pre.textContent;
-        mermaid
-          .render("mermaid-" + i++, code)
-          .then((r) => {
-            const wrap = document.createElement("div");
-            wrap.className = "mermaid-wrap";
-            wrap.innerHTML = r.svg;
-            pre.replaceWith(wrap);
-          })
-          .catch((e) => {
-            console.error("mermaid render failed:", e);
-          });
-      });
-    }
-  </script>
+<Base
+  title={post.data.title}
+  description={post.data.excerpt}
+  type="article"
+  image={post.data.ogImage}
+  altLocaleUrl={altLocaleUrl}
+>
+  <ArticlePost post={post} lang="zh" />
 </Base>

@@ -1,37 +1,37 @@
 ---
-import Base from "../../layouts/Base.astro";
-import Icon from "../../components/Icon.astro";
+import Base from "../../../layouts/Base.astro";
+import Icon from "../../../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog"))
-  .filter((p) => (p.data.lang ?? "zh") === "zh")
+  .filter((p) => p.data.lang === "en")
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // 按分类归档
 const groups = new Map();
 for (const p of posts) {
-  const cat = p.data.category || "其他";
+  const cat = p.data.category || "Others";
   if (!groups.has(cat)) groups.set(cat, []);
   groups.get(cat).push(p);
 }
 const categories = [...groups.keys()];
 
 const fmt = (d) =>
-  d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+  d.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
 
 const slug = (s, i) => `cat-${i}`;
 ---
-<Base title="博客" altLocaleUrl="/en/blog/">
+<Base title="Blog" altLocaleUrl="/blog/">
   <section class="page">
     <div class="section-head">
-      <span class="eyebrow"><Icon name="notebook" size={14} />博客</span>
-      <h2 style="margin-top:14px">目录与归档</h2>
-      <p>按分类归档的全部文章，共 {posts.length} 篇。</p>
+      <span class="eyebrow"><Icon name="notebook" size={14} />Blog</span>
+      <h2 style="margin-top:14px">Archive</h2>
+      <p>All posts by category, {posts.length} in total.</p>
     </div>
 
     <div class="archive-layout">
       <aside class="archive-toc">
-        <div class="toc-label">分类目录</div>
+        <div class="toc-label">Categories</div>
         <nav class="toc-nav">
           {categories.map((cat, i) => (
             <a href={`#${slug(cat, i)}`} class="toc-link">
@@ -48,7 +48,7 @@ const slug = (s, i) => `cat-${i}`;
             <h3 class="archive-cat">{cat}</h3>
             <div class="post-list archive-posts">
               {groups.get(cat).map((post) => (
-                <a class="post-item" href={`/blog/${post.id}`}>
+                <a class="post-item" href={`/en/blog/${post.id.replace(/-en$/, "")}`}>
                   <div class="date">{fmt(post.data.date)}</div>
                   <h3>{post.data.title}</h3>
                   <p class="excerpt">{post.data.excerpt}</p>
