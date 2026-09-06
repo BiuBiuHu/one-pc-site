@@ -1,0 +1,41 @@
+---
+import Base from "../../layouts/Base.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import Icon from "../../components/Icon.astro";
+import { services } from "../../data/services.en";
+---
+<Base title="Services" altLocaleUrl="/services/">
+  <section class="page">
+    <div class="section-head">
+      <span class="eyebrow"><Icon name="arrow-up-right" size={14} />Services</span>
+      <h2 style="margin-top:14px">What I can offer</h2>
+      <p>These services come from my own projects and experience — use them directly, or ask for something custom.</p>
+    </div>
+
+    <div class="grid cols-3">
+      {services.map((s) => <ServiceCard service={s} />)}
+    </div>
+
+    <div class="card" style="margin-top:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <Icon name="activity" size={18} />
+      <strong style="margin-right:4px">Service status</strong>
+      <span class="status-bar" id="service-status">
+        <span class="pulse"></span>
+        <span class="status-text">Checking…</span>
+      </span>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const el = document.getElementById("service-status");
+  const text = el?.querySelector(".status-text");
+  fetch("/api/health")
+    .then((r) => r.json())
+    .then((d) => {
+      if (text) text.textContent = d.ok ? `Healthy · ${d.service || "api"}` : `Unhealthy · ${d.service || "unknown"}`;
+    })
+    .catch(() => {
+      if (text) text.textContent = "API not connected yet";
+    });
+</script>

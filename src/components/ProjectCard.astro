@@ -1,7 +1,7 @@
 ---
 import Icon from "./Icon.astro";
-import { statusLabel } from "../data/projects";
 const { project } = Astro.props;
+const isEn = Astro.currentLocale === "en";
 const isWip = project.status === "wip";
 // 区分「开源仓库」（有 GitHub repo，显示 star、跳仓库）与「产品官网」（只有 homepage，跳官网）
 const isRepo = !!(project.repo || "").includes("github.com");
@@ -9,7 +9,8 @@ const isRepo = !!(project.repo || "").includes("github.com");
 const repoFull = isRepo ? project.repo.replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "") : "";
 const linkHref = isRepo ? project.repo : project.homepage || "#";
 const linkIcon = isRepo ? "github" : "external-link";
-const linkLabel = isRepo ? "仓库" : "访问";
+const linkLabel = isRepo ? (isEn ? "Repository" : "仓库") : (isEn ? "Visit" : "访问");
+const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开发中" : "维护中");
 ---
 <article class="card hover project-card">
   <div class="project-top">
@@ -33,7 +34,7 @@ const linkLabel = isRepo ? "仓库" : "访问";
   <div class="project-footer">
     <span class={`status ${isWip ? "wip" : ""}`}>
       <span class="pulse"></span>
-      {statusLabel(project.status)}
+      {statusText}
     </span>
     <a class="repo-link" href={linkHref} target="_blank" rel="noreferrer">
       <Icon name={linkIcon} size={14} />

@@ -1,0 +1,18 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import Icon from "../../components/Icon.astro";
+import { projects } from "../../data/projects.en";
+---
+<Base title="Projects" altLocaleUrl="/projects/">
+  <section class="page">
+    <div class="section-head">
+      <span class="eyebrow"><Icon name="boxes" size={14} />Open source</span>
+      <h2 style="margin-top:14px">What I build</h2>
+      <p>Open source projects I maintain around AI, email, and developer productivity. Click through to see the source on GitHub.</p>
+    </div>
+    <div class="grid cols-3">
+      {projects.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+</Base>
