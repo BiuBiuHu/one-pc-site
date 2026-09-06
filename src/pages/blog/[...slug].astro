@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import Comments from "../../components/Comments.astro";
 import Icon from "../../components/Icon.astro";
+import { site } from "../../data/site";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -18,8 +19,21 @@ const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 
 const fmt = (d) =>
   d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+
+const canonical = new URL(`/blog/${post.id}`, Astro.site).href;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.excerpt || undefined,
+  datePublished: post.data.date.toISOString(),
+  url: canonical,
+  author: { "@type": "Person", name: site.name },
+  inLanguage: "zh-CN"
+};
 ---
-<Base title={post.data.title} description={post.data.excerpt}>
+<Base title={post.data.title} description={post.data.excerpt} type="article" image={post.data.ogImage}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <section class="page">
     <div class={`article-layout ${tocItems.length ? "has-toc" : ""}`}>
       {

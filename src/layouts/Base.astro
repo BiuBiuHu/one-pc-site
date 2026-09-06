@@ -4,11 +4,13 @@ import { site } from "../data/site";
 import Icon from "../components/Icon.astro";
 import Analytics from "@vercel/analytics/astro";
 
-const { title, description } = Astro.props;
+const { title, description, type = "website", image } = Astro.props;
 const path = Astro.url.pathname;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · 个人站点`;
 const desc =
   description || "One PC 的个人站点 —— 开源项目、日常思考，以及邮件、AI 等可直接使用的服务。";
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = image ? new URL(image, Astro.site).href : null;
 
 const NAV = [
   { href: "/", label: "首页", match: (p) => p === "/" },
@@ -31,8 +33,17 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta name="theme-color" content="#4f46e5" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <link rel="canonical" href={canonical} />
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={desc} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} · 博客 RSS`} href="/rss.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <slot name="head" />
   </head>
   <body>
     <div class="site">
