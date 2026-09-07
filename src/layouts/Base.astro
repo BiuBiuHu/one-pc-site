@@ -19,9 +19,9 @@ const ogImage = image ? new URL(image, Astro.site).href : null;
 const NAV = isEn
   ? [
       { href: "/", label: "Home", match: (p) => p === "/" },
-      { href: "/projects", label: "Projects", match: (p) => p.startsWith("/projects") },
+      { href: "/en/projects", label: "Projects", match: (p) => p.startsWith("/projects") },
       { href: "/en/blog", label: "Blog", match: (p) => p.startsWith("/blog") },
-      { href: "/services", label: "Services", match: (p) => p.startsWith("/services") },
+      { href: "/en/services", label: "Services", match: (p) => p.startsWith("/services") },
       { href: "/write", label: "Write", match: (p) => p.startsWith("/write") }
     ]
   : [
@@ -34,12 +34,14 @@ const NAV = isEn
 
 const switchHref = altLocaleUrl || (isEn ? "/" : "/en/blog/");
 const switchLabel = isEn ? "中文" : "English";
+// 英文版 URL（浏览器语言自动分流用）：中文页面对应英文版；英文页面为 null（不反向跳）
+const enUrl = isEn ? null : altLocaleUrl || "/en/";
 const year = new Date().getFullYear();
 // GA4 Measurement ID：从环境变量读取（Vercel 配 PUBLIC_GA_ID），未配置则不注入
 const gaId = import.meta.env.PUBLIC_GA_ID;
 ---
 <!doctype html>
-<html lang={isEn ? "en" : "zh-CN"}>
+<html lang={isEn ? "en" : "zh-CN"} data-en-url={enUrl || ""}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,6 +60,17 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     {ogImage && <meta name="twitter:image" content={ogImage} />}
     <link rel="alternate" type="application/rss+xml" title={`${site.name} · 博客 RSS`} href="/rss.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // 浏览器语言自动分流：英文浏览器访问中文页面 → 跳对应英文版；爬虫跳过
+      (function () {
+        var enUrl = document.documentElement.getAttribute("data-en-url");
+        if (!enUrl) return;
+        var ua = navigator.userAgent.toLowerCase();
+        if (/bot|crawler|spider|slurp|bing|baiduspider/i.test(ua)) return;
+        var lang = (navigator.language || navigator.userLanguage || "").toLowerCase();
+        if (lang.indexOf("en") === 0) location.replace(enUrl);
+      })();
+    </script>
     <slot name="head" />
   </head>
   <body>

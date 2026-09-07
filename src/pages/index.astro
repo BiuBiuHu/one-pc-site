@@ -16,17 +16,7 @@ const topServices = services.slice(0, 2);
 const fmt = (d) =>
   d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
 ---
-<Base>
-  <script slot="head" is:inline>
-    // 首页入口按浏览器语言自动分流：英文浏览器进 /en/，中文保持 /；爬虫不跳（交给 hreflang）
-    (function () {
-      if (location.pathname !== "/") return;
-      var ua = navigator.userAgent.toLowerCase();
-      if (/bot|crawler|spider|slurp|bing|baiduspider/i.test(ua)) return;
-      var lang = (navigator.language || navigator.userLanguage || "").toLowerCase();
-      if (lang.indexOf("en") === 0) location.replace("/en/");
-    })();
-  </script>
+<Base altLocaleUrl="/en/">
   <section class="page">
     <div class="hero-split">
       <div class="hero">
