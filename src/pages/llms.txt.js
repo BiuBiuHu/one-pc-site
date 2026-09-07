@@ -4,9 +4,9 @@ import { site } from "../data/site";
 // llms.txt：让 LLM 爬虫 / AI 工具（agent、IDE）快速读懂站点内容地图
 // 规范：https://llmstxt.org
 export async function GET(context) {
-  const posts = (await getCollection("blog"))
-    .filter((p) => (p.data.lang ?? "zh") === "zh")
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  );
   const base = context.site.origin;
 
   const out = [];
@@ -30,10 +30,12 @@ export async function GET(context) {
   out.push(`## 博客文章（${posts.length} 篇）`);
   out.push("");
   for (const post of posts) {
-    const url = `${base}/blog/${post.id}/`;
+    const isEn = post.data.lang === "en";
+    const slug = post.id.replace(/-en$/, "");
+    const url = isEn ? `${base}/en/blog/${slug}/` : `${base}/blog/${slug}/`;
     const date = post.data.date.toISOString().slice(0, 10);
     const excerpt = post.data.excerpt || "";
-    out.push(`- [${post.data.title}](${url})（${date}）：${excerpt}`);
+    out.push(`- [${isEn ? "EN" : "ZH"}] [${post.data.title}](${url})（${date}）：${excerpt}`);
   }
 
   return new Response(out.join("\n") + "\n", {

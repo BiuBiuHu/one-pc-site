@@ -10,7 +10,17 @@ export default defineConfig({
     locales: ["zh", "en"],
     routing: { prefixDefaultLocale: false }
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: "zh",
+        locales: {
+          zh: "zh-CN",
+          en: "en-US"
+        }
+      }
+    })
+  ],
   markdown: {
     shikiConfig: {
       theme: "github-dark",
