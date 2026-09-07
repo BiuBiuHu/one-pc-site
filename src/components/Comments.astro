@@ -1,25 +1,63 @@
 ---
-// 自托管评论组件。传入文章 slug。
+// 自托管评论组件。传入文章 slug，按页面语言显示中英文案。
 const { slug } = Astro.props;
+const isEn = Astro.currentLocale === "en";
+const ui = isEn
+  ? {
+      title: "Comments",
+      name: "Your name (optional)",
+      body: "Write your thoughts…",
+      hint: "Comments are stored securely via GitHub and appear shortly after submitting.",
+      submit: "Send",
+      loading: "Loading…"
+    }
+  : {
+      title: "评论",
+      name: "你的名字（可选）",
+      body: "写下你的想法…",
+      hint: "评论通过 GitHub 安全存储，提交后稍等片刻显示。",
+      submit: "发送",
+      loading: "加载中…"
+    };
 ---
 <section class="comments" id="comments" data-slug={slug}>
-  <h2>评论 <span class="comment-count"></span></h2>
-  <div class="comment-list">加载中…</div>
+  <h2>{ui.title} <span class="comment-count"></span></h2>
+  <div class="comment-list">{ui.loading}</div>
   <form class="comment-form" id="comment-form">
-    <input class="comment-input" name="name" type="text" placeholder="你的名字（可选）" maxlength="40" />
-    <textarea class="comment-textarea" name="body" placeholder="写下你的想法…" maxlength="2000" required rows="3"></textarea>
+    <input class="comment-input" name="name" type="text" placeholder={ui.name} maxlength="40" />
+    <textarea class="comment-textarea" name="body" placeholder={ui.body} maxlength="2000" required rows="3"></textarea>
     <div class="comment-form-row">
-      <span class="comment-hint">评论通过 GitHub 安全存储，提交后稍等片刻显示。</span>
-      <button type="submit" class="btn primary sm">发送</button>
+      <span class="comment-hint">{ui.hint}</span>
+      <button type="submit" class="btn primary sm">{ui.submit}</button>
     </div>
   </form>
 </section>
 
-<script is:inline define:vars={{ slug }}>
+<script is:inline define:vars={{ slug, isEn }}>
   const section = document.getElementById("comments");
   const listEl = section.querySelector(".comment-list");
   const countEl = section.querySelector(".comment-count");
   const form = document.getElementById("comment-form");
+
+  const t = isEn
+    ? {
+        anonymous: "Anonymous",
+        empty: "No comments yet. Be the first.",
+        loadError: "Failed to load comments.",
+        sending: "Sending…",
+        send: "Send",
+        network: "Network error",
+        fail: "Failed to send"
+      }
+    : {
+        anonymous: "匿名",
+        empty: "还没有评论，来写第一条吧。",
+        loadError: "评论加载失败。",
+        sending: "发送中…",
+        send: "发送",
+        network: "网络错误",
+        fail: "发送失败"
+      };
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, (c) => ({
@@ -27,15 +65,15 @@ const { slug } = Astro.props;
     }[c]));
   }
   function fmtTime(t) {
-    try { return new Date(t).toLocaleString("zh-CN"); } catch { return ""; };
+    try { return new Date(t).toLocaleString(isEn ? "en-US" : "zh-CN"); } catch { return ""; };
   }
   function render(list) {
     countEl.textContent = list.length ? `(${list.length})` : "";
-    if (!list.length) { listEl.innerHTML = '<p class="comment-empty">还没有评论，来写第一条吧。</p>'; return; }
+    if (!list.length) { listEl.innerHTML = `<p class="comment-empty">${t.empty}</p>`; return; }
     listEl.innerHTML = list.map((c) => `
       <div class="comment-item">
         <div class="comment-head">
-          <strong>${esc(c.name || "匿名")}</strong>
+          <strong>${esc(c.name || t.anonymous)}</strong>
           <span class="comment-time">${fmtTime(c.time)}</span>
         </div>
         <div class="comment-body">${esc(c.body)}</div>
@@ -47,14 +85,14 @@ const { slug } = Astro.props;
       const r = await fetch(`/api/comments?slug=${encodeURIComponent(slug)}`);
       const d = await r.json();
       render(d.comments || []);
-    } catch { listEl.innerHTML = '<p class="comment-empty">评论加载失败。</p>'; }
+    } catch { listEl.innerHTML = `<p class="comment-empty">${t.loadError}</p>`; }
   }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
     const btn = form.querySelector("button");
-    btn.disabled = true; btn.textContent = "发送中…";
+    btn.disabled = true; btn.textContent = t.sending;
     try {
       const r = await fetch("/api/comments", {
         method: "POST",
@@ -63,9 +101,9 @@ const { slug } = Astro.props;
       });
       const d = await r.json();
       if (d.ok) { render(d.comments || []); form.reset(); }
-      else { alert(d.message || "发送失败"); }
-    } catch { alert("网络错误"); }
-    btn.disabled = false; btn.textContent = "发送";
+      else { alert(d.message || t.fail); }
+    } catch { alert(t.network); }
+    btn.disabled = false; btn.textContent = t.send;
   });
 
   load();
