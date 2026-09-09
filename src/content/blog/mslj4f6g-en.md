@@ -2,7 +2,7 @@
 title: "Loop Engineering Has No Silver Bullet: Vertical Skills + spec/TDD"
 date: 2026-08-09
 excerpt: "Chasing one big \"fully autonomous\" loop doesn't work. After half a year of intensive coding-agent development, my conclusion: the right carrier for Loop Engineering is per-vertical Skills, with spec + TDD at the core."
-category: 思考
+category: Thoughts
 lang: en
 ---
 

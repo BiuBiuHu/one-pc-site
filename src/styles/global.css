@@ -121,7 +121,7 @@ main.main { flex: 1; }
 .lang-switch:hover { color: var(--text); background: var(--bg-subtle); }
 
 /* ---------- 区块 ---------- */
-.section-head { margin-bottom: 28px; }
+.section-head { margin-bottom: 18px; }
 .section-head h2 { margin: 0 0 8px; font-size: 24px; }
 .section-head p { margin: 0; color: var(--muted); max-width: 60ch; }
 .section-head .more {

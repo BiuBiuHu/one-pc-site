@@ -64,6 +64,16 @@ Cost view and quota management work together: quota is the *before* gate, cost v
 
 One key design: **billing must distinguish reasonable from abnormal spend**. Normal growth and a loop-calling bug both raise cost, but they're handled completely differently — the former gets a budget bump, the latter gets a bug fix. If the cost view is just one number, you can't tell them apart; you only see "money is rising" and don't know what to do.
 
+```mermaid
+flowchart TB
+  A[Business code<br/>OpenAI SDK] --> B[Unified access layer<br/>param normalization]
+  B --> C{Multi-model routing}
+  C -->|explicit / rule| D[Target model]
+  C -->|failover| E[Backup model]
+  D --> F[Logs · Cost · Quota]
+  E --> F
+```
+
 ## Summary
 
 A gateway isn't an "impressive" architecture. It's the smallest engineering unit that pulls model access, cost, and stability into one place for a long-term product.

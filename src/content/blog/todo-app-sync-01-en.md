@@ -2,7 +2,7 @@
 title: "Sync Architecture for a Todo App: Client and Desktop"
 date: 2026-05-07
 excerpt: "The hard part of a todo app isn't the UI, it's multi-device sync and conflict handling. Get the design right and sync feels as natural as local. This post covers the key designs and the traps that break them."
-category: 工程
+category: Engineering
 ogImage: /images/todo-app-sync-01.png
 lang: en
 ---
@@ -77,6 +77,17 @@ deleted_at   -- soft-delete marker (NULL means not deleted)
 ```
 
 Two key conventions: `task_id` uses a client-generated UUID (not server auto-increment), so offline devices can generate non-conflicting IDs; `version` increments on every change and is the sole basis for conflict resolution.
+
+```mermaid
+sequenceDiagram
+  participant D1 as Device 1
+  participant S as Server
+  participant D2 as Device 2
+  D1->>D1: local write (instant)
+  D1->>S: async sync (version++)
+  S->>D2: sync update
+  D2->>D2: conflict resolve (compare version)
+```
 
 ## Summary
 

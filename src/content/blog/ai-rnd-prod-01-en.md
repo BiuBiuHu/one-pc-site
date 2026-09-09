@@ -64,6 +64,16 @@ Releasing an AI system is more dangerous than a traditional backend, because mod
 
 A trap we hit: **treating "verbal launch" as "complete release"**. After a feature passed preprod, we once treated "going live" as a reason to skip code review, test report, and release PR. The service did go live, but the release chain was incomplete — later we added the report, review, production verification, and parked the status at `post-release-reconciled`, not marking it `complete` just because the endpoint returned 200. A release doesn't end at "deployed successfully"; it ends when real production behavior is verified.
 
+```mermaid
+flowchart LR
+  Demo[Demo] -->|close the five loops| Prod[Production]
+  A[Observability · see it] --> Prod
+  B[Eval set · measure it] --> Prod
+  C[Policy layer · hold up] --> Prod
+  D[Permission & quota · hold in] --> Prod
+  E[Release · get back] --> Prod
+```
+
 ## Summary
 
 The real threshold of AI development is engineering. Without engineering, a demo is fast; with engineering, a product grows steadily.

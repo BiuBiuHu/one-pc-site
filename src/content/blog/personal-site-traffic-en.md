@@ -2,7 +2,7 @@
 title: "How to Get Traffic to a Personal Site: SEO, GEO, Content Engineering, and Bilingual"
 date: 2026-09-07
 excerpt: "Traffic to a personal site isn't \"post and wait for indexing\" — it's four layers: technical foundation (sitemap/rss/structured data, so content is findable), content engineering (topic + writing pipeline, so content is worth searching), GEO (llms.txt + citable content, so AI engines cite you), and bilingual (to reach a bigger market). This is my full record."
-category: 思考
+category: Thoughts
 ogImage: /images/personal-site-traffic.png
 lang: en
 ---

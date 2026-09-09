@@ -77,6 +77,17 @@ deleted_at   -- 软删除标记（NULL 表示未删除）
 
 两个关键约定：`task_id` 用客户端生成的 UUID（而不是服务端自增），这样离线时也能生成不冲突的 ID；`version` 每次修改递增，是冲突裁决的唯一依据。
 
+```mermaid
+sequenceDiagram
+  participant D1 as 设备1
+  participant S as 服务端
+  participant D2 as 设备2
+  D1->>D1: 本地写入（立即生效）
+  D1->>S: 异步同步（version 递增）
+  S->>D2: 同步更新
+  D2->>D2: 冲突裁决（version 比较）
+```
+
 ## 总结
 
 多端同步是效率应用的核心资产。如果没有稳定同步，再好的功能都会被「数据不一致」拖垮口碑。
