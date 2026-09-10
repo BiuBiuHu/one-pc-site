@@ -1000,6 +1000,7 @@ import Base from "../layouts/Base.astro";
         vditor = new Vditor("vditor", {
           height: "auto",
           mode: "ir",
+          outline: { enable: true, position: "left" },
           placeholder: PROMPTS[Math.floor(Math.random() * PROMPTS.length)],
           cache: { enable: false },
           counter: { enable: true, type: "markdown" },
