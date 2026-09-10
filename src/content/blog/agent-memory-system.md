@@ -16,7 +16,7 @@ ogImage: /images/agent-memory-system.png
 
 ```mermaid
 flowchart TB
-  subgraph 主服务["Core 主服务（NestJS on Vercel）"]
+  subgraph Core["Core 主服务（NestJS on Vercel）"]
     MemCtx["MemoryContextBuilder<br/>token 预算 + 防注入装配"]
     MemRead["MemoryRetrievalService<br/>混合召回 + RRF"]
     MemWrite["MemoryService<br/>显式记住/纠正/忘记"]

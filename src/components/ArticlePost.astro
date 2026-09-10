@@ -66,6 +66,9 @@ const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博
       {tocItems.length === 0 && (
         <a class="back-link" href={blogPath}><Icon name="arrow-left" size={15} />{ui.back}</a>
       )}
+      {post.data.ogImage && (
+        <img class="article-cover" src={post.data.ogImage} alt={post.data.title} loading="eager" />
+      )}
       <header class="article-head">
         <div class="date">{fmt(post.data.date)}</div>
         <h1>{post.data.title}</h1>

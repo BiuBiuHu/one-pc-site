@@ -604,13 +604,13 @@ Web、PC、App 都可以逐渐接入产品分析体系。
 
 ```mermaid
 flowchart TB
-  subgraph 外层["产品 Loop：不断接近真实用户"]
+  subgraph outer["产品 Loop：不断接近真实用户"]
     A[痛点] --> B[Idea] --> C[Brainstorm] --> D[PRD] --> E[设计] --> F[开发] --> G[测试] --> H[发布] --> I[数据] --> J[反馈] --> A
   end
-  subgraph 中层["软件生产 Loop：稳定交付"]
+  subgraph mid["软件生产 Loop：稳定交付"]
     K[需求] --> L[开发] --> M[测试] --> N[发布]
   end
-  subgraph 内层["研发 Loop：代码正确"]
+  subgraph inner["研发 Loop：代码正确"]
     O[Code] --> P[Test] --> Q{Fail?}
     Q -->|Yes| R[Fix] --> P
     Q -->|No| S[Verify]
