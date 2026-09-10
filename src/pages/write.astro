@@ -205,6 +205,12 @@ import Base from "../layouts/Base.astro";
     }
 
     /* Vditor IR 渲染对齐站点 .prose —— 容器内子节点由 Vditor 动态生成，必须 :global */
+    :global(.vditor-outline) {
+      position: sticky !important;
+      top: 88px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
     :global(#vditor) {
       min-height: 60vh;
       border: none !important;
