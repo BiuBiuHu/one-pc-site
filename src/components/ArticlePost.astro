@@ -84,6 +84,15 @@ const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博
 <script>
   import mermaid from "mermaid";
 
+  // 点击 mermaid 图放大（lightbox），复杂图看不清时可点开放大查看
+  function openLightbox(svg) {
+    const overlay = document.createElement("div");
+    overlay.className = "mermaid-lightbox";
+    overlay.innerHTML = svg.outerHTML;
+    overlay.addEventListener("click", () => overlay.remove());
+    document.body.appendChild(overlay);
+  }
+
   // mermaid 代码块渲染：把 <pre data-language="mermaid"> 替换成 SVG 图（本地打包，不依赖 CDN）
   const blocks = document.querySelectorAll('pre[data-language="mermaid"]');
   if (blocks.length) {
@@ -99,6 +108,11 @@ const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博
           wrap.className = "mermaid-wrap";
           wrap.innerHTML = r.svg;
           pre.replaceWith(wrap);
+          const svg = wrap.querySelector("svg");
+          if (svg) {
+            svg.style.cursor = "zoom-in";
+            svg.addEventListener("click", () => openLightbox(svg));
+          }
         })
         .catch((e) => {
           console.error("mermaid render failed:", e);

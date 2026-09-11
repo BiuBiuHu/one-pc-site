@@ -347,6 +347,8 @@ main.main { flex: 1; }
 /* ---------- Mermaid 图 ---------- */
 .mermaid-wrap { margin: 1.5em 0; text-align: center; overflow-x: auto; }
 .mermaid-wrap svg { max-width: 100%; height: auto; }
+.mermaid-lightbox { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
+.mermaid-lightbox svg { max-width: 100%; max-height: 100%; width: auto; height: auto; background: #fff; border-radius: 8px; }
 
 /* ---------- 评论（Giscus） ---------- */
 .comments { max-width: var(--prose); margin: 56px auto 0; padding-top: 32px; border-top: 1px solid var(--border); }
