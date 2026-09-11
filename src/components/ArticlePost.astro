@@ -36,6 +36,11 @@ const jsonLd = {
 };
 
 const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博客", toc: "目录" };
+const shareText = encodeURIComponent(post.data.title);
+const shareUrl = encodeURIComponent(canonical);
+const shareUi = isEn
+  ? { label: "Share", copy: "Copy link", copied: "Copied!" }
+  : { label: "分享", copy: "复制链接", copied: "已复制" };
 ---
 <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 <link slot="head" rel="alternate" hreflang="zh" href={zhUrl} />
@@ -79,6 +84,12 @@ const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博
     </div>
   </div>
   <Comments slug={slug} />
+
+  <div class="share-box">
+    <span class="share-label">{shareUi.label}</span>
+    <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`} target="_blank" rel="noreferrer">X</a>
+    <button class="share-btn copy-btn" type="button" data-copied={shareUi.copied}>{shareUi.copy}</button>
+  </div>
 </section>
 
 <script>
@@ -119,4 +130,18 @@ const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博
         });
     });
   }
+
+  // 复制链接按钮
+  document.querySelectorAll(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        const original = btn.textContent;
+        btn.textContent = btn.getAttribute("data-copied");
+        setTimeout(() => (btn.textContent = original), 1500);
+      } catch (e) {
+        console.error("copy failed:", e);
+      }
+    });
+  });
 </script>
