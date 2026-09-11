@@ -34,9 +34,8 @@ export const projects = [
       "把多家大模型统一接入，集中处理密钥、限流、日志和成本治理，让业务侧只关心调用。",
     language: "TypeScript",
     languageColor: "#3178c6",
-    stars: 128,
-    repo: "https://github.com/BiuBiuHu/ai-gateway",
-    homepage: "",
+    repo: "",
+    homepage: "https://apistation.cn/",
     tags: ["AI", "Gateway", "LLM"],
     status: "active",
     featured: true

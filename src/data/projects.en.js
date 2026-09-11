@@ -34,9 +34,8 @@ export const projects = [
       "Connect multiple LLMs in one place, centralizing keys, rate limiting, logging, and cost governance so the business side only cares about calling.",
     language: "TypeScript",
     languageColor: "#3178c6",
-    stars: 128,
-    repo: "https://github.com/BiuBiuHu/ai-gateway",
-    homepage: "",
+    repo: "",
+    homepage: "https://apistation.cn/",
     tags: ["AI", "Gateway", "LLM"],
     status: "active",
     featured: true
