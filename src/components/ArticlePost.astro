@@ -83,13 +83,14 @@ const shareUi = isEn
       </div>
     </div>
   </div>
-  <Comments slug={slug} />
-
   <div class="share-box">
     <span class="share-label">{shareUi.label}</span>
-    <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`} target="_blank" rel="noreferrer">X</a>
+    <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`} target="_blank" rel="noreferrer" aria-label="X">
+      <Icon name="x" size={14} />
+    </a>
     <button class="share-btn copy-btn" type="button" data-copied={shareUi.copied}>{shareUi.copy}</button>
   </div>
+  <Comments slug={slug} />
 </section>
 
 <script>
