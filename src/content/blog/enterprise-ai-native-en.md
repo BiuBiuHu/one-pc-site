@@ -4,6 +4,7 @@ date: 2026-09-10
 excerpt: "What are the stages of enterprise AI Native adoption? From AI-ready infrastructure, enterprise knowledge engineering, and SkillOps, to Multi-Agent and AI Organization — this post lays out the full evolution path and best practices."
 category: Engineering
 ogImage: /images/enterprise-ai-native.png
+draft: true
 lang: en
 ---
 

@@ -5,9 +5,9 @@ import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  const zh = posts.filter((p) => (p.data.lang ?? "zh") === "zh");
+  const zh = posts.filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft);
   const enIds = new Set(
-    posts.filter((p) => p.data.lang === "en").map((p) => p.id.replace(/-en$/, ""))
+    posts.filter((p) => p.data.lang === "en" && !p.data.draft).map((p) => p.id.replace(/-en$/, ""))
   );
   return zh.map((post) => ({
     params: { slug: post.id },

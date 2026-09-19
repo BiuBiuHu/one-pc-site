@@ -4,7 +4,7 @@ import Icon from "../../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog"))
-  .filter((p) => (p.data.lang ?? "zh") === "zh")
+  .filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // 按分类归档

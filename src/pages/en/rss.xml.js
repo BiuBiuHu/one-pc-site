@@ -4,7 +4,7 @@ import { site } from "../../data/site";
 
 export async function GET(context) {
   const posts = (await getCollection("blog"))
-    .filter((p) => p.data.lang === "en")
+    .filter((p) => p.data.lang === "en" && !p.data.draft)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({

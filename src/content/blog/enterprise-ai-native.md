@@ -4,6 +4,7 @@ date: 2026-09-10
 excerpt: 企业级落地 AI Native 分哪些阶段？从 AI Ready 基础设施、企业知识工程、SkillOps，到 Multi-Agent 和 AI Organization——这篇讲清完整演进路径和最佳实践。
 category: 工程
 ogImage: /images/enterprise-ai-native.png
+draft: true
 ---
 
 过去一段时间，我们一直在推进金融业务内部的 AI 研发转型。

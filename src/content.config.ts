@@ -9,7 +9,8 @@ const blog = defineCollection({
     excerpt: z.string().optional(),
     category: z.string().default("思考"),
     ogImage: z.string().optional(),
-    lang: z.string().default("zh")
+    lang: z.string().default("zh"),
+    draft: z.boolean().default(false)
   })
 });
 
