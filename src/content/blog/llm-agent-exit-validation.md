@@ -3,6 +3,7 @@ title: LLM Agent 凭空说「已创建」，数据库却是空的：出口校验
 date: 2026-09-07
 excerpt: 模型没调任何写入工具，却回复「已创建日程」。入口拦「已创建」这些措辞拦不住，模型总能换说法。用出口不变量「检查事实、不猜措辞」——只有数据库真的写入，才算成功。
 category: AI
+series: 意图识别
 ogImage: /images/llm-agent-exit-validation.png
 ---
 

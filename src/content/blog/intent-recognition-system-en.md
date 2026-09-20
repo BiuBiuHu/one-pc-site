@@ -3,6 +3,7 @@ title: "Intent Recognition System Design: Unbounded Problems to the Model, Bound
 date: 2026-09-07
 excerpt: "Intent recognition isn't a classification problem — it's an observable, verifiable execution chain that's allowed to admit uncertainty. One principle: give unbounded problems to the model (understanding), bounded problems to code (compute and guard)."
 category: AI
+series: 意图识别
 ogImage: /images/intent-recognition-system.png
 lang: en
 ---

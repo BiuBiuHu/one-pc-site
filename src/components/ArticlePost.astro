@@ -2,7 +2,7 @@
 import Comments from "./Comments.astro";
 import Icon from "./Icon.astro";
 import { site } from "../data/site";
-import { render } from "astro:content";
+import { render, getCollection } from "astro:content";
 
 interface Props {
   post: any;
@@ -41,6 +41,18 @@ const shareUrl = encodeURIComponent(canonical);
 const shareUi = isEn
   ? { label: "Share", copy: "Copy link", copied: "Copied!" }
   : { label: "分享", copy: "复制链接", copied: "已复制" };
+const series = post.data.series;
+const seriesPosts = series
+  ? (await getCollection("blog"))
+      .filter(
+        (p) =>
+          p.data.series === series &&
+          (p.data.lang ?? "zh") === (isEn ? "en" : "zh") &&
+          !p.data.draft
+      )
+      .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+  : [];
+const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
 ---
 <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 <link slot="head" rel="alternate" hreflang="zh" href={zhUrl} />
@@ -83,6 +95,23 @@ const shareUi = isEn
       </div>
     </div>
   </div>
+  {seriesPosts.length > 1 && (
+    <nav class="series-nav">
+      <div class="series-label">{seriesUi.label} · {series}</div>
+      <ol class="series-list">
+        {seriesPosts.map((p) => {
+          const isCurrent = p.id === post.id;
+          const pSlug = p.id.replace(/-en$/, "");
+          const href = isEn ? `/en/blog/${pSlug}/` : `/blog/${pSlug}/`;
+          return (
+            <li class:list={["series-item", { current: isCurrent }]}>
+              {isCurrent ? <span>{p.data.title}</span> : <a href={href}>{p.data.title}</a>}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  )}
   <div class="share-box">
     <span class="share-label">{shareUi.label}</span>
     <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`} target="_blank" rel="noreferrer" aria-label="X">

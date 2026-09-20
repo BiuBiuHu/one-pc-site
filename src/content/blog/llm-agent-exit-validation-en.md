@@ -3,6 +3,7 @@ title: "How to Stop an LLM Agent from Faking \"Created\": Exit Validation That C
 date: 2026-09-07
 excerpt: "The model claimed \"schedule created\" without calling any write tool. Blocking phrases like \"created\" fails because the model rewords endlessly. Use an exit invariant: only a real database write counts as success."
 category: AI
+series: 意图识别
 ogImage: /images/llm-agent-exit-validation.png
 lang: en
 ---

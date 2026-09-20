@@ -349,6 +349,15 @@ main.main { flex: 1; }
 .mermaid-wrap svg { max-width: 100%; height: auto; }
 .mermaid-lightbox { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
 .mermaid-lightbox svg { max-width: 100%; max-height: 100%; width: auto; height: auto; background: #fff; border-radius: 8px; }
+.series-nav { margin-top: 32px; padding: 20px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius); }
+.series-label { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 12px; }
+.series-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.series-item { font-size: 14px; line-height: 1.5; padding-left: 16px; position: relative; }
+.series-item a { color: var(--text-2); text-decoration: none; transition: color 0.15s ease; }
+.series-item a:hover { color: var(--brand); }
+.series-item.current { color: var(--brand); font-weight: 600; }
+.series-item::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--border-strong); }
+.series-item.current::before { background: var(--brand); }
 .share-box { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); }
 .share-label { font-size: 14px; color: var(--muted); margin-right: 4px; }
 .share-btn { display: inline-flex; align-items: center; padding: 6px 14px; border: 1px solid var(--border); border-radius: 999px; font-size: 13px; font-family: inherit; color: var(--text-2); text-decoration: none; background: var(--surface); cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease; }

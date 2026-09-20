@@ -3,6 +3,7 @@ title: "Slot Extraction in Intent Recognition: The Pitfalls of Chinese Time Pars
 date: 2026-09-06
 excerpt: "Intent recognition isn't just classifying intent — you still have to extract slots like time. Chinese time is the easiest slot to get wrong: is \"7点半\" 7:30 AM or 7:30 PM?"
 category: AI
+series: 意图识别
 ogImage: /images/chinese-time-parsing.png
 lang: en
 ---

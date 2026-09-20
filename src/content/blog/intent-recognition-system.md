@@ -3,6 +3,7 @@ title: 意图识别系统设计：无界给模型、有界给代码
 date: 2026-09-07
 excerpt: 意图识别不是一个分类问题，而是一条「可观察、可校验、允许承认不确定」的执行链。核心原则一句话：无界问题给模型（听懂），有界问题给代码（算准、守住）。这篇讲清这套系统的完整设计。
 category: AI
+series: 意图识别
 ogImage: /images/intent-recognition-system.png
 ---
 
