@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ ok: false });
 
-  const { password, title, excerpt, category, body, slug, sha, date } = req.body || {};
+  const { password, title, excerpt, category, series, body, slug, sha, date } = req.body || {};
   if (password !== PASSWORD) return res.status(401).json({ ok: false, message: "口令错误" });
   if (!title || !body) return res.status(400).json({ ok: false, message: "缺少标题或正文" });
 
@@ -30,6 +30,7 @@ export default async function handler(req, res) {
     `date: ${stamp}`,
     excerpt ? `excerpt: ${String(excerpt).replace(/\n/g, " ")}` : null,
     category ? `category: ${String(category).replace(/\n/g, " ").trim()}` : null,
+    series ? `series: ${String(series).replace(/\n/g, " ").trim()}` : null,
     "---",
     "",
     String(body),

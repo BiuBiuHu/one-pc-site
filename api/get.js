@@ -49,6 +49,7 @@ export default async function handler(req, res) {
     date: meta.date || "",
     excerpt: meta.excerpt || "",
     category: meta.category || "思考",
+    series: meta.series || "",
     body: body.replace(/^\n+|\n+$/g, "")
   });
 }

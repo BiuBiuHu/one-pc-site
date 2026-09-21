@@ -75,6 +75,10 @@ import Base from "../layouts/Base.astro";
               autocomplete="off"
             />
           </label>
+          <label class="field">
+            <span>专栏（可选）</span>
+            <input type="text" id="f-series" placeholder="如：意图识别" autocomplete="off" />
+          </label>
         </details>
         <div class="drawer-actions">
           <label class="field write-pw">
@@ -561,6 +565,7 @@ import Base from "../layouts/Base.astro";
       var fExcerpt = document.getElementById("f-excerpt");
       var fCategory = document.getElementById("f-category");
       var fCategoryOther = document.getElementById("f-category-other");
+      var fSeries = document.getElementById("f-series");
       var fPassword = document.getElementById("f-password");
       var submitBtn = document.getElementById("write-submit");
       var zenBtn = document.getElementById("zen-btn");
@@ -603,6 +608,7 @@ import Base from "../layouts/Base.astro";
           title: fTitle.value,
           excerpt: fExcerpt.value,
           category: currentCategory(),
+          series: (fSeries.value || "").trim(),
           body: vditor.getValue()
         };
         try {
@@ -676,6 +682,7 @@ import Base from "../layouts/Base.astro";
         fCategory.value = "思考";
         fCategoryOther.hidden = true;
         fCategoryOther.value = "";
+        fSeries.value = "";
         clearDraft();
         setMode("new");
         restoring = false;
@@ -821,6 +828,7 @@ import Base from "../layouts/Base.astro";
           fTitle.value = d.title;
           fExcerpt.value = d.excerpt;
           restoreCategory(d.category);
+          fSeries.value = d.series || "";
           editingSlug = d.slug;
           editingSha = d.sha;
           editingDate = d.date;
@@ -943,6 +951,7 @@ import Base from "../layouts/Base.astro";
           title: title,
           excerpt: fExcerpt.value,
           category: currentCategory(),
+          series: (fSeries.value || "").trim(),
           body: body
         };
         if (isUpdate) {
@@ -982,6 +991,7 @@ import Base from "../layouts/Base.astro";
               fCategory.value = "思考";
               fCategoryOther.hidden = true;
               fCategoryOther.value = "";
+              fSeries.value = "";
               restoring = false;
             }
           } else {
@@ -1024,6 +1034,7 @@ import Base from "../layouts/Base.astro";
               fTitle.value = d.title || "";
               fExcerpt.value = d.excerpt || "";
               restoreCategory(d.category);
+              fSeries.value = d.series || "";
               restoring = false;
               var t = new Date(d.ts);
               var hh = String(t.getHours()).padStart(2, "0");
