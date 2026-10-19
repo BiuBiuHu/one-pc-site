@@ -143,7 +143,7 @@ Streamable HTTP 取代了第一代的 HTTP+SSE 双端点方案，而且**规范�
 
 所有入口（手动/Agent/脚本执行）共享同一条时序：
 
-![所有入口汇聚到服务端同一条 invoke 链路](/images/mv99wysd/invoke-flow.png)
+![统一调用链路：invoke() 入口到 invocation 状态更新](/images/mv99wysd/invoke-flow.png)
 
 Agent 侧通过薄适配器把个人 MCP Tool 动态包装成平台 ToolRegistry 里的标准 Tool，让 Agent 自主决定何时调用。
 
