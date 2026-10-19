@@ -7,12 +7,12 @@ import { site } from "../data/site";
 
 const showcase = projects.filter((p) => ["Anpai.Life", "OPC Skills", "AI Gateway"].includes(p.name));
 const desc =
-  "生湖岳 / One PC 的个人站点。Agent engineer，做 OPC 产品。文章和仓库摊开，对上号再聊。";
+  "One PC 的个人站点。Agent engineer，做 OPC 产品。文章和仓库摊开，对上号再聊。";
 const personLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: site.personName,
-  alternateName: site.name,
+  name: site.name,
+  alternateName: site.githubUser,
   jobTitle: "Agent engineer",
   url: new URL("/about/", Astro.site).href,
   email: `mailto:${site.email}`,
@@ -24,7 +24,7 @@ const personLd = {
   <section class="page">
     <div class="about-head">
       <span class="eyebrow"><Icon name="sparkles" size={14} />关于</span>
-      <h1>{site.name} · {site.personName}</h1>
+      <h1>{site.name}</h1>
       <p class="lead">
         Agent engineer，做 OPC（一人公司）产品。这个站用来放项目、文章，以及我自己也在用的东西。
       </p>
@@ -32,7 +32,7 @@ const personLd = {
 
     <div class="about-copy">
       <p>
-        白天在写 Agent 和 OPC 软件，晚上把踩过的坑写成文字。署名 {site.name}，人是{site.personName}。
+        白天在写 Agent 和 OPC 软件，晚上把踩过的坑写成文字。站长署名 {site.name}。
       </p>
       <p>
         这里不是投放页。Anpai.Life、OPC Skills、AI Gateway 都是我自己在用、也愿意被拆开看的。

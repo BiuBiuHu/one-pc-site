@@ -16,13 +16,13 @@ export async function GET(context) {
   out.push("");
   out.push("## 关于");
   out.push("");
-  out.push(`- 作者：${site.personName} / ${site.name}（GitHub: ${site.githubUrl}）`);
+  out.push(`- 作者：${site.name}（GitHub: ${site.githubUrl}）`);
   out.push(`- 联系：${site.email}`);
   out.push("");
   out.push("## 核心页面");
   out.push("");
   out.push(`- [首页](${base}/): 站点首页`);
-  out.push(`- [关于](${base}/about/): ${site.personName} / ${site.name}，Agent engineer · OPC`);
+  out.push(`- [关于](${base}/about/): ${site.name}，Agent engineer · OPC`);
   out.push(`- [About](${base}/en/about/): English about`);
   out.push(`- [博客](${base}/blog/): 全部文章归档（按分类）`);
   out.push(`- [项目](${base}/projects/): 开源项目`);

@@ -7,12 +7,12 @@ import { site } from "../../data/site";
 
 const showcase = projects.filter((p) => ["Anpai.Life", "OPC Skills", "AI Gateway"].includes(p.name));
 const desc =
-  "Personal site of Shenghu Yue / One PC. Agent engineer building OPC products. Posts and repos are open — write if it resonates.";
+  "Personal site of One PC. Agent engineer building OPC products. Posts and repos are open — write if it resonates.";
 const personLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: site.personName,
-  alternateName: site.name,
+  name: site.name,
+  alternateName: site.githubUser,
   jobTitle: "Agent engineer",
   url: new URL("/en/about/", Astro.site).href,
   email: `mailto:${site.email}`,
@@ -24,7 +24,7 @@ const personLd = {
   <section class="page">
     <div class="about-head">
       <span class="eyebrow"><Icon name="sparkles" size={14} />About</span>
-      <h1>{site.name} · {site.personName}</h1>
+      <h1>{site.name}</h1>
       <p class="lead">
         Agent engineer, building OPC (one-person company) products. This site holds projects, writing, and things I use myself.
       </p>
@@ -32,7 +32,7 @@ const personLd = {
 
     <div class="about-copy">
       <p>
-        I spend my days on agents and OPC software, and write down the pits I fall into. The byline is {site.name}; the person is {site.personName}.
+        I spend my days on agents and OPC software, and write down the pits I fall into. The byline is {site.name}.
       </p>
       <p>
         This is not an ad page. Anpai.Life, OPC Skills, and AI Gateway are things I run and am happy to have taken apart.
