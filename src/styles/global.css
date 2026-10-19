@@ -341,14 +341,47 @@ main.main { flex: 1; }
 .prose table { width: 100%; border-collapse: collapse; margin: 0 0 1.2em; font-size: 0.92em; }
 .prose th, .prose td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
 .prose th { background: var(--bg-subtle); font-weight: 600; color: var(--text); }
-.prose img { max-width: 100%; border-radius: var(--radius-sm); }
+.prose img { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
+.prose img.zoomable { cursor: zoom-in; }
 .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2em 0; }
 
 /* ---------- Mermaid 图 ---------- */
 .mermaid-wrap { margin: 1.5em 0; text-align: center; overflow-x: auto; }
 .mermaid-wrap svg { max-width: 100%; height: auto; }
-.mermaid-lightbox { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
-.mermaid-lightbox svg { max-width: 100%; max-height: 100%; width: auto; height: auto; background: #fff; border-radius: 8px; }
+
+/* ---------- 正文图 / mermaid 点击放大 ---------- */
+.zoom-lightbox {
+  position: fixed; inset: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  padding: 64px 32px 32px;
+  background: rgba(15, 23, 42, 0.82);
+  cursor: zoom-out;
+  touch-action: manipulation;
+}
+.zoom-lightbox img,
+.zoom-lightbox svg {
+  max-width: min(92vw, 1200px);
+  max-height: calc(100dvh - 112px);
+  width: auto; height: auto; object-fit: contain;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+}
+.zoom-lightbox svg { background: #fff; }
+.zoom-lightbox-close {
+  position: fixed; top: 16px; right: 16px; z-index: 2;
+  width: 44px; height: 44px; padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px;
+  background: #0f172a; color: #fff;
+  font-size: 28px; line-height: 1; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.35);
+  touch-action: manipulation;
+}
+.zoom-lightbox-close:hover,
+.zoom-lightbox-close:focus-visible { background: #334155; outline: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .zoom-lightbox { animation: zoom-fade 0.15s ease; }
+}
+@keyframes zoom-fade { from { opacity: 0; } to { opacity: 1; } }
 .series-nav { margin-top: 32px; padding: 20px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius); }
 .series-label { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 12px; }
 .series-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }

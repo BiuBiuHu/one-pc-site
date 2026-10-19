@@ -106,14 +106,75 @@ const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
 <script>
   import mermaid from "mermaid";
 
-  // 点击 mermaid 图放大（lightbox），复杂图看不清时可点开放大查看
-  function openLightbox(svg) {
-    const overlay = document.createElement("div");
-    overlay.className = "mermaid-lightbox";
-    overlay.innerHTML = svg.outerHTML;
-    overlay.addEventListener("click", () => overlay.remove());
-    document.body.appendChild(overlay);
+  // 正文图 / mermaid 共用轻量 lightbox：暗色遮罩、居中放大，点遮罩 / Esc / 关闭按钮退出
+  let activeLightbox = null;
+
+  function closeLightbox() {
+    if (!activeLightbox) return;
+    document.removeEventListener("keydown", onLightboxKeydown);
+    activeLightbox.remove();
+    activeLightbox = null;
+    document.body.style.overflow = "";
   }
+
+  function onLightboxKeydown(e) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeLightbox();
+    }
+  }
+
+  function openLightbox(node) {
+    closeLightbox();
+    const isEn = document.documentElement.getAttribute("data-lang") === "en";
+    const overlay = document.createElement("div");
+    overlay.className = "zoom-lightbox";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", isEn ? "Image preview" : "图片预览");
+
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.className = "zoom-lightbox-close";
+    closeBtn.setAttribute("aria-label", isEn ? "Close" : "关闭");
+    closeBtn.innerHTML = "&times;";
+
+    overlay.appendChild(node);
+    overlay.appendChild(closeBtn);
+    overlay.addEventListener("click", closeLightbox);
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    });
+
+    document.body.style.overflow = "hidden";
+    document.body.appendChild(overlay);
+    document.addEventListener("keydown", onLightboxKeydown);
+    activeLightbox = overlay;
+    closeBtn.focus();
+  }
+
+  function openImageLightbox(img) {
+    const clone = document.createElement("img");
+    clone.src = img.currentSrc || img.src;
+    clone.alt = img.alt || "";
+    openLightbox(clone);
+  }
+
+  // 仅正文图：跳过链接里的图、封面、导航小图标
+  document.querySelectorAll(".prose img").forEach((img) => {
+    if (img.closest("a")) return;
+    img.classList.add("zoomable");
+    img.setAttribute("tabindex", "0");
+    const open = () => openImageLightbox(img);
+    img.addEventListener("click", open);
+    img.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        open();
+      }
+    });
+  });
 
   // mermaid 代码块渲染：把 <pre data-language="mermaid"> 替换成 SVG 图（本地打包，不依赖 CDN）
   const blocks = document.querySelectorAll('pre[data-language="mermaid"]');
@@ -133,7 +194,7 @@ const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
           const svg = wrap.querySelector("svg");
           if (svg) {
             svg.style.cursor = "zoom-in";
-            svg.addEventListener("click", () => openLightbox(svg));
+            svg.addEventListener("click", () => openLightbox(svg.cloneNode(true)));
           }
         })
         .catch((e) => {
