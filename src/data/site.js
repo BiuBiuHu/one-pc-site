@@ -1,6 +1,7 @@
 // 站点配置 —— 替换为你自己的信息即可
 export const site = {
   name: "One PC",
+  personName: "生湖岳",
   // 你的 GitHub 用户名（评论 Giscus 和后台 Decap 都要用）
   githubUser: "BiuBiuHu",
   // 仓库名

@@ -29,18 +29,21 @@ const websiteLd = {
   publisher: { "@type": "Person", name: site.name, url: new URL("/", Astro.site).href }
 };
 
+const pathKey = path.replace(/^\/en(?=\/|$)/, "").replace(/\/+$/, "") || "/";
 const NAV = isEn
   ? [
       { href: "/", label: "Home", match: (p) => p === "/" },
       { href: "/en/projects", label: "Projects", match: (p) => p.startsWith("/projects") },
       { href: "/en/blog", label: "Blog", match: (p) => p.startsWith("/blog") },
-      { href: "/en/services", label: "Services", match: (p) => p.startsWith("/services") }
+      { href: "/en/services", label: "Services", match: (p) => p.startsWith("/services") },
+      { href: "/en/about", label: "About", match: (p) => p.startsWith("/about") }
     ]
   : [
       { href: "/", label: "首页", match: (p) => p === "/" },
       { href: "/projects", label: "项目", match: (p) => p.startsWith("/projects") },
       { href: "/blog", label: "博客", match: (p) => p.startsWith("/blog") },
-      { href: "/services", label: "服务", match: (p) => p.startsWith("/services") }
+      { href: "/services", label: "服务", match: (p) => p.startsWith("/services") },
+      { href: "/about", label: "关于", match: (p) => p.startsWith("/about") }
     ];
 
 const switchHref = altLocaleUrl || (isEn ? "/" : "/en/blog/");
@@ -116,7 +119,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
           </a>
           <nav class="menu">
             {NAV.map((item) => (
-              <a href={item.href} aria-current={item.match(path) ? "page" : undefined}>
+              <a href={item.href} aria-current={item.match(pathKey) ? "page" : undefined}>
                 {item.label}
               </a>
             ))}
@@ -144,9 +147,10 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
             <span>{site.name} · {isEn ? "Personal Site" : "个人站点"}</span>
           </div>
           <div class="footer-links">
-            <a href="/projects">{isEn ? "Projects" : "项目"}</a>
+            <a href={isEn ? "/en/about" : "/about"}>{isEn ? "About" : "关于"}</a>
+            <a href={isEn ? "/en/projects" : "/projects"}>{isEn ? "Projects" : "项目"}</a>
             <a href={isEn ? "/en/blog" : "/blog"}>{isEn ? "Blog" : "博客"}</a>
-            <a href="/services">{isEn ? "Services" : "服务"}</a>
+            <a href={isEn ? "/en/services" : "/services"}>{isEn ? "Services" : "服务"}</a>
             <a href={site.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
             <a href={`mailto:${site.email}`}>{isEn ? "Contact · " : "联系我 · "}{site.email}</a>
           </div>

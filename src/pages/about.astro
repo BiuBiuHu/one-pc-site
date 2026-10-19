@@ -1,0 +1,63 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Icon from "../components/Icon.astro";
+import { projects } from "../data/projects";
+import { site } from "../data/site";
+
+const showcase = projects.filter((p) => ["Anpai.Life", "OPC Skills", "AI Gateway"].includes(p.name));
+const desc =
+  "生湖岳 / One PC 的个人站点。Agent engineer，做 OPC 产品。文章和仓库摊开，对上号再聊。";
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.personName,
+  alternateName: site.name,
+  jobTitle: "Agent engineer",
+  url: new URL("/about/", Astro.site).href,
+  email: `mailto:${site.email}`,
+  sameAs: [site.githubUrl, "https://github.com/BiuBiuHu/opc-skills", "https://www.anpai.life/"]
+};
+---
+<Base title="关于" description={desc} altLocaleUrl="/en/about/">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(personLd)} />
+  <section class="page">
+    <div class="about-head">
+      <span class="eyebrow"><Icon name="sparkles" size={14} />关于</span>
+      <h1>{site.name} · {site.personName}</h1>
+      <p class="lead">
+        Agent engineer，做 OPC（一人公司）产品。这个站用来放项目、文章，以及我自己也在用的东西。
+      </p>
+    </div>
+
+    <div class="about-copy">
+      <p>
+        白天在写 Agent 和 OPC 软件，晚上把踩过的坑写成文字。署名 {site.name}，人是{site.personName}。
+      </p>
+      <p>
+        这里不是投放页。Anpai.Life、OPC Skills、AI Gateway 都是我自己在用、也愿意被拆开看的。
+        博客写具体问题，不写空口号。对得上再往下聊；对不上，翻翻文章或仓库就好。
+      </p>
+    </div>
+
+    <div class="hero-actions about-actions">
+      <a class="btn primary" href="/blog">读文章 <Icon name="arrow-right" size={16} /></a>
+      <a class="btn ghost" href="/projects">看项目</a>
+      <a class="btn ghost" href={site.githubUrl} target="_blank" rel="noreferrer">GitHub · {site.githubUser}</a>
+      <a class="btn ghost" href="https://github.com/BiuBiuHu/opc-skills" target="_blank" rel="noreferrer">opc-skills</a>
+    </div>
+
+    <div class="stack-vertical" style="margin-top:56px">
+      <section>
+        <div class="section-head">
+          <h2>正在做的东西</h2>
+          <p>三件摊开的作品。不是清单，是方便对上号的人顺着摸进去。</p>
+          <a class="more" href="/projects">全部项目 <Icon name="arrow-right" size={15} /></a>
+        </div>
+        <div class="grid cols-3">
+          {showcase.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </section>
+    </div>
+  </section>
+</Base>

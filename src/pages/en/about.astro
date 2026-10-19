@@ -1,0 +1,63 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import Icon from "../../components/Icon.astro";
+import { projects } from "../../data/projects.en";
+import { site } from "../../data/site";
+
+const showcase = projects.filter((p) => ["Anpai.Life", "OPC Skills", "AI Gateway"].includes(p.name));
+const desc =
+  "Personal site of Shenghu Yue / One PC. Agent engineer building OPC products. Posts and repos are open — write if it resonates.";
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.personName,
+  alternateName: site.name,
+  jobTitle: "Agent engineer",
+  url: new URL("/en/about/", Astro.site).href,
+  email: `mailto:${site.email}`,
+  sameAs: [site.githubUrl, "https://github.com/BiuBiuHu/opc-skills", "https://www.anpai.life/"]
+};
+---
+<Base title="About" description={desc} altLocaleUrl="/about/">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(personLd)} />
+  <section class="page">
+    <div class="about-head">
+      <span class="eyebrow"><Icon name="sparkles" size={14} />About</span>
+      <h1>{site.name} · {site.personName}</h1>
+      <p class="lead">
+        Agent engineer, building OPC (one-person company) products. This site holds projects, writing, and things I use myself.
+      </p>
+    </div>
+
+    <div class="about-copy">
+      <p>
+        I spend my days on agents and OPC software, and write down the pits I fall into. The byline is {site.name}; the person is {site.personName}.
+      </p>
+      <p>
+        This is not an ad page. Anpai.Life, OPC Skills, and AI Gateway are things I run and am happy to have taken apart.
+        Posts stay specific. If it clicks, write; if not, the articles and repos are enough.
+      </p>
+    </div>
+
+    <div class="hero-actions about-actions">
+      <a class="btn primary" href="/en/blog">Read posts <Icon name="arrow-right" size={16} /></a>
+      <a class="btn ghost" href="/en/projects">See projects</a>
+      <a class="btn ghost" href={site.githubUrl} target="_blank" rel="noreferrer">GitHub · {site.githubUser}</a>
+      <a class="btn ghost" href="https://github.com/BiuBiuHu/opc-skills" target="_blank" rel="noreferrer">opc-skills</a>
+    </div>
+
+    <div class="stack-vertical" style="margin-top:56px">
+      <section>
+        <div class="section-head">
+          <h2>What I am building</h2>
+          <p>Three things left open, so the right people can look inside.</p>
+          <a class="more" href="/en/projects">All projects <Icon name="arrow-right" size={15} /></a>
+        </div>
+        <div class="grid cols-3">
+          {showcase.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </section>
+    </div>
+  </section>
+</Base>

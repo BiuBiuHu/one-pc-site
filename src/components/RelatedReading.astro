@@ -1,0 +1,54 @@
+---
+interface Props {
+  posts: any[];
+  project?: { name: string; href: string; note: string } | null;
+  lang: "zh" | "en";
+}
+
+const { posts, project, lang } = Astro.props;
+const isEn = lang === "en";
+const ui = isEn
+  ? { title: "Related", project: "Also on this topic" }
+  : { title: "相关阅读", project: "同类实践" };
+
+const fmt = (d) =>
+  d
+    .toLocaleDateString(isEn ? "en-US" : "zh-CN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    })
+    .replace(/\//g, "-");
+
+const hrefOf = (p) => {
+  const slug = p.id.replace(/-en$/, "");
+  return isEn ? `/en/blog/${slug}/` : `/blog/${slug}/`;
+};
+
+const show = (posts && posts.length > 0) || !!project;
+---
+{show && (
+  <aside class="related-block" aria-label={ui.title}>
+    {posts.length > 0 && (
+      <>
+        <div class="related-label">{ui.title}</div>
+        <ul class="related-list">
+          {posts.map((p) => (
+            <li>
+              <a href={hrefOf(p)}>
+                <span class="related-meta">{fmt(p.data.date)}{p.data.category ? ` · ${p.data.category}` : ""}</span>
+                <span class="related-title">{p.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+    {project && (
+      <p class="related-project">
+        {ui.project} · <a href={project.href} target="_blank" rel="noreferrer">{project.name}</a>
+        <span class="related-note">{project.note}</span>
+      </p>
+    )}
+  </aside>
+)}
