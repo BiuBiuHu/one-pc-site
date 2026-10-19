@@ -1,7 +1,7 @@
 ---
 title: 一平台双角色：在 AI 测试平台中同时实践 MCP Client 与 MCP Server
 date: 2026-10-15
-excerpt: MCP 落地实践
+excerpt: 一个 AI 测试平台同时做 MCP Client 与 Server：原理三层速览、双端工程实践，以及接入网关时从报错到规范姿势的排障复盘。
 category: 思考
 ---
 
@@ -20,19 +20,7 @@ category: 思考
 
 有意思的是，这一对痛点恰好对应 MCP 的两个视角：
 
-
-                ┌────────────────────────────┐
-外部 MCP Server   │      我们的测试平台          │    对外 MCP Server
-（订单/文档/监控…） │  ┌────────┐    ┌─────────┐ │   （任务/用例/执行）
-▲            │  │MCP     │    │MCP      │ │        ▲
-│            │  │Client  │    │Server   │ │        │
-└────调用─────┼─▶│Gateway │    │Provider │ │◄──调用─┘
-│  └────────┘    └─────────┘ │
-│      Agent  /  执行引擎     │
-└────────────────────────────┘
-向左：作为 Client 消费别人的工具          向右：作为 Server 输出自己的工具
-
-```
+![一个平台同时扮演 MCP Client 与 MCP Server 两个角色](/images/mv99wysd/dual-role.png)
 
 同一个 Node.js 服务，向左是 MCP **Client**，向右是 MCP **Server**。两端是两个独立立项的项目，下文按"原理 → Client → Server → 排障复盘"的顺序展开。
 
@@ -48,20 +36,7 @@ MCP（Model Context Protocol，模型上下文协议）是一个**开放协议**
 
 先对齐三层角色（最容易混淆的一组概念）：
 
-```
-┌──────────── MCP Host（宿主应用）────────────┐
-│  例如：Claude Code、IDE 插件、我们的测试平台   │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
-│  │MCP Client│  │MCP Client│  │MCP Client│  │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  │
-└───────┼─────────────┼─────────────┼────────┘
-│ 1:1         │             │
-▼             ▼             ▼
-┌──────────┐  ┌──────────┐  ┌──────────┐
-│MCP Server│  │MCP Server│  │MCP Server│
-└──────────┘  └──────────┘  └──────────┘
-
-```
+![MCP Host 内部为每个 Server 维护 1:1 的 Client 连接](/images/mv99wysd/mcp-host-client-server.png)
 
 - **Host**：AI 应用本体，能力的聚合方（Claude Code、我们的测试平台）；
 - **Client**：Host 内部的连接器，**与每个 Server 保持 1:1 连接**——不是"整个应用是一个 Client"；
@@ -90,9 +65,8 @@ MCP 的报文全部基于 **JSON-RPC 2.0**。JSON 是数据格式（信封），
 ```
 initialize 握手 → 能力协商
 tools/call:
-→ { "jsonrpc":"2.0", "id":3, "method":"tools/call", "params":{ "name":"...", "arguments":{...} } }
-← { "jsonrpc":"2.0", "id":3, "result":{ "content":[ { "type":"text", "text":"..." } ] } }
-
+  → { "jsonrpc":"2.0", "id":3, "method":"tools/call", "params":{ "name":"...", "arguments":{...} } }
+  ← { "jsonrpc":"2.0", "id":3, "result":{ "content":[ { "type":"text", "text":"..." } ] } }
 ```
 
 两个工程细节在后文排障中会反复出现：
@@ -162,6 +136,7 @@ Streamable HTTP 取代了第一代的 HTTP+SSE 双端点方案，而且**规范�
   }
 }
 ```
+
 输入绑定支持固定值、页面上下文和前序步骤变量——用户不写一行提取脚本。
 
 ### 3.3 统一调用链路
@@ -176,6 +151,7 @@ invoke(actorUserId, serverKey, toolName, input)
   → 创建 MCP Client（Streamable HTTP，兼容 SSE）→ initialize → tools/call
   → 脱敏、限长、耗时统计 → 更新 invocation 状态
 ```
+
 Agent 侧通过薄适配器把个人 MCP Tool 动态包装成平台 ToolRegistry 里的标准 Tool，让 Agent 自主决定何时调用。
 
 ---
@@ -186,13 +162,12 @@ Agent 侧通过薄适配器把个人 MCP Tool 动态包装成平台 ToolRegistry
 
 平台侧的目标：外部 Agent 通过 MCP 发现并调用测试平台的能力。第一期工具目录刻意收敛为"稳定的业务能力"：
 
-
-| 工具                                    | 类型   | 说明                                        |
-| --------------------------------------- | ------ | ------------------------------------------- |
-| `list_test_tasks` / `get_test_task`     | 只读   | 列出/查看有权限的测试任务                   |
-| `list_test_cases` / `get_test_case`     | 只读   | 任务下的用例目录与详情                      |
-| `get_test_run` / `get_execution_result` | 只读   | 执行批次进度 / 单次执行结果摘要             |
-| `start_test_run`                        | **写** | 异步启动一次测试执行，返回`runId`，配幂等键 |
+| 工具 | 类型 | 说明 |
+|------|------|------|
+| `list_test_tasks` / `get_test_task` | 只读 | 列出/查看有权限的测试任务 |
+| `list_test_cases` / `get_test_case` | 只读 | 任务下的用例目录与详情 |
+| `get_test_run` / `get_execution_result` | 只读 | 执行批次进度 / 单次执行结果摘要 |
+| `start_test_run` | **写** | 异步启动一次测试执行，返回 `runId`，配幂等键 |
 
 工具目录纯粹到不含任何"底层能力"：数据库查询、ADB、Shell、文件读写、任意 HTTP 代理一律不暴露——MCP 工具是产品化接口，不是数据库的透传层。
 
@@ -214,6 +189,7 @@ MCP-Lite（网关回源调用 Provider 时的方言）：
   { "name":"get_test_task", "arguments":{ "taskId":"..." } }
   ← { "content":[...], "isError":false }
 ```
+
 语义完全一致，MCP-Lite 只是**把 JSON-RPC 的信封拆掉、method 摊平进 URL**，方便 Provider 用普通 Web 框架实现。第一版我们就按 MCP-Lite 实现（官方 SDK 封装的轻量包装，注册 7 个工具约 130 行），并且网关会在 `tools/call` 请求体里注入**当前 SSO 用户身份**（`user.empId` 等扩展字段），服务端解析后即可按真实用户做数据权限。
 
 这一版配套了完整的"治理四件套"，也是 MCP Server 区别于普通 REST API 的核心工作量：
@@ -239,6 +215,7 @@ await server.connect(transport);
 await transport.handleRequest(ctx.req, ctx.res, parsedBody);
 ctx.respond = false;   // 响应由 transport 直写
 ```
+
 增量代码不到 100 行，工具注册零改动——**得益于一期把"工具定义"和"协议暴露"分离**。至此服务端同时说两种"方言"：MCP-Lite（给网关回源）和标准 Streamable HTTP（给任意 MCP 客户端）。
 
 ### 4.4 接入统一网关：两条路径与注入头鉴权
@@ -252,6 +229,7 @@ ctx.respond = false;   // 响应由 transport 直写
 mcp.headers.X-Api-Key=<服务端约定的密钥>     # 固定头：每个请求都带，证明"来自网关"
 mcp.headers.SSO-Emp-Id=$ctx.user.empId      # 动态头：调用工具时注入当前登录用户
 ```
+
 服务端校验 `X-Api-Key`（与环境变量密钥全等），用户身份**优先读注入的工号**，缺失时回退 Token 绑定的固定身份（本地调试用）。上线验证矩阵：
 
 ```
@@ -260,6 +238,7 @@ tools/call + 动态头=用户A（资源属主）  → 200  返回用户A自己�
 tools/call + 动态头=用户B（无资源）    → 200  total=0  ← 数据权限按真实调用者隔离
 X-Api-Key 错误                        → 401  JSON-RPC error
 ```
+
 两个容易忽略的发布前置项：**Provider 域名要进网关白名单**；**凭证用请求头 + 加密存储**，不要放 URL（网关日志会明文记录）。
 
 ---
@@ -268,12 +247,11 @@ X-Api-Key 错误                        → 401  JSON-RPC error
 
 两端我们都坚持"本地全绿才上预发、预发矩阵通过才进发布"，差异化的矩阵如下：
 
-
-| 层级 | MCP Client                                                   | MCP Server                                                          |
-| ---- | ------------------------------------------------------------ | ------------------------------------------------------------------- |
+| 层级 | MCP Client | MCP Server |
+|------|-----------|-----------|
 | 本地 | tsc + build + 定向测试（Gateway/Compiler/Adapter）+ 全量回归 | initialize/tools/list/tools/call 冒烟 + 三态鉴权用例 + 用户隔离用例 |
-| 预发 | 真实凭证连外部 Server，跑通含`mcpCall` 步骤的任务            | 网关连通性 → 工具发现 → 带注入身份的调用 → 错误密钥 Negative     |
-| 治理 | invocation 记录 + traceId + 脱敏长度                         | callSource 审计 + 幂等键 + 有限目录                                 |
+| 预发 | 真实凭证连外部 Server，跑通含 `mcpCall` 步骤的任务 | 网关连通性 → 工具发现 → 带注入身份的调用 → 错误密钥 Negative |
+| 治理 | invocation 记录 + traceId + 脱敏长度 | callSource 审计 + 幂等键 + 有限目录 |
 
 发布层面：MCP Server 的 Provider 走常规 CI/CD 流水线；网关侧的注册、域名白名单、请求头配置是**独立于代码的发布前置项**——写进发布 checklist 能省掉大量来回。
 
@@ -317,8 +295,3 @@ MCP 的价值在于**互操作的标准接口**：当平台同时具备"调度�
 ---
 
 *注：本文为对外技术分享版本，涉及企业内部平台名称、域名、凭证与业务数据均已泛化或脱敏。*
-
-```
-
-```
-
