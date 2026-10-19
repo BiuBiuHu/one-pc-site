@@ -4,7 +4,7 @@ import { site } from "../data/site";
 import Icon from "../components/Icon.astro";
 import Analytics from "@vercel/analytics/astro";
 
-const { title, description, type = "website", image, altLocaleUrl } = Astro.props;
+const { title, description, type = "website", image, altLocaleUrl, robots } = Astro.props;
 const isEn = Astro.currentLocale === "en";
 const path = Astro.url.pathname;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · 个人站点`;
@@ -13,8 +13,21 @@ const desc =
   (isEn
     ? "One PC — open source projects, daily thoughts, and ready-to-use services."
     : "One PC 的个人站点 —— 开源项目、日常思考，以及邮件、AI 等可直接使用的服务。");
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+if (!canonicalUrl.pathname.endsWith("/")) canonicalUrl.pathname += "/";
+const canonical = canonicalUrl.href;
 const ogImage = image ? new URL(image, Astro.site).href : null;
+const isHome = path === "/" || path === "/en" || path === "/en/";
+const altAbs = altLocaleUrl ? new URL(altLocaleUrl, Astro.site).href : null;
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.name,
+  url: new URL("/", Astro.site).href,
+  description: desc,
+  inLanguage: isEn ? "en-US" : "zh-CN",
+  publisher: { "@type": "Person", name: site.name, url: new URL("/", Astro.site).href }
+};
 
 const NAV = isEn
   ? [
@@ -43,7 +56,9 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={desc} />
+    {robots && <meta name="robots" content={robots} />}
     <meta name="theme-color" content="#4f46e5" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:type" content={type} />
@@ -56,6 +71,16 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta name="twitter:description" content={desc} />
     {ogImage && <meta property="og:image" content={ogImage} />}
     {ogImage && <meta name="twitter:image" content={ogImage} />}
+    {
+      type !== "article" && !robots && altAbs && (
+        <>
+          <link rel="alternate" hreflang={isEn ? "en-US" : "zh-CN"} href={canonical} />
+          <link rel="alternate" hreflang={isEn ? "zh-CN" : "en-US"} href={altAbs} />
+          <link rel="alternate" hreflang="x-default" href={isEn ? altAbs : canonical} />
+        </>
+      )
+    }
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />}
     <link rel="alternate" type="application/rss+xml" title={`${site.name} · ${isEn ? "Blog RSS" : "博客 RSS"}`} href={isEn ? "/en/rss.xml" : "/rss.xml"} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>

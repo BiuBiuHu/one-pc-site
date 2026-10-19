@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ArticlePost from "../../components/ArticlePost.astro";
+import ArticleSeo from "../../components/ArticleSeo.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -27,5 +28,6 @@ const altLocaleUrl = hasEn ? `/en/blog/${slug}/` : "/en/blog/";
   image={post.data.ogImage}
   altLocaleUrl={altLocaleUrl}
 >
+  <ArticleSeo slot="head" post={post} lang="zh" hasEn={hasEn} />
   <ArticlePost post={post} lang="zh" />
 </Base>

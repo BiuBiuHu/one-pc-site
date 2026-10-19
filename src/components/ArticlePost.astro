@@ -1,7 +1,6 @@
 ---
 import Comments from "./Comments.astro";
 import Icon from "./Icon.astro";
-import { site } from "../data/site";
 import { render, getCollection } from "astro:content";
 
 interface Props {
@@ -20,20 +19,7 @@ const dateLocale = isEn ? "en-US" : "zh-CN";
 const fmt = (d) =>
   d.toLocaleDateString(dateLocale, { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
 
-const canonical = new URL(`${isEn ? "/en" : ""}/blog/${slug}`, Astro.site).href;
-const zhUrl = new URL(`/blog/${slug}`, Astro.site).href;
-const enUrl = new URL(`/en/blog/${slug}`, Astro.site).href;
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.data.title,
-  description: post.data.excerpt || undefined,
-  datePublished: post.data.date.toISOString(),
-  url: canonical,
-  author: { "@type": "Person", name: site.name },
-  inLanguage: isEn ? "en-US" : "zh-CN"
-};
+const canonical = new URL(`${isEn ? "/en" : ""}/blog/${slug}/`, Astro.site).href;
 
 const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博客", toc: "目录" };
 const shareText = encodeURIComponent(post.data.title);
@@ -54,11 +40,6 @@ const seriesPosts = series
   : [];
 const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
 ---
-<script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-<link slot="head" rel="alternate" hreflang="zh" href={zhUrl} />
-<link slot="head" rel="alternate" hreflang="en" href={enUrl} />
-<link slot="head" rel="alternate" hreflang="x-default" href={zhUrl} />
-
 <section class="page">
   <div class={`article-layout ${tocItems.length ? "has-toc" : ""}`}>
     {

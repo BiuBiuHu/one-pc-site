@@ -1,0 +1,37 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  post: any;
+  lang: "zh" | "en";
+  hasEn?: boolean;
+}
+
+const { post, lang, hasEn = false } = Astro.props;
+const isEn = lang === "en";
+const slug = post.id.replace(/-en$/, "");
+const canonical = new URL(`${isEn ? "/en" : ""}/blog/${slug}/`, Astro.site).href;
+const zhUrl = new URL(`/blog/${slug}/`, Astro.site).href;
+const enUrl = new URL(`/en/blog/${slug}/`, Astro.site).href;
+const showEnHreflang = isEn || hasEn;
+const ogImage = post.data.ogImage ? new URL(post.data.ogImage, Astro.site).href : undefined;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.excerpt || undefined,
+  datePublished: post.data.date.toISOString(),
+  dateModified: post.data.date.toISOString(),
+  url: canonical,
+  mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
+  author: { "@type": "Person", name: site.name, url: site.githubUrl },
+  publisher: { "@type": "Person", name: site.name, url: new URL("/", Astro.site).href },
+  inLanguage: isEn ? "en-US" : "zh-CN",
+  image: ogImage
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<link rel="alternate" hreflang="zh-CN" href={zhUrl} />
+{showEnHreflang && <link rel="alternate" hreflang="en-US" href={enUrl} />}
+<link rel="alternate" hreflang="x-default" href={zhUrl} />

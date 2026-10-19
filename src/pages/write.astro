@@ -4,7 +4,7 @@ import Base from "../layouts/Base.astro";
 // Vditor 经 CDN 引入（不打包），所有编辑器代码在 <script is:inline> 客户端执行，
 // 避免 Astro 静态构建在 Node 端引用 window/document 而失败。
 ---
-<Base title="写作">
+<Base title="写作" robots="noindex, nofollow">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.11.2/dist/index.css" />
 
   <section class="page write-page">

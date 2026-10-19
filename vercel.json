@@ -8,6 +8,8 @@
     }
   },
   "redirects": [
+    { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/sitemap.xml/", "destination": "/sitemap-index.xml", "permanent": true },
     { "source": "/blog/mrcbr7lq", "destination": "/blog/mslj4f6g", "permanent": true },
     { "source": "/blog/mrcbr7lq/", "destination": "/blog/mslj4f6g", "permanent": true },
     { "source": "/blog/%E6%89%93%E9%80%A0ai%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%B2%A1%E6%9C%89%E9%93%B6%E5%BC%B9-mrcbr7lq", "destination": "/blog/mslj4f6g", "permanent": true },

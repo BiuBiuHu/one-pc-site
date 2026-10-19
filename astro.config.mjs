@@ -12,6 +12,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      filter: (page) => !page.includes("/write"),
       i18n: {
         defaultLocale: "zh",
         locales: {
