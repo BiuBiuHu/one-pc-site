@@ -143,14 +143,7 @@ Streamable HTTP 取代了第一代的 HTTP+SSE 双端点方案，而且**规范�
 
 所有入口（手动/Agent/脚本执行）共享同一条时序：
 
-```
-invoke(actorUserId, serverKey, toolName, input)
-  → 建 queued invocation + traceId
-  → 校验 Tool scope / 授权状态 / Input Schema / 超时
-  → 从 Vault 读取当前用户凭证
-  → 创建 MCP Client（Streamable HTTP，兼容 SSE）→ initialize → tools/call
-  → 脱敏、限长、耗时统计 → 更新 invocation 状态
-```
+![所有入口汇聚到服务端同一条 invoke 链路](/images/mv99wysd/invoke-flow.png)
 
 Agent 侧通过薄适配器把个人 MCP Tool 动态包装成平台 ToolRegistry 里的标准 Tool，让 Agent 自主决定何时调用。
 
