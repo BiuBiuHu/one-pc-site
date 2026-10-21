@@ -2,7 +2,7 @@
 title: "One Platform, Two Roles: Practicing MCP Client and Server in an AI Testing Platform"
 date: 2026-10-15
 excerpt: "How an AI testing platform plays both MCP roles: as a Client so the test agent can call company-wide tools, and as a Server so those testing capabilities become tools anyone can invoke. A three-layer protocol primer, dual-sided engineering notes, and a postmortem of wiring a gateway from errors to the spec-compliant path."
-category: Thoughts
+category: AI
 lang: en
 ---
 
