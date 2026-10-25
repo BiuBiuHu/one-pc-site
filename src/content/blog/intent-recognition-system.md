@@ -1,7 +1,7 @@
 ---
-title: 意图识别系统设计：无界给模型、有界给代码
+title: 意图识别：无界给模型、有界给代码
 date: 2026-09-07
-excerpt: 意图识别不是一个分类问题，而是一条「可观察、可校验、允许承认不确定」的执行链。核心原则一句话：无界问题给模型（听懂），有界问题给代码（算准、守住）。这篇讲清这套系统的完整设计。
+excerpt: 意图识别（含意图解析 / intent parsing）不是分类问题，而是一条可观察、可校验、允许承认不确定的执行链：无界语言给模型听懂，有界事实给代码算准、守住。
 category: AI
 series: 意图识别
 ogImage: /images/intent-recognition-system.png
@@ -142,3 +142,7 @@ export function isScheduleClarificationReply(message: string): boolean {
 意图识别最后没有成为一个更大的分类器。它变成了一条**可观察、可校验、允许承认不确定**的执行链。
 
 如果你的 Agent 也在做意图识别，先问一个问题：**你是在「把意图猜得更准」，还是在「猜错时不造成破坏」？** 前者是无限的军备竞赛，后者才是能落地成代码的设计。把无界的交给模型，把有界的留在代码，把安全押在「数据库发生了什么」而不是「模型说了什么」——这三条，是这套系统最重要的东西。
+
+## 相关阅读
+
+意图识别定了「要干什么」。接工具见 [MCP 双角色](/blog/mv99wysd/)，读知识见 [RAG](/blog/rag-retrieval-augmented-generation/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。

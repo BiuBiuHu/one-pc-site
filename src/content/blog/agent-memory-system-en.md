@@ -1,7 +1,7 @@
 ---
-title: "Agent Long-Term Memory: A Complete Design from Async Extraction to Hybrid Retrieval"
+title: "Hybrid Retrieval for Agent Memory: Dense, Lexical, and RRF"
 date: 2026-09-07
-excerpt: "A complete agent memory system has three mainlines: the write path (outbox async extraction that never slows chat), the read path (dense + lexical hybrid retrieval with RRF), and governance (four-state decision + bitemporal invalidation). This post lays out the whole thing."
+excerpt: "How to build hybrid retrieval for agent memory: dense + lexical recall fused with RRF, plus an async write path and four-state governance so retrieval stays accurate without slowing chat."
 category: AI
 ogImage: /images/agent-memory-system.png
 lang: en
@@ -117,3 +117,7 @@ A complete agent memory system is five sentences:
 5. **Memory is a reference, not a fact**: anti-corruption constraints block escalation.
 
 If your agent is getting memory, don't start from "store key-value". First think through the three mainlines — write, read, governance — and how each one catches "slow", "wrong", and "overreach". Nail those three and the rest is copying mature patterns (four-state from Mem0, bitemporal from Graphiti, RRF from your existing implementation) instead of reinventing them.
+
+## Further reading
+
+Hybrid retrieval isn't only for memory. Reading a private knowledge base is in [RAG](/en/blog/rag-retrieval-augmented-generation/); wiring tools is in [MCP dual-role](/en/blog/mv99wysd/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).

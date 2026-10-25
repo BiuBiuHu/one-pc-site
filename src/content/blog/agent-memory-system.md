@@ -1,7 +1,7 @@
 ---
-title: Agent 长期记忆系统：从异步提取到混合检索的完整设计
+title: 混合检索做 Agent 记忆：dense + lexical + RRF
 date: 2026-09-07
-excerpt: 一个完整的 Agent 记忆系统有三条主线：写路径（outbox 异步提取，不拖慢对话）、读路径（dense + lexical 混合检索 + RRF 融合）、治理（四态判定 + 双时态标记失效）。这篇讲清它长什么样。
+excerpt: 怎么给 Agent 记忆做混合检索：dense + lexical 双路召回、RRF 融合，再配上异步写路径和四态治理，查得准还不拖慢对话。
 category: AI
 ogImage: /images/agent-memory-system.png
 ---
@@ -116,3 +116,7 @@ flowchart TB
 5. **记忆是参考不是事实**：防腐化约束挡住越权。
 
 如果你的 Agent 要加记忆，别从「存 key-value」开始。先想清楚这三条主线——写、读、治理——各自怎么兜住「慢」「错」「越权」这三个坑。想清楚这三条，剩下的是照着抄成熟方案（四态照 Mem0、双时态照 Graphiti、RRF 照已有实现），不用重新发明。
+
+## 相关阅读
+
+混合检索不只有记忆这一条线。读私有知识库见 [RAG](/blog/rag-retrieval-augmented-generation/)；给 Agent 接工具见 [MCP 双角色](/blog/mv99wysd/)；跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。

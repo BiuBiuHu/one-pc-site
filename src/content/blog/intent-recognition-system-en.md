@@ -1,7 +1,7 @@
 ---
-title: "Intent Recognition System Design: Unbounded Problems to the Model, Bounded Problems to Code"
+title: "Intent Recognition: Unbounded to the Model, Bounded to Code"
 date: 2026-09-07
-excerpt: "Intent recognition isn't a classification problem — it's an observable, verifiable execution chain that's allowed to admit uncertainty. One principle: give unbounded problems to the model (understanding), bounded problems to code (compute and guard)."
+excerpt: "Intent recognition (and intent parsing) isn't a classification problem — it's an observable, verifiable execution chain that can admit uncertainty. Give unbounded language to the model; keep bounded facts in code."
 category: AI
 series: 意图识别
 ogImage: /images/intent-recognition-system.png
@@ -143,3 +143,7 @@ Model behavior — tested with a real model
 Intent recognition didn't become a bigger classifier. It became an **observable, verifiable execution chain that's allowed to admit uncertainty**.
 
 If your agent is doing intent recognition, ask one question first: **are you "guessing intent more accurately", or "avoiding damage when the guess is wrong"?** The former is an endless arms race; the latter is a design that lands in code. Give the unbounded to the model, keep the bounded in code, and pin safety on "what the database did" rather than "what the model said" — those three are the most important things in this system.
+
+## Further reading
+
+Intent recognition decides *what to do*. Wiring tools is in [MCP dual-role](/en/blog/mv99wysd/); reading knowledge is in [RAG](/en/blog/rag-retrieval-augmented-generation/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).
