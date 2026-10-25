@@ -51,7 +51,7 @@ On the same timeline sits the **almanac** tab. The image calendar is today's col
 
 ![Anpai web almanac: today's do/avoid and focus windows](/images/anpai-vs-ticktick-free/almanac-ui.png)
 
-TickTick free treats calendar as a basic view over lists; day view and richer calendar sit behind Premium. Image calendar and almanac are not on that axis — they answer "why open today," not "add another month view next to the list." To look once, use the image-calendar link above.
+TickTick free treats calendar as a basic view over lists; agenda/day view and richer calendar sit behind Premium. Image calendar and almanac are not on that axis — they answer "why open today," not "add another month view next to the list." To look once, use the image-calendar link above.
 
 ## Goals and milestones: direction is more than a January note
 
@@ -105,11 +105,11 @@ Back to the doorway. TickTick's free tier is a complete todo app:
 - **List and board views**
 - **Smart parse, reminders, multi-device sync**
 
-The upgrade page also lists finer free limits: attachments 1/day, checklist items 19/task, reminders 2, share members 2, habits 5, anniversaries 5. Calendar views are "basic" (基础) on free, unlimited on Premium. **Day view is a Premium core feature:** opening 日视图 brings an upgrade modal about planning the day, with an orange「立即升级」button. That is not a claim that free calendar "doesn't exist" or "has no month view." Free still has a basic calendar; day view and the richer calendar / time-block features sit behind the paywall.
+The upgrade page also lists finer free limits: attachments 1/day, checklist items 19/task, reminders 2, share members 2, habits 5, anniversaries 5. Calendar views are "basic" (基础) on free, unlimited on Premium. **Agenda view is a Premium core feature:** opening Agenda View brings an upgrade modal about planning the day, with an orange **Upgrade Now** button. That is not a claim that free calendar "doesn't exist" or "has no month view." Free still has a basic calendar; agenda/day view and the richer calendar / time-block features sit behind the paywall.
 
-![TickTick day-view upgrade modal](/images/anpai-vs-ticktick-free/ticktick-day-view-paywall.png)
+![TickTick Agenda View upgrade modal](/images/anpai-vs-ticktick-free/ticktick-agenda-view-paywall-en.png)
 
-On Anpai, **month / week / day are the home screen, with no upgrade wall.** Open [web.anpai.life](https://web.anpai.life/) and switch among the three. Sign-in appears the first time you add or edit. The contrast is "does day view cost extra," not "does TickTick have a calendar."
+On Anpai, **month / week / day are the home screen, with no upgrade wall.** Open [web.anpai.life](https://web.anpai.life/) and switch among the three. Sign-in appears the first time you add or edit. The contrast is "does agenda/day view cost extra," not "does TickTick have a calendar."
 
 Premium, around ¥139/year, unlocks 299 lists, 999 tasks per list, plus richer calendar, task time blocks, WeChat reminders, themes, timeline, and more AI. For a heavy list user, that is a reasonable subscription.
 
@@ -121,7 +121,7 @@ Anpai does not try to match TickTick on list count, habit streaks, or checklist 
 | --- | --- | --- |
 | Center of gravity | Lists / tasks | Calendar + goals + review + Agent |
 | What you open every day | Lists and boards | Month / week / day as home |
-| Calendar views | Free is "basic"; day view is Premium | Month / week / day free; sign in when you edit |
+| Calendar views | Free is "basic"; agenda/day view is Premium | Month / week / day free; sign in when you edit |
 | Image calendar / almanac | No counterpart; calendar is a view over lists | A daily AI poster; almanac gives do/avoid and focus windows |
 | Where direction lives | Lists and tags you invent | Yearly goals, milestones, time spent |
 | How a week closes | Check off tasks | Weekly review + AI insight, then next week |
