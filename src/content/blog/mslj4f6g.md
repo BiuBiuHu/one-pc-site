@@ -1,7 +1,7 @@
 ---
-title: Loop Engineering 没有银弹：垂直场景的 Skills + spec/TDD 落地实践
+title: Loop Engineering 没有银弹：垂直场景 Skills + spec/TDD 落地 coding agent
 date: 2026-08-09
-excerpt: 追求大而全的"全自动驾驶"行不通。我用 coding agent 密集开发半年后的结论：Loop Engineering 的正确载体是垂直场景的 Skills，核心是 spec + TDD。
+excerpt: 追求大而全的「全自动驾驶」行不通。密集用 coding agent 半年后的结论：Loop Engineering 的正确载体是垂直场景 Skills，核心是 spec + TDD。
 category: 思考
 ---
 
@@ -60,3 +60,7 @@ Skills 就是 Loop Engineering 的最佳载体：每个垂直场景应该有自�
 项目地址：https://github.com/BiuBiuHu/opc-skills
 
 欢迎大家提 PR。
+
+## 相关阅读
+
+同一条「一人把产品做完」的线上：Skills 与完整软件生产见 [OPC 软件研发实践](/blog/opc-software-practice/)。若要给 agent 接上可调度的外部工具，可看 [MCP 入门](/blog/mv99u875/) 与 [MCP 双角色实践](/blog/mv99wysd/)。

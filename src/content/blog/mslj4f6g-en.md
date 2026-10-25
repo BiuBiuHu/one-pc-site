@@ -1,7 +1,7 @@
 ---
-title: "Loop Engineering Has No Silver Bullet: Vertical Skills + spec/TDD"
+title: "Loop Engineering Has No Silver Bullet: Vertical Skills, spec/TDD, and the Coding Agent"
 date: 2026-08-09
-excerpt: "Chasing one big \"fully autonomous\" loop doesn't work. After half a year of intensive coding-agent development, my conclusion: the right carrier for Loop Engineering is per-vertical Skills, with spec + TDD at the core."
+excerpt: "Chasing one big \"fully autonomous\" loop doesn't work. After half a year of intensive coding-agent work, my conclusion: the right carrier for Loop Engineering is per-vertical Skills, with spec + TDD at the core."
 category: Thoughts
 lang: en
 ---
@@ -61,3 +61,7 @@ Since it's Loop Engineering, shipping has to be part of the loop. I use Vercel a
 Project: https://github.com/BiuBiuHu/opc-skills
 
 PRs welcome.
+
+## Further reading
+
+On the same "one person ships a product" line: Skills and the full software production loop are in [OPC software practice](/en/blog/opc-software-practice/). To give an agent callable external tools, see [MCP intro](/en/blog/mv99u875/) and [MCP dual-role practice](/en/blog/mv99wysd/).

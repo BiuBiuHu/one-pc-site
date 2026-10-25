@@ -1,7 +1,7 @@
 ---
-title: "One Platform, Two Roles: Practicing MCP Client and Server in an AI Testing Platform"
+title: "MCP Dual Role: Client and Server Together on an AI Testing Platform"
 date: 2026-10-15
-excerpt: "How an AI testing platform plays both MCP roles: as a Client so the test agent can call company-wide tools, and as a Server so those testing capabilities become tools anyone can invoke. A three-layer protocol primer, dual-sided engineering notes, and a postmortem of wiring a gateway from errors to the spec-compliant path."
+excerpt: "An AI testing platform in both MCP roles — Client and Server: a three-layer protocol primer, dual-sided engineering notes, and a postmortem of wiring a gateway from errors to the spec-compliant path."
 category: AI
 lang: en
 ---
@@ -289,3 +289,7 @@ MCP's value is a **standard interface for interoperability**. When a platform ca
 ---
 
 *Note: this is an external technical-sharing version. Internal platform names, domains, credentials, and business data have been generalized or redacted.*
+
+## Further reading
+
+For the protocol itself, see [MCP intro](/en/blog/mv99u875/). On the same agent capability chain, reading knowledge is in [RAG](/en/blog/rag-retrieval-augmented-generation/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).

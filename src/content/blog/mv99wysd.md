@@ -1,7 +1,7 @@
 ---
-title: 一平台双角色：在 AI 测试平台中同时实践 MCP Client 与 MCP Server
+title: MCP 双角色：在 AI 测试平台同时做 MCP Client 与 MCP Server
 date: 2026-10-15
-excerpt: 一个 AI 测试平台同时做 MCP Client 与 Server：原理三层速览、双端工程实践，以及接入网关时从报错到规范姿势的排障复盘。
+excerpt: 一个 AI 测试平台同时扮演 MCP Client 与 Server 双角色：原理三层速览、双端工程实践，以及接入网关时从报错到规范姿势的排障复盘。
 category: AI
 ---
 
@@ -288,3 +288,7 @@ MCP 的价值在于**互操作的标准接口**：当平台同时具备"调度�
 ---
 
 *注：本文为对外技术分享版本，涉及企业内部平台名称、域名、凭证与业务数据均已泛化或脱敏。*
+
+## 相关阅读
+
+若先要协议本身，见 [MCP 入门](/blog/mv99u875/)。同一条 Agent 能力链上，读知识见 [RAG](/blog/rag-retrieval-augmented-generation/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。

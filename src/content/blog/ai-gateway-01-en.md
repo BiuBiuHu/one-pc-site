@@ -1,7 +1,7 @@
 ---
-title: "Why I Built an AI Gateway"
+title: "Why I Built an AI Gateway: Model Routing, Cost, and Rate Limits for Indie Developers"
 date: 2026-05-07
-excerpt: "For indie developers, an AI gateway isn't showing off — it's the smallest engineering unit that unifies model access, cost, and stability. This post covers the five capabilities a production gateway needs, and the traps behind each."
+excerpt: "For indie developers, an AI Gateway isn't showing off — it's the smallest engineering unit that unifies model access, cost, rate limits, and stability. This post covers the five capabilities a production gateway needs, and the traps behind each."
 category: AI
 ogImage: /images/ai-gateway-01.png
 lang: en
@@ -87,3 +87,7 @@ The five capabilities answer five questions:
 5. Billing & cost — **where the money went** (separate reasonable from abnormal)
 
 If you're building a long-term product rather than a throwaway demo, a gateway is nearly mandatory — it saves you rework after rework when you later add models, control cost, and operate the thing.
+
+## Further reading
+
+A gateway pulls model access and cost into one place. For shipping a product end-to-end as one person, see [OPC software practice](/en/blog/opc-software-practice/); for running a coding agent with vertical Skills and spec/TDD, see [Loop Engineering](/en/blog/mslj4f6g/).
