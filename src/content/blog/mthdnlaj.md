@@ -116,7 +116,7 @@ System Context
 
 ---
 
-# 二、不要让“意图识别”成为整个系统的中心
+## 二、不要让“意图识别”成为整个系统的中心
 
 我最开始的思路其实比较传统。
 
@@ -204,7 +204,7 @@ Calendar Event Event
 
 ---
 
-# 三、把日历能力变成 Tools，而不是无限扩充 Intent
+## 三、把日历能力变成 Tools，而不是无限扩充 Intent
 
 于是我开始把日历的基础能力注册成 Tools。
 
@@ -297,7 +297,7 @@ User: 明天下午三点
 
 ---
 
-# 四、Tool Calling 失败，也不意味着 Agent 失败
+## 四、Tool Calling 失败，也不意味着 Agent 失败
 
 接下来又出现了另一个现实问题。
 
@@ -433,7 +433,7 @@ Network Error
 
 ---
 
-# 五、做到这里以后，我又发现了一个问题：ReAct 会漂移
+## 五、做到这里以后，我又发现了一个问题：ReAct 会漂移
 
 如果整个系统只是：
 
@@ -498,11 +498,11 @@ Agent可能需要：
 
 ---
 
-# 六、Planner 的三种实现
+## 六、Planner 的三种实现
 
 目前我认为比较典型的有三种。
 
-## 方案一：Planner 内置在 Agent Loop
+### 方案一：Planner 内置在 Agent Loop
 
 第一轮强制生成 Plan：
 
@@ -543,7 +543,7 @@ Plan:
 
 ---
 
-## 方案二：独立 Planner Agent
+### 方案二：独立 Planner Agent
 
 把 Planner 和 Executor 完全拆开：
 
@@ -585,7 +585,7 @@ Latency、Token Cost、系统复杂度都会增加。
 
 ---
 
-# 七、第三种方案反而是我目前最喜欢的：Planner as a Tool
+## 七、第三种方案反而是我目前最喜欢的：Planner as a Tool
 
 还有一种很有意思的设计：
 
@@ -671,7 +671,7 @@ Planner 从 Agent 的固定流程，变成了一种按需调用的认知能力�
 
 ---
 
-# 八、未来还可以继续演进：Hierarchical Planning
+## 八、未来还可以继续演进：Hierarchical Planning
 
 如果以后它不再只是一个 Calendar Agent，而逐渐成为一个 Life Assistant，那么 Planning 可能还需要继续分层。
 
@@ -729,7 +729,7 @@ Planner 自然就会从一个简单 Tool，逐渐演进成 Hierarchical Planner�
 
 ---
 
-# 九、重新看“意图识别”：也许它根本不是一个分类器
+## 九、重新看“意图识别”：也许它根本不是一个分类器
 
 走到这里，再回头看最开始的问题，会发现很有意思。
 
@@ -788,7 +788,7 @@ Intent Recognition 从一个独立模块，逐渐变成了 Agent Reasoning 的�
 
 ---
 
-# 十、Bad Case 修不完的时候，也许应该停下来看看架构
+## 十、Bad Case 修不完的时候，也许应该停下来看看架构
 
 做 AI 产品很容易陷入一种状态：
 
@@ -839,7 +839,7 @@ Observability
 
 ---
 
-# 写在最后
+## 写在最后
 
 最近做 Agent 越来越强烈的一个感受是：
 
