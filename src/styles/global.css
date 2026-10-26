@@ -342,6 +342,12 @@ main.main { flex: 1; }
 .prose th, .prose td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
 .prose th { background: var(--bg-subtle); font-weight: 600; color: var(--text); }
 .prose img { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
+.prose img[src*="tuli-poster-portrait"] {
+  display: block;
+  max-width: min(100%, 22rem);
+  margin-left: auto;
+  margin-right: auto;
+}
 .prose img.zoomable { cursor: zoom-in; }
 .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2em 0; }
 

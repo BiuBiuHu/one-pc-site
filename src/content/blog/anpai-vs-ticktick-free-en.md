@@ -35,23 +35,19 @@ Anpai's home is the calendar, not a view hanging off a list.
 
 The three views cut the same schedule. A common rhythm: use the month at the start to see density, the week on Monday to place blocks, the day to run them. The marketing line is the product bet: **the calendar should serve your direction, not just store events.**
 
-## Image calendar & almanac: a reason to open today
+## Image calendar & Almanac: a reason to open today
 
-Month / week / day make the time visible. When you open **today**, Anpai adds another layer — the **image calendar** (图历). It is not another todo list. It is one AI poster a day: solar date, lunar date, stem-branch (干支), and solar term on the page, plus that day's do/avoid (宜忌) and a quote. The same day can wear a different style — 纳瓦尔宝典 or 毛选, for example. The weather of the poster changes; the day does not.
+Month / week / day make the time visible. When you open **today**, Anpai adds another layer — the **Image calendar**. It is not another todo list. It is one AI poster a day: solar date, lunar date, stem-branch, and solar term on the page, plus that day's do/avoid and a quote. The free English default is **Naval Almanack**. The weather of the poster changes; the day does not.
 
-![Image-calendar poster for 23 August 2026: solar and lunar dates, stem-branch, do/avoid, and a quote](/images/anpai-vs-ticktick-free/tuli-poster-square.png)
+![English Naval Almanack image-calendar poster for 25 October 2026: DO and AVOID, and the quote “Admit what you don’t know, then ask.”](/images/anpai-vs-ticktick-free/tuli-poster-portrait-en.png)
 
-The same day also ships as a wide poster:
+The door is light: tap **Image calendar** at the top of the calendar, or open [web.anpai.life/en/calendar-image](https://web.anpai.life/en/calendar-image). You do not have to lay out a week first, or write a yearly goal. Looking at today is enough to feel whether this layer fits.
 
-![Wide image-calendar poster for the same day](/images/anpai-vs-ticktick-free/tuli-poster-medium.png)
+On the same timeline sits the **Almanac** tab. The image calendar is today's color; the Almanac turns the do/avoid into actions you can follow, and marks a few focus windows. One side is the poster. The other is how the day can still go.
 
-The door is light: tap **图片** at the top of the calendar, or open [web.anpai.life/calendar-image](https://web.anpai.life/calendar-image). You do not have to lay out a week first, or write a yearly goal. Looking at today is enough to feel whether this layer fits.
+![Anpai web Almanac: today's do/avoid and focus windows](/images/anpai-vs-ticktick-free/almanac-ui-en.png)
 
-On the same timeline sits the **almanac** tab. The image calendar is today's color; the almanac turns the do/avoid into actions you can follow, and marks a few focus windows. One side is the poster. The other is how the day can still go.
-
-![Anpai web almanac: today's do/avoid and focus windows](/images/anpai-vs-ticktick-free/almanac-ui.png)
-
-TickTick free treats calendar as a basic view over lists; agenda/day view and richer calendar sit behind Premium. Image calendar and almanac are not on that axis — they answer "why open today," not "add another month view next to the list." To look once, use the image-calendar link above.
+TickTick free treats calendar as a basic view over lists; agenda/day view and richer calendar sit behind Premium. Image calendar and Almanac are not on that axis — they answer "why open today," not "add another month view next to the list." To look once, use the image-calendar link above.
 
 ## Goals and milestones: direction is more than a January note
 
