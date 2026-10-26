@@ -3,11 +3,19 @@ import Base from "../../layouts/Base.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import Icon from "../../components/Icon.astro";
 import { projects } from "../../data/projects.en";
+import { site } from "../../data/site";
+import { opcSkillsJsonLd } from "../../lib/opc-skills-ld";
 
 const desc =
   "Open-source and personal products by One PC: Anpai.Life task calendar, OPC Skills delivery pipeline, and a unified multi-model AI Gateway.";
+const softwareLd = opcSkillsJsonLd({
+  isEn: true,
+  authorName: site.name,
+  authorUrl: new URL("/", Astro.site).href
+});
 ---
 <Base title="Open-source Projects" description={desc} altLocaleUrl="/projects/">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="boxes" size={14} />Open source</span>

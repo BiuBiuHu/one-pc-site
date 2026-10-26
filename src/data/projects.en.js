@@ -18,9 +18,9 @@ const projectList = [
   },
   {
     name: "OPC Skills",
-    tagline: "Codex Skill for C-side + B-side delivery pipeline",
+    tagline: "BiuBiuHu / One PC Codex skill template for OPC delivery",
     description:
-      "A Codex Skill for OPC/Dida-style products that chains requirement clarification, product design, B-side ops pages, architecture governance, development, testing, integration, and release gates into one reusable workflow — so agents keep making correct calls in complex business contexts.",
+      "BiuBiuHu's Codex skill template for OPC / C-end and B-end delivery (github.com/BiuBiuHu/opc-skills) — not ReScienceLab / opc.dev. It chains requirement clarification, product design, B-side ops pages, architecture governance, development, testing, integration, and release gates into one reusable workflow — so agents keep making correct calls in complex business contexts.",
     language: "Shell",
     languageColor: "#89e051",
     stars: 12,
