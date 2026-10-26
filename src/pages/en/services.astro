@@ -3,8 +3,11 @@ import Base from "../../layouts/Base.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
 import Icon from "../../components/Icon.astro";
 import { services } from "../../data/services.en";
+
+const desc =
+  "Services from One PC: a ready-to-use email sending API, a unified multi-model AI gateway, and one-on-one AI consulting from demo to production.";
 ---
-<Base title="Services" altLocaleUrl="/services/">
+<Base title="Email & AI Services" description={desc} altLocaleUrl="/services/">
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="arrow-up-right" size={14} />Services</span>

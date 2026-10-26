@@ -3,8 +3,11 @@ import Base from "../../layouts/Base.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import Icon from "../../components/Icon.astro";
 import { projects } from "../../data/projects.en";
+
+const desc =
+  "Open-source and personal products by One PC: Anpai.Life task calendar, OPC Skills delivery pipeline, and a unified multi-model AI Gateway.";
 ---
-<Base title="Projects" altLocaleUrl="/projects/">
+<Base title="Open-source Projects" description={desc} altLocaleUrl="/projects/">
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="boxes" size={14} />Open source</span>

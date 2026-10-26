@@ -3,8 +3,11 @@ import Base from "../layouts/Base.astro";
 import ServiceCard from "../components/ServiceCard.astro";
 import Icon from "../components/Icon.astro";
 import { services } from "../data/services";
+
+const desc =
+  "One PC 可直接使用的服务：邮件发送 API、统一多模型中转网关，以及从 Demo 到生产的 AI 研发咨询，也可按需定制。";
 ---
-<Base title="服务" altLocaleUrl="/en/services/">
+<Base title="邮件与 AI 服务" description={desc} altLocaleUrl="/en/services/">
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="arrow-up-right" size={14} />服务</span>
