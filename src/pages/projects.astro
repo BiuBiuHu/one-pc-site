@@ -3,11 +3,19 @@ import Base from "../layouts/Base.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Icon from "../components/Icon.astro";
 import { projects } from "../data/projects";
+import { site } from "../data/site";
+import { opcSkillsJsonLd } from "../lib/opc-skills-ld";
 
 const desc =
   "One PC 的开源与个人产品展示：Anpai.Life 任务日历、OPC Skills 研发流水线，以及统一多模型接入的 AI Gateway。";
+const softwareLd = opcSkillsJsonLd({
+  isEn: false,
+  authorName: site.name,
+  authorUrl: new URL("/", Astro.site).href
+});
 ---
 <Base title="开源项目" description={desc} altLocaleUrl="/en/projects/">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="boxes" size={14} />开源项目</span>

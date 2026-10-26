@@ -18,9 +18,9 @@ const projectList = [
   },
   {
     name: "OPC Skills",
-    tagline: "C 端 + B 端研发流水线 Codex Skill",
+    tagline: "BiuBiuHu / One PC 的 OPC 交付 Codex Skill 模板",
     description:
-      "面向 OPC/Dida 类产品的 Codex Skill，把需求澄清、产品设计、B 端运营页、架构治理、研发、测试、联调、发布门禁串成一套可复用工作流，让 Agent 在复杂业务里持续做正确判断。",
+      "BiuBiuHu（github.com/BiuBiuHu/opc-skills）维护的 Codex Skill 模板，面向 OPC / C 端与 B 端交付，与 ReScienceLab 的 opc.dev 不是同一项目。把需求澄清、产品设计、B 端运营页、架构治理、研发、测试、联调、发布门禁串成一套可复用工作流，让 Agent 在复杂业务里持续做正确判断。",
     language: "Shell",
     languageColor: "#89e051",
     stars: 12,
