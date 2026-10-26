@@ -1,0 +1,69 @@
+---
+import Icon from "./Icon.astro";
+import RelatedReading from "./RelatedReading.astro";
+
+interface Props {
+  hub: any;
+  project: any;
+  relatedPosts: any[];
+  lang: "zh" | "en";
+}
+
+const { hub, project, relatedPosts, lang } = Astro.props;
+const isEn = lang === "en";
+const pick = (field) => (field && typeof field === "object" ? field[lang] : field);
+const projectsHref = isEn ? "/en/projects/" : "/projects/";
+const ui = isEn
+  ? { back: "All projects", tldr: "TL;DR", problem: "The problem", solution: "What it is", more: "All projects" }
+  : { back: "全部项目", tldr: "TL;DR", problem: "问题", solution: "做法", more: "全部项目" };
+---
+<section class="page">
+  <a class="back-link" href={projectsHref}>
+    <Icon name="arrow-left" size={14} />
+    {ui.back}
+  </a>
+
+  <div class="product-hub">
+    <div class="about-head">
+      <span class="eyebrow"><Icon name="boxes" size={14} />{pick(hub.eyebrow)}</span>
+      <h1>{pick(hub.h1)}</h1>
+      <p class="lead">{project.tagline}</p>
+    </div>
+
+    <div class="tldr card">
+      <p class="label">{ui.tldr}</p>
+      <p>{pick(hub.tldr)}</p>
+    </div>
+
+    <div class="about-copy">
+      <h2>{ui.problem}</h2>
+      {pick(hub.problem).map((p) => <p>{p}</p>)}
+      <h2>{ui.solution}</h2>
+      {pick(hub.solution).map((p) => <p>{p}</p>)}
+    </div>
+
+    <p class="product-note">{pick(hub.note)}</p>
+
+    <div class="prose product-install">
+      <h2>{pick(hub.install.heading)}</h2>
+      <p>{pick(hub.install.lead)}</p>
+      <pre><code>{hub.install.code}</code></pre>
+      <p>{pick(hub.install.after)}</p>
+    </div>
+
+    <div class="hero-actions about-actions">
+      <a
+        class="btn primary"
+        href={hub.cta.href}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {pick(hub.cta.label)}
+        <Icon name="arrow-up-right" size={16} />
+      </a>
+      <a class="btn ghost" href={projectsHref}>{ui.more}</a>
+    </div>
+
+    <RelatedReading posts={relatedPosts} lang={lang} />
+  </div>
+</section>

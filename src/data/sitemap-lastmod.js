@@ -84,6 +84,8 @@ function buildLastmodLookup() {
     ["/en/about", "src/pages/en/about.astro"],
     ["/projects", "src/pages/projects.astro"],
     ["/en/projects", "src/pages/en/projects.astro"],
+    ["/projects/opc-skills", "src/pages/projects/opc-skills.astro"],
+    ["/en/projects/opc-skills", "src/pages/en/projects/opc-skills.astro"],
     ["/services", "src/pages/services.astro"],
     ["/en/services", "src/pages/en/services.astro"],
     ["/blog", "src/pages/blog/index.astro", latestZh],

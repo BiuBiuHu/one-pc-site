@@ -26,6 +26,8 @@ export async function GET(context) {
   out.push(`- [About](${base}/en/about/): English about`);
   out.push(`- [博客](${base}/blog/): 全部文章归档（按分类）`);
   out.push(`- [项目](${base}/projects/): 开源项目`);
+  out.push(`- [OPC Skills](${base}/projects/opc-skills/): BiuBiuHu 的 OPC 交付 Codex Skill 模板（非 opc.dev）`);
+  out.push(`- [OPC Skills (EN)](${base}/en/projects/opc-skills/): OPC Skills landing`);
   out.push(`- [服务](${base}/services/): 可直接使用的服务`);
   out.push("");
   out.push(`## 博客文章（${posts.length} 篇）`);

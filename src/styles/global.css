@@ -205,6 +205,8 @@ main.main { flex: 1; }
 .lang .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 .stars { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--muted); }
 .project-card h3 { margin: 0 0 4px; font-size: 17px; }
+.project-card h3 a { color: inherit; }
+.project-card h3 a:hover { color: var(--brand); }
 .project-card .tagline { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
 .project-card .desc { flex: 1; font-size: 14px; color: var(--text-2); line-height: 1.6; margin: 0 0 14px; }
 .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -410,6 +412,25 @@ main.main { flex: 1; }
 .about-copy p { margin: 0 0 1em; font-size: 16px; line-height: 1.75; }
 .about-copy p:last-child { margin-bottom: 0; }
 .about-actions { margin-top: 24px; }
+
+.product-hub { max-width: 62ch; }
+.product-hub .tldr { margin: 0 0 28px; }
+.product-hub .tldr .label {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted-2); margin: 0 0 8px;
+}
+.product-hub .tldr p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-2); }
+.product-hub h2 {
+  margin: 1.6em 0 0.6em; font-size: 1.25em;
+  padding-bottom: 0.3em; border-bottom: 1px solid var(--border);
+}
+.product-note {
+  margin: 20px 0 0; padding: 14px 16px;
+  background: var(--brand-soft); border: 1px solid var(--brand-line);
+  border-radius: var(--radius-sm); font-size: 14px; color: var(--text-2); line-height: 1.65;
+}
+.product-install { margin-top: 8px; }
+.product-hub .related-block { max-width: none; }
 
 .friends-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; min-width: 0; }
 .friends-list > li { min-width: 0; }
