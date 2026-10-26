@@ -1,4 +1,5 @@
 ---
+import ArticleFaq from "./ArticleFaq.astro";
 import Comments from "./Comments.astro";
 import Icon from "./Icon.astro";
 import RelatedReading from "./RelatedReading.astro";
@@ -13,7 +14,11 @@ interface Props {
 const { post, lang } = Astro.props;
 const isEn = lang === "en";
 const { Content, headings } = await render(post);
-const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const faqItems = post.data.faq || [];
+const tocItems = [
+  ...headings.filter((h) => h.depth >= 2 && h.depth <= 3),
+  ...(faqItems.length ? [{ depth: 2, slug: "faq", text: isEn ? "FAQ" : "常见问题" }] : [])
+];
 
 const slug = post.id.replace(/-en$/, "");
 const blogPath = isEn ? "/en/blog" : "/blog";
@@ -93,6 +98,7 @@ const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
       </header>
       <div class="prose">
         <Content />
+        <ArticleFaq items={faqItems} lang={lang} />
       </div>
     </div>
   </div>

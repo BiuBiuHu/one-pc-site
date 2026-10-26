@@ -12,7 +12,15 @@ const blog = defineCollection({
     ogImage: z.string().optional(),
     lang: z.string().default("zh"),
     draft: z.boolean().default(false),
-    series: z.string().optional()
+    series: z.string().optional(),
+    faq: z
+      .array(
+        z.object({
+          q: z.string(),
+          a: z.string()
+        })
+      )
+      .optional()
   })
 });
 

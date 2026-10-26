@@ -4,6 +4,17 @@ date: 2026-10-15
 excerpt: "MCP pulls tools out of the agent into a standalone process and exposes them over a standard protocol. Starting from the limits of ordinary in-process tools, this post walks through a custom MCP Server that clients like Cursor can call directly — plus remote MCP, auth, and the 2026 stateless spec."
 category: AI
 lang: en
+faq:
+  - q: "What is the essential difference between MCP and an ordinary Tool?"
+    a: "An ordinary Tool is a function that can only be called inside the agent process that defined it. An MCP Tool is a service that runs in a standalone process and is exposed over a standard protocol. Any client that speaks MCP can call it; you do not copy the tool code over and register it again."
+  - q: "Why can't you use console.log in stdio mode?"
+    a: "In stdio mode, stdout is a dedicated protocol wire for newline-delimited JSON-RPC. console.log writes non-JSON text, so the client fails to parse or disconnects. Send debug to console.error (stderr). In Node, console.info and console.warn also write stdout by default and are equally unsafe."
+  - q: "What is JSON-RPC 2.0, and how is it different from ordinary JSON?"
+    a: "JSON is a data format; JSON-RPC 2.0 is a protocol convention for remote calls in JSON. It has only request, response, and notification messages, and uses id to pair requests with responses. MCP picked it because a tool call is an action, and a bidirectional stdio stream fits request/response plus notifications."
+  - q: "When does the MCP Server start?"
+    a: "Cursor runs the command configured in mcp.json when it needs the process, and shuts it down when it does not. You do not manage the process lifecycle yourself."
+  - q: "How does the agent know what the MCP Server can do?"
+    a: "After connecting, the client sends tools/list. The server returns name, description, and parameter schema for every registered tool; the client injects that into the model. The agent does not know in advance — it discovers tools dynamically on every connection."
 ---
 
 > Goal: understand the MCP protocol, implement a custom MCP Server, and let Cursor call our tools

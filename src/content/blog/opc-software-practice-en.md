@@ -5,6 +5,17 @@ excerpt: "How can a solo developer ship a product alone? Using \"Arrange Life\" 
 category: Engineering
 ogImage: /images/opc-software-practice.png
 lang: en
+faq:
+  - q: "What is OPC software development?"
+    a: "OPC (One Person Company) software development means one person, with a coding agent, Skills, and mature cloud services, can cover a large part of a full software production lifecycle — product, design, development, testing, release, and operations."
+  - q: "Where should an OPC start?"
+    a: "Don't look for an idea first; look for a real pain point that keeps bothering you. For a first OPC, pick a market-proven track: a mature market, verified willingness to pay, your own real pain point, and clear differentiation."
+  - q: "What is the scarcest OPC resource?"
+    a: "Not tokens — time and energy. Optimize the cost of getting a useful result per unit of time. Use mature infrastructure instead of building it; on truly important work, a more stable model can be worth it, so low-value debugging does not break the feedback loop."
+  - q: "Why turn software development into Skills?"
+    a: "Don't tell the AI \"implement this\" from scratch every time. Settle Idea → Brainstorm → PRD → UED → technical design → development → test → integration → release into Skills. The end state is Loop Engineering: develop, test, find issues, fix, test again, so the agent can converge on its own."
+  - q: "What is actually worth accumulating in OPC?"
+    a: "Not which AI tools you used. Tools and models will change. What is worth accumulating is Skills, Context, and Loop: how the work should be done, why this product was built this way, and how the agent knows it did it right — and how to fix itself when it did not."
 ---
 
 For a while now I've been building my own product — **Arrange Life**, a scheduling calendar.

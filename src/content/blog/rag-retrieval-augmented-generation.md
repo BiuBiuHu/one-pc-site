@@ -3,6 +3,17 @@ title: RAG — 检索增强生成
 date: 2026-10-23
 excerpt: RAG 让 Agent 能回答私有知识库里的问题；这篇从切片、Embedding、向量库讲到混合 BM25+向量+RRF、精排、OpenSearch，以及私人 RAG 的 ACL / Permissions Collapse。
 category: AI
+faq:
+  - q: "RAG 解决什么问题？"
+    a: "LLM 的知识受训练数据限制，有时效性和私有性两个硬限制。RAG（检索增强生成）先检索相关文档再塞进 Prompt，让模型能回答私有知识库里的问题，而不只依赖训练时的知识。"
+  - q: "RAG 的三个阶段是什么？"
+    a: "离线阶段把文档切片、向量化并写入向量数据库。在线阶段把用户问题向量化，在库里找近邻，取出相关片段拼入 Prompt，再由 LLM 生成回答。"
+  - q: "为什么生产里不能只用向量检索？"
+    a: "向量管语义相近，BM25 管词面匹配。两者加上元数据过滤做多路召回，再用 RRF 融合排名，然后用 Rerank（cross-encoder）提升精确率。一个关键原则是先保证召回，再上 Rerank。"
+  - q: "什么是 Permissions Collapse？私人 RAG 该怎么做 ACL？"
+    a: "Permissions Collapse 指源系统里的细粒度权限在文档进入向量索引后丢失，所有能查库的人都可能语义命中全部文档。私人 RAG 必须把 ACL 作为检索层硬约束，在相似度计算前裁剪可见空间；召回后再过滤只能兜底，脱敏也不能替代访问控制。"
+  - q: "RAG、MCP、A2A 怎么分工？"
+    a: "同一条 Agent 能力链上，RAG 管读知识，MCP 管用工具，A2A 管和其他 Agent 协作。三者互补。"
 ---
 
 > 目标：让 Agent 能回答私有知识库里的问题，而不仅仅依赖模型训练时的知识。

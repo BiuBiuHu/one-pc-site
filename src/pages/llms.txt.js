@@ -27,7 +27,6 @@ export async function GET(context) {
   out.push(`- [博客](${base}/blog/): 全部文章归档（按分类）`);
   out.push(`- [项目](${base}/projects/): 开源项目`);
   out.push(`- [服务](${base}/services/): 可直接使用的服务`);
-  out.push(`- [写作](${base}/write/): 写作`);
   out.push("");
   out.push(`## 博客文章（${posts.length} 篇）`);
   out.push("");

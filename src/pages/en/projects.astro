@@ -3,14 +3,13 @@ import Base from "../../layouts/Base.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import Icon from "../../components/Icon.astro";
 import { projects } from "../../data/projects.en";
-import { site } from "../../data/site";
-import { opcSkillsJsonLd } from "../../lib/opc-skills-ld";
+import { projectsPageJsonLd } from "../../lib/product-ld";
 
 const desc =
   "Open-source and personal products by One PC: Anpai.Life task calendar, OPC Skills delivery pipeline, and a unified multi-model AI Gateway.";
-const softwareLd = opcSkillsJsonLd({
+const softwareLd = projectsPageJsonLd({
+  projects,
   isEn: true,
-  authorName: site.name,
   authorUrl: new URL("/", Astro.site).href
 });
 ---

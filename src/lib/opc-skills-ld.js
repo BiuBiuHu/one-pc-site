@@ -1,7 +1,9 @@
+import { personNode } from "../data/site.js";
+
 const REPO = "https://github.com/BiuBiuHu/opc-skills";
 
 /** SoftwareSourceCode JSON-LD for BiuBiuHu OPC Skills — not ReScienceLab / opc.dev. */
-export function opcSkillsJsonLd({ isEn, authorName, authorUrl }) {
+export function opcSkillsJsonLd({ isEn, authorUrl }) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
@@ -13,11 +15,7 @@ export function opcSkillsJsonLd({ isEn, authorName, authorUrl }) {
     url: REPO,
     codeRepository: REPO,
     sameAs: [REPO],
-    author: {
-      "@type": "Person",
-      name: authorName,
-      url: authorUrl
-    },
+    author: personNode({ url: authorUrl }),
     programmingLanguage: "Shell"
   };
 }

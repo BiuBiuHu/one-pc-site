@@ -1,0 +1,22 @@
+---
+interface Props {
+  items?: { q: string; a: string }[];
+  lang: "zh" | "en";
+}
+
+const { items = [], lang } = Astro.props;
+const heading = lang === "en" ? "FAQ" : "常见问题";
+---
+{
+  items.length > 0 && (
+    <section class="article-faq" aria-labelledby="faq">
+      <h2 id="faq">{heading}</h2>
+      {items.map(({ q, a }) => (
+        <div class="faq-item">
+          <h3>{q}</h3>
+          <p>{a}</p>
+        </div>
+      ))}
+    </section>
+  )
+}

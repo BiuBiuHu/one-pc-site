@@ -3,6 +3,17 @@ title: A2A — Agent-to-Agent 协议
 date: 2026-10-23
 excerpt: A2A 让不同进程、组织和厂商的 Agent 用任务状态机协作；这篇讲清 Agent Card、四步流程，以及一份可跑的 TypeScript 示例。
 category: AI
+faq:
+  - q: "A2A 是什么？"
+    a: "A2A（Agent-to-Agent）是 Google 于 2025 年 4 月发布、后来捐给 Linux Foundation 的开放协议。它让一个 Agent 能把任务委托给另一个完全陌生的 Agent 并拿回结果；对参与方按黑盒要求，只需要知道对方能做什么、怎么提交任务。"
+  - q: "A2A 和 MCP 是什么关系？"
+    a: "MCP 是 Agent 到工具/数据的垂直连接，相当于 Agent 的「手」；A2A 是 Agent 到 Agent 的水平连接，相当于「外交协议」。两者互补，不竞争。一个 Agent 可以同时用两者。"
+  - q: "既然 MCP 能把子 Agent 封装成工具，为什么还需要 A2A？"
+    a: "MCP 面向进程内或同信任域的工具调用，要求把对端能力细粒度暴露出来。跨组织时对方不愿暴露内部工具，也不想让你管它的任务生命周期。A2A 用任务状态机加黑盒封装，专门解决跨系统协作。"
+  - q: "A2A 的核心抽象和工作流程是什么？"
+    a: "核心抽象是 Agent Card（发现）、Task（生命周期）、Message/Artifact（对话与产物）。四步流程是发现、提交任务、获取进度、拿产物，全部走 JSON-RPC 2.0 over HTTP。"
+  - q: "A2A 任务为什么强调异步？"
+    a: "实际协作往往是长周期的，例如审批、预订、外部执行，同步阻塞不现实。Task 状态机加上轮询或 SSE，让双方可以独立演进。"
 ---
 
 > 目标：理解 A2A 协议，掌握跨进程/跨组织的 Agent 间协作，并写出一份可跑的 TypeScript 示例。

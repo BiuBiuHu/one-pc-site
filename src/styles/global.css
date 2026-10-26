@@ -431,6 +431,12 @@ main.main { flex: 1; }
 .friend-item:hover .friend-name { color: var(--brand); }
 .friend-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
+.article-faq { margin-top: 2.4em; padding-top: 0.4em; }
+.article-faq h2 { margin-top: 0; }
+.faq-item { margin: 0 0 1.2em; }
+.faq-item h3 { margin-top: 1.2em; font-size: 1.05em; }
+.faq-item p { margin: 0.4em 0 0; }
+
 .related-block {
   max-width: var(--prose);
   margin: 32px auto 0;

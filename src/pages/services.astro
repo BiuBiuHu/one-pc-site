@@ -3,11 +3,19 @@ import Base from "../layouts/Base.astro";
 import ServiceCard from "../components/ServiceCard.astro";
 import Icon from "../components/Icon.astro";
 import { services } from "../data/services";
+import { servicesPageJsonLd } from "../lib/service-ld";
 
 const desc =
   "One PC 可直接使用的服务：邮件发送 API、统一多模型中转网关，以及从 Demo 到生产的 AI 研发咨询，也可按需定制。";
+const pageUrl = new URL("/services/", Astro.site).href;
+const serviceLd = servicesPageJsonLd({
+  services,
+  pageUrl,
+  providerUrl: new URL("/", Astro.site).href
+});
 ---
 <Base title="邮件与 AI 服务" description={desc} altLocaleUrl="/en/services/">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceLd)} />
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="arrow-up-right" size={14} />服务</span>
