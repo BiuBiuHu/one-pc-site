@@ -292,4 +292,4 @@ MCP's value is a **standard interface for interoperability**. When a platform ca
 
 ## Further reading
 
-For the protocol itself, see [MCP intro](/en/blog/mv99u875/). On the same agent capability chain, reading knowledge is in [RAG](/en/blog/rag-retrieval-augmented-generation/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).
+For the protocol itself, see [MCP intro](/en/blog/mcp-model-context-protocol/). On the same agent capability chain, reading knowledge is in [RAG](/en/blog/rag-retrieval-augmented-generation/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).

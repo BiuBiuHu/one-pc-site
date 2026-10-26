@@ -120,4 +120,4 @@ If your agent is getting memory, don't start from "store key-value". First think
 
 ## Further reading
 
-Hybrid retrieval isn't only for memory. Reading a private knowledge base is in [RAG](/en/blog/rag-retrieval-augmented-generation/); wiring tools is in [MCP dual-role](/en/blog/mv99wysd/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).
+Hybrid retrieval isn't only for memory. Reading a private knowledge base is in [RAG](/en/blog/rag-retrieval-augmented-generation/); wiring tools is in [MCP dual-role](/en/blog/mcp-dual-role/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).

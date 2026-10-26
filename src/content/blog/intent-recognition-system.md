@@ -145,4 +145,4 @@ export function isScheduleClarificationReply(message: string): boolean {
 
 ## 相关阅读
 
-意图识别定了「要干什么」。接工具见 [MCP 双角色](/blog/mv99wysd/)，读知识见 [RAG](/blog/rag-retrieval-augmented-generation/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。
+意图识别定了「要干什么」。接工具见 [MCP 双角色](/blog/mcp-dual-role/)，读知识见 [RAG](/blog/rag-retrieval-augmented-generation/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。

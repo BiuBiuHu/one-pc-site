@@ -146,4 +146,4 @@ If your agent is doing intent recognition, ask one question first: **are you "gu
 
 ## Further reading
 
-Intent recognition decides *what to do*. Wiring tools is in [MCP dual-role](/en/blog/mv99wysd/); reading knowledge is in [RAG](/en/blog/rag-retrieval-augmented-generation/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).
+Intent recognition decides *what to do*. Wiring tools is in [MCP dual-role](/en/blog/mcp-dual-role/); reading knowledge is in [RAG](/en/blog/rag-retrieval-augmented-generation/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).

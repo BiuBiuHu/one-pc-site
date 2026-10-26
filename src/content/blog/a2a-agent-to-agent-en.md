@@ -62,7 +62,7 @@ They **complement each other; they do not compete**. One agent can use both at o
 
 > MCP is the agent's "hands"; A2A is the "diplomatic protocol" between agents. Complementary, not competing.
 > A three-way MCP / ACP / A2A comparison is complementary reading; this post only unpacks A2A.
-> To first get MCP as the "hands" side, see the on-site [MCP intro](/en/blog/mv99u875/) and [one platform, two roles](/en/blog/mv99wysd/).
+> To first get MCP as the "hands" side, see the on-site [MCP intro](/en/blog/mcp-model-context-protocol/) and [one platform, two roles](/en/blog/mcp-dual-role/).
 
 ---
 
@@ -408,7 +408,7 @@ A real agent is often "MCP inward, A2A outward":
 That matches the official one-liner: **"A2A is complementary to MCP"** —
 MCP gives the agent "hands"; A2A gives it "colleagues".
 
-The same pairing shows up in the on-site [MCP dual-role write-up](/en/blog/mv99wysd/), which covers the engineering of "MCP downward for tools". This post is the other half: "A2A sideways for tasks".
+The same pairing shows up in the on-site [MCP dual-role write-up](/en/blog/mcp-dual-role/), which covers the engineering of "MCP downward for tools". This post is the other half: "A2A sideways for tasks".
 
 ---
 

@@ -23,7 +23,7 @@ LLM 的知识来自训练数据，有两个硬限制：
 RAG 方式：用户问题 → 检索相关文档 → 把文档塞进 Prompt → LLM → 回答
 ```
 
-同一条 Agent 能力链上：RAG 管「读知识」，[MCP](/blog/mv99u875/) 管「用工具」（[双角色实践](/blog/mv99wysd/)），[A2A](/blog/a2a-agent-to-agent/) 管「和其他 Agent 协作」。三者互补。
+同一条 Agent 能力链上：RAG 管「读知识」，[MCP](/blog/mcp-model-context-protocol/) 管「用工具」（[双角色实践](/blog/mcp-dual-role/)），[A2A](/blog/a2a-agent-to-agent/) 管「和其他 Agent 协作」。三者互补。
 
 ---
 
@@ -894,4 +894,4 @@ LLM 生成
 
 ## 延伸阅读
 
-RAG 补的是「读私有 / 最新知识」。若还想让 Agent 评估并修正自己的输出，可以继续看 Reflection / 自我反思一类的设计。同一站点上，工具接入见 [MCP 入门](/blog/mv99u875/) 与 [一平台双角色实践](/blog/mv99wysd/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。
+RAG 补的是「读私有 / 最新知识」。若还想让 Agent 评估并修正自己的输出，可以继续看 Reflection / 自我反思一类的设计。同一站点上，工具接入见 [MCP 入门](/blog/mcp-model-context-protocol/) 与 [一平台双角色实践](/blog/mcp-dual-role/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。

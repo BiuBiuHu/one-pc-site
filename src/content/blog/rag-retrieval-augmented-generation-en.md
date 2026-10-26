@@ -24,7 +24,7 @@ Classic path: user question → LLM (training knowledge only) → answer
 RAG path:     user question → retrieve relevant docs → stuff them into the prompt → LLM → answer
 ```
 
-On the same agent capability chain: RAG covers "reading knowledge", [MCP](/en/blog/mv99u875/) covers "using tools" ([dual-role write-up](/en/blog/mv99wysd/)), and [A2A](/en/blog/a2a-agent-to-agent/) covers "collaborating with other agents". The three complement each other.
+On the same agent capability chain: RAG covers "reading knowledge", [MCP](/en/blog/mcp-model-context-protocol/) covers "using tools" ([dual-role write-up](/en/blog/mcp-dual-role/)), and [A2A](/en/blog/a2a-agent-to-agent/) covers "collaborating with other agents". The three complement each other.
 
 ---
 
@@ -894,4 +894,4 @@ In other words, **permission filtering happens before similarity, or inside the 
 
 ## Further reading
 
-RAG covers "reading private / fresh knowledge". If you also want an agent to evaluate and correct its own output, look at Reflection-style designs next. On this site, tool access is in [MCP intro](/en/blog/mv99u875/) and [one platform, two MCP roles](/en/blog/mv99wysd/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).
+RAG covers "reading private / fresh knowledge". If you also want an agent to evaluate and correct its own output, look at Reflection-style designs next. On this site, tool access is in [MCP intro](/en/blog/mcp-model-context-protocol/) and [one platform, two MCP roles](/en/blog/mcp-dual-role/); cross-agent collaboration is in [A2A](/en/blog/a2a-agent-to-agent/).
