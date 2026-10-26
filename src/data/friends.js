@@ -12,7 +12,7 @@ export const friends = [
     }
   },
   {
-    url: "https://hpoenixf.github.io/",
+    url: "https://hpoenixf.com/",
     name: {
       zh: "hpoenixf 的博客",
       en: "hpoenixf's Blog"
