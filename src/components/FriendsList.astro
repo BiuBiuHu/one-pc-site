@@ -1,0 +1,43 @@
+---
+import Icon from "./Icon.astro";
+import { friends } from "../data/friends";
+
+const isEn = Astro.currentLocale === "en";
+const ui = isEn
+  ? {
+      title: "Friends",
+      intro: "A few independent sites I also read."
+    }
+  : {
+      title: "友链",
+      intro: "几处我也会去翻的独立站。"
+    };
+---
+<section>
+  <div class="section-head">
+    <h2>{ui.title}</h2>
+    <p>{ui.intro}</p>
+  </div>
+  <ul class="friends-list">
+    {friends.map((friend) => {
+      const name = isEn ? friend.name.en : friend.name.zh;
+      const description = isEn ? friend.description.en : friend.description.zh;
+      return (
+        <li>
+          <a
+            class="friend-item"
+            href={friend.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="friend-name">
+              {name}
+              <Icon name="arrow-up-right" size={14} />
+            </span>
+            <span class="friend-desc">{description}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>
