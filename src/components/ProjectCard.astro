@@ -1,15 +1,28 @@
 ---
 import Icon from "./Icon.astro";
 import { githubRepoSlug } from "../lib/github-stars";
+import { hubPathForProject } from "../data/product-hubs";
 const { project } = Astro.props;
 const isEn = Astro.currentLocale === "en";
 const isWip = project.status === "wip";
-// 区分「开源仓库」（有 GitHub repo，显示 star、跳仓库）与「产品官网」（只有 homepage，跳官网）
+const hubHref = hubPathForProject(project.name, isEn);
+// 有独立入口页时标题和页脚进 hub；其余仍区分仓库 / 官网
 const repoFull = githubRepoSlug(project.repo);
 const isRepo = !!repoFull;
-const linkHref = isRepo ? project.repo : project.homepage || "#";
-const linkIcon = isRepo ? "github" : "external-link";
-const linkLabel = isRepo ? (isEn ? "Repository" : "仓库") : (isEn ? "Visit" : "访问");
+const linkHref = hubHref || (isRepo ? project.repo : project.homepage || "#");
+const linkIcon = hubHref ? "arrow-right" : isRepo ? "github" : "external-link";
+const linkLabel = hubHref
+  ? isEn
+    ? "Learn more"
+    : "了解更多"
+  : isRepo
+    ? isEn
+      ? "Repository"
+      : "仓库"
+    : isEn
+      ? "Visit"
+      : "访问";
+const linkExternal = !hubHref;
 const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开发中" : "维护中");
 ---
 <article class="card hover project-card">
@@ -23,7 +36,7 @@ const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开
     )}
   </div>
 
-  <h3>{project.name}</h3>
+  <h3>{hubHref ? <a href={hubHref}>{project.name}</a> : project.name}</h3>
   <p class="tagline">{project.tagline}</p>
   <p class="desc">{project.description}</p>
 
@@ -36,7 +49,12 @@ const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开
       <span class="pulse"></span>
       {statusText}
     </span>
-    <a class="repo-link" href={linkHref} target="_blank" rel="noreferrer">
+    <a
+      class="repo-link"
+      href={linkHref}
+      target={linkExternal ? "_blank" : undefined}
+      rel={linkExternal ? "noreferrer" : undefined}
+    >
       <Icon name={linkIcon} size={14} />
       {linkLabel}
     </a>

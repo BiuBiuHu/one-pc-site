@@ -1,0 +1,30 @@
+---
+import Base from "../../../layouts/Base.astro";
+import ProductHub from "../../../components/ProductHub.astro";
+import { getCollection } from "astro:content";
+import { projects } from "../../../data/projects.en";
+import { opcSkillsHub } from "../../../data/product-hubs";
+import { productLandingJsonLd } from "../../../lib/product-ld";
+
+const project = projects.find((p) => p.name === opcSkillsHub.projectName);
+const title = opcSkillsHub.title.en;
+const description = opcSkillsHub.description.en;
+const pageUrl = new URL("/en/projects/opc-skills/", Astro.site).href;
+const softwareLd = productLandingJsonLd({
+  project,
+  isEn: true,
+  pageUrl,
+  authorUrl: new URL("/", Astro.site).href,
+  name: title,
+  description
+});
+
+const allPosts = await getCollection("blog");
+const relatedPosts = opcSkillsHub.relatedSlugs
+  .map((id) => allPosts.find((p) => p.id === `${id}-en` && !p.data.draft))
+  .filter(Boolean);
+---
+<Base title={title} description={description} altLocaleUrl="/projects/opc-skills/">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
+  <ProductHub hub={opcSkillsHub} project={project} relatedPosts={relatedPosts} lang="en" />
+</Base>

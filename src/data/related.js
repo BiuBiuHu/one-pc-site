@@ -1,5 +1,7 @@
 // 文末相关阅读：按系列 / 分类挑少量文章，主题对上时再挂一条项目。
 
+import { hubPathForProject } from "./product-hubs.js";
+
 const PROJECTS = {
   anpai: {
     zh: {
@@ -16,12 +18,12 @@ const PROJECTS = {
   "opc-skills": {
     zh: {
       name: "OPC Skills",
-      href: "https://github.com/BiuBiuHu/opc-skills",
+      href: hubPathForProject("OPC Skills", false),
       note: "一人产品的研发流水线 Skill"
     },
     en: {
       name: "OPC Skills",
-      href: "https://github.com/BiuBiuHu/opc-skills",
+      href: hubPathForProject("OPC Skills", true),
       note: "Delivery-pipeline Skill for one-person products"
     }
   },

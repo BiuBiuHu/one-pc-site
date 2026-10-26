@@ -46,7 +46,14 @@ const show = (posts && posts.length > 0) || !!project;
     )}
     {project && (
       <p class="related-project">
-        {ui.project} · <a href={project.href} target="_blank" rel="noreferrer">{project.name}</a>
+        {ui.project} ·{" "}
+        <a
+          href={project.href}
+          target={/^https?:\/\//.test(project.href) ? "_blank" : undefined}
+          rel={/^https?:\/\//.test(project.href) ? "noreferrer" : undefined}
+        >
+          {project.name}
+        </a>
         <span class="related-note">{project.note}</span>
       </p>
     )}

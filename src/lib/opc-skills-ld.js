@@ -3,7 +3,9 @@ import { personNode } from "../data/site.js";
 const REPO = "https://github.com/BiuBiuHu/opc-skills";
 
 /** SoftwareSourceCode JSON-LD for BiuBiuHu OPC Skills — not ReScienceLab / opc.dev. */
-export function opcSkillsJsonLd({ isEn, authorUrl }) {
+export function opcSkillsJsonLd({ isEn, authorUrl, pageUrl }) {
+  const sameAs = [REPO];
+  if (pageUrl && pageUrl !== REPO && !sameAs.includes(pageUrl)) sameAs.push(pageUrl);
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
@@ -14,7 +16,7 @@ export function opcSkillsJsonLd({ isEn, authorUrl }) {
       : "BiuBiuHu / One PC 的 Codex Skill 模板，面向 OPC（C 端与 B 端）交付。与 ReScienceLab / opc.dev 不是同一项目。",
     url: REPO,
     codeRepository: REPO,
-    sameAs: [REPO],
+    sameAs,
     author: personNode({ url: authorUrl }),
     programmingLanguage: "Shell"
   };
