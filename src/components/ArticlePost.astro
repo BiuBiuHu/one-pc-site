@@ -78,7 +78,17 @@ const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
         <img class="article-cover" src={post.data.ogImage} alt={post.data.title} loading="eager" />
       )}
       <header class="article-head">
-        <div class="date">{fmt(post.data.date)}</div>
+        <div class="date">
+          <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+        </div>
+        {
+          post.data.updated && post.data.updated.getTime() !== post.data.date.getTime() && (
+            <div class="date updated">
+              {isEn ? "Updated" : "更新于"}{" "}
+              <time datetime={post.data.updated.toISOString()}>{fmt(post.data.updated)}</time>
+            </div>
+          )
+        }
         <h1>{post.data.title}</h1>
       </header>
       <div class="prose">

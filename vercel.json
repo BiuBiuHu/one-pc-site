@@ -30,9 +30,9 @@
     { "source": "/blog/mtw61el1/", "destination": "/blog/opc-software-practice", "permanent": true },
     { "source": "/en/blog/mtw61el1", "destination": "/en/blog/opc-software-practice", "permanent": true },
     { "source": "/en/blog/mtw61el1/", "destination": "/en/blog/opc-software-practice", "permanent": true },
-    { "source": "/blog/mtw5k47k", "destination": "/blog/enterprise-ai-native", "permanent": true },
-    { "source": "/blog/mtw5k47k/", "destination": "/blog/enterprise-ai-native", "permanent": true },
-    { "source": "/en/blog/mtw5k47k", "destination": "/en/blog/enterprise-ai-native", "permanent": true },
-    { "source": "/en/blog/mtw5k47k/", "destination": "/en/blog/enterprise-ai-native", "permanent": true }
+    { "source": "/blog/mtw5k47k", "destination": "/blog/", "permanent": true },
+    { "source": "/blog/mtw5k47k/", "destination": "/blog/", "permanent": true },
+    { "source": "/en/blog/mtw5k47k", "destination": "/en/blog/", "permanent": true },
+    { "source": "/en/blog/mtw5k47k/", "destination": "/en/blog/", "permanent": true }
   ]
 }
