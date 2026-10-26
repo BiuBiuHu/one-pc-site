@@ -1,5 +1,5 @@
 ---
-import { site } from "../data/site";
+import { site, personNode } from "../data/site";
 
 interface Props {
   post: any;
@@ -28,8 +28,8 @@ const jsonLd = {
   dateModified: dateModified.toISOString(),
   url: canonical,
   mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
-  author: { "@type": "Person", name: site.name, url: authorUrl, sameAs: site.sameAs },
-  publisher: { "@type": "Person", name: site.name, url: new URL("/", Astro.site).href },
+  author: personNode({ url: authorUrl, sameAs: site.sameAs }),
+  publisher: personNode({ url: new URL("/", Astro.site).href }),
   inLanguage: isEn ? "en-US" : "zh-CN",
   image: ogImage
 };

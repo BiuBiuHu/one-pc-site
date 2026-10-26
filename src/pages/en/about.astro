@@ -4,20 +4,19 @@ import ProjectCard from "../../components/ProjectCard.astro";
 import FriendsList from "../../components/FriendsList.astro";
 import Icon from "../../components/Icon.astro";
 import { projects } from "../../data/projects.en";
-import { site } from "../../data/site";
+import { site, personNode } from "../../data/site";
 
 const showcase = projects.filter((p) => ["Anpai.Life", "OPC Skills", "AI Gateway"].includes(p.name));
 const desc =
   "Personal site of One PC. Agent engineer building OPC products. Posts and repos are open — write if it resonates.";
 const personLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  alternateName: site.githubUser,
-  jobTitle: "Agent engineer",
-  url: new URL("/en/about/", Astro.site).href,
-  email: `mailto:${site.email}`,
-  sameAs: site.sameAs
+  ...personNode({
+    jobTitle: "Agent engineer",
+    url: new URL("/en/about/", Astro.site).href,
+    email: `mailto:${site.email}`,
+    sameAs: site.sameAs
+  })
 };
 ---
 <Base title="About" description={desc} altLocaleUrl="/about/">
@@ -33,7 +32,7 @@ const personLd = {
 
     <div class="about-copy">
       <p>
-        I spend my days on agents and OPC software, and write down the pits I fall into. The byline is {site.name}.
+        I spend my days on agents and OPC software, and write down the pits I fall into. The byline is {site.name}, based in {site.location.name}.
       </p>
       <p>
         This is not an ad page. Anpai.Life, OPC Skills, and AI Gateway are things I run and am happy to have taken apart.
