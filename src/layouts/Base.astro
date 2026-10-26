@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { site } from "../data/site";
+import { site, personNode } from "../data/site";
 import Icon from "../components/Icon.astro";
 import Analytics from "@vercel/analytics/astro";
 
@@ -26,7 +26,7 @@ const websiteLd = {
   url: new URL("/", Astro.site).href,
   description: desc,
   inLanguage: isEn ? "en-US" : "zh-CN",
-  publisher: { "@type": "Person", name: site.name, url: new URL("/", Astro.site).href }
+  publisher: personNode({ url: new URL("/", Astro.site).href })
 };
 
 const pathKey = path.replace(/^\/en(?=\/|$)/, "").replace(/\/+$/, "") || "/";
