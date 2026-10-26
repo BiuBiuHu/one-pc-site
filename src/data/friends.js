@@ -10,5 +10,16 @@ export const friends = [
       zh: "Agent / 工具工程实践",
       en: "Agent and tooling practice notes."
     }
+  },
+  {
+    url: "https://hpoenixf.github.io/",
+    name: {
+      zh: "hpoenixf 的博客",
+      en: "hpoenixf's Blog"
+    },
+    description: {
+      zh: "前端 / 工程实践笔记",
+      en: "Frontend and engineering notes"
+    }
   }
 ];
