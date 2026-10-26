@@ -119,4 +119,4 @@ flowchart TB
 
 ## 相关阅读
 
-混合检索不只有记忆这一条线。读私有知识库见 [RAG](/blog/rag-retrieval-augmented-generation/)；给 Agent 接工具见 [MCP 双角色](/blog/mv99wysd/)；跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。
+混合检索不只有记忆这一条线。读私有知识库见 [RAG](/blog/rag-retrieval-augmented-generation/)；给 Agent 接工具见 [MCP 双角色](/blog/mcp-dual-role/)；跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。

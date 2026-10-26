@@ -64,4 +64,4 @@ PRs welcome.
 
 ## Further reading
 
-On the same "one person ships a product" line: Skills and the full software production loop are in [OPC software practice](/en/blog/opc-software-practice/). To give an agent callable external tools, see [MCP intro](/en/blog/mv99u875/) and [MCP dual-role practice](/en/blog/mv99wysd/).
+On the same "one person ships a product" line: Skills and the full software production loop are in [OPC software practice](/en/blog/opc-software-practice/). To give an agent callable external tools, see [MCP intro](/en/blog/mcp-model-context-protocol/) and [MCP dual-role practice](/en/blog/mcp-dual-role/).

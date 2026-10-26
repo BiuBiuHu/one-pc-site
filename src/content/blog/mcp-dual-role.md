@@ -291,4 +291,4 @@ MCP 的价值在于**互操作的标准接口**：当平台同时具备"调度�
 
 ## 相关阅读
 
-若先要协议本身，见 [MCP 入门](/blog/mv99u875/)。同一条 Agent 能力链上，读知识见 [RAG](/blog/rag-retrieval-augmented-generation/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。
+若先要协议本身，见 [MCP 入门](/blog/mcp-model-context-protocol/)。同一条 Agent 能力链上，读知识见 [RAG](/blog/rag-retrieval-augmented-generation/)，跨 Agent 协作见 [A2A](/blog/a2a-agent-to-agent/)。

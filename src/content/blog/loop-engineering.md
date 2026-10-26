@@ -63,4 +63,4 @@ Skills 就是 Loop Engineering 的最佳载体：每个垂直场景应该有自�
 
 ## 相关阅读
 
-同一条「一人把产品做完」的线上：Skills 与完整软件生产见 [OPC 软件研发实践](/blog/opc-software-practice/)。若要给 agent 接上可调度的外部工具，可看 [MCP 入门](/blog/mv99u875/) 与 [MCP 双角色实践](/blog/mv99wysd/)。
+同一条「一人把产品做完」的线上：Skills 与完整软件生产见 [OPC 软件研发实践](/blog/opc-software-practice/)。若要给 agent 接上可调度的外部工具，可看 [MCP 入门](/blog/mcp-model-context-protocol/) 与 [MCP 双角色实践](/blog/mcp-dual-role/)。

@@ -88,4 +88,4 @@ flowchart TB
 
 ## 相关阅读
 
-中转站收拢的是模型接入与成本。一人把产品从需求做到发布，见 [OPC 软件研发实践](/blog/opc-software-practice/)；用 coding agent 把垂直 Skills 和 spec/TDD 跑起来，见 [Loop Engineering](/blog/mslj4f6g/)。
+中转站收拢的是模型接入与成本。一人把产品从需求做到发布，见 [OPC 软件研发实践](/blog/opc-software-practice/)；用 coding agent 把垂直 Skills 和 spec/TDD 跑起来，见 [Loop Engineering](/blog/loop-engineering/)。

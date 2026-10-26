@@ -90,4 +90,4 @@ If you're building a long-term product rather than a throwaway demo, a gateway i
 
 ## Further reading
 
-A gateway pulls model access and cost into one place. For shipping a product end-to-end as one person, see [OPC software practice](/en/blog/opc-software-practice/); for running a coding agent with vertical Skills and spec/TDD, see [Loop Engineering](/en/blog/mslj4f6g/).
+A gateway pulls model access and cost into one place. For shipping a product end-to-end as one person, see [OPC software practice](/en/blog/opc-software-practice/); for running a coding agent with vertical Skills and spec/TDD, see [Loop Engineering](/en/blog/loop-engineering/).

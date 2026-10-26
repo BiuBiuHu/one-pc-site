@@ -66,7 +66,7 @@ A2A  = Agent → Agent             (水平连接，Agent 之间的「外交协�
 
 > MCP 是 Agent 的「手」，A2A 是 Agent 之间的「外交协议」，两者互补不竞争。
 > MCP / ACP / A2A 的三协议对照是互补读物，本文只展开 A2A。
-> 若要先弄清 MCP 作为「手」的那一侧，可看本站的 [MCP 入门](/blog/mv99u875/) 和 [一平台双角色实践](/blog/mv99wysd/)。
+> 若要先弄清 MCP 作为「手」的那一侧，可看本站的 [MCP 入门](/blog/mcp-model-context-protocol/) 和 [一平台双角色实践](/blog/mcp-dual-role/)。
 
 ---
 
@@ -409,7 +409,7 @@ tnpm run tsx -- client.ts   # 客户端
 这也呼应了 A2A 官方的一句话定位：**"A2A is complementary to MCP"** ——
 MCP 让 Agent 有「手」，A2A 让 Agent 有「同事」。
 
-同一套组合，在本站的 [MCP 双角色实践](/blog/mv99wysd/) 里能看到「对下用 MCP 接工具」的工程细节；本文补的是「对左右用 A2A 谈任务」的那一半。
+同一套组合，在本站的 [MCP 双角色实践](/blog/mcp-dual-role/) 里能看到「对下用 MCP 接工具」的工程细节；本文补的是「对左右用 A2A 谈任务」的那一半。
 
 ---
 
