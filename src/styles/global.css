@@ -122,6 +122,7 @@ main.main { flex: 1; }
 
 /* ---------- 区块 ---------- */
 .section-head { margin-bottom: 18px; }
+.section-head h1,
 .section-head h2 { margin: 0 0 8px; font-size: 24px; }
 .section-head p { margin: 0; color: var(--muted); max-width: 60ch; }
 .section-head .more {
@@ -320,6 +321,7 @@ main.main { flex: 1; }
 .article-cover { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); margin-bottom: 24px; }
 .article-head { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
 .article-head .date { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.article-head .date.updated { margin-top: -6px; }
 .article-head h1 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); }
 .back-link { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 24px; }
 .back-link:hover { color: var(--brand); }

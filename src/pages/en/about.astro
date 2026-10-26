@@ -17,7 +17,7 @@ const personLd = {
   jobTitle: "Agent engineer",
   url: new URL("/en/about/", Astro.site).href,
   email: `mailto:${site.email}`,
-  sameAs: [site.githubUrl, "https://github.com/BiuBiuHu/opc-skills", "https://www.anpai.life/"]
+  sameAs: site.sameAs
 };
 ---
 <Base title="About" description={desc} altLocaleUrl="/about/">

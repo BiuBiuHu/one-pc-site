@@ -14,18 +14,21 @@ const canonical = new URL(`${isEn ? "/en" : ""}/blog/${slug}/`, Astro.site).href
 const zhUrl = new URL(`/blog/${slug}/`, Astro.site).href;
 const enUrl = new URL(`/en/blog/${slug}/`, Astro.site).href;
 const showEnHreflang = isEn || hasEn;
-const ogImage = post.data.ogImage ? new URL(post.data.ogImage, Astro.site).href : undefined;
+const ogImage = new URL(post.data.ogImage || site.ogImage, Astro.site).href;
+const datePublished = post.data.date;
+const dateModified = post.data.updated || post.data.date;
+const authorUrl = new URL(isEn ? "/en/about/" : "/about/", Astro.site).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: post.data.title,
   description: post.data.excerpt || undefined,
-  datePublished: post.data.date.toISOString(),
-  dateModified: post.data.date.toISOString(),
+  datePublished: datePublished.toISOString(),
+  dateModified: dateModified.toISOString(),
   url: canonical,
   mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
-  author: { "@type": "Person", name: site.name, url: site.githubUrl },
+  author: { "@type": "Person", name: site.name, url: authorUrl, sameAs: site.sameAs },
   publisher: { "@type": "Person", name: site.name, url: new URL("/", Astro.site).href },
   inLanguage: isEn ? "en-US" : "zh-CN",
   image: ogImage
