@@ -3,14 +3,13 @@ import Base from "../layouts/Base.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Icon from "../components/Icon.astro";
 import { projects } from "../data/projects";
-import { site } from "../data/site";
-import { opcSkillsJsonLd } from "../lib/opc-skills-ld";
+import { projectsPageJsonLd } from "../lib/product-ld";
 
 const desc =
   "One PC 的开源与个人产品展示：Anpai.Life 任务日历、OPC Skills 研发流水线，以及统一多模型接入的 AI Gateway。";
-const softwareLd = opcSkillsJsonLd({
+const softwareLd = projectsPageJsonLd({
+  projects,
   isEn: false,
-  authorName: site.name,
   authorUrl: new URL("/", Astro.site).href
 });
 ---

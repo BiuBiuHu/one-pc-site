@@ -4,6 +4,17 @@ date: 2026-10-23
 excerpt: "A2A lets agents in different processes, orgs, and vendors collaborate via a task state machine. This post covers Agent Cards, the four-step flow, and a runnable TypeScript sample."
 category: AI
 lang: en
+faq:
+  - q: "What is A2A?"
+    a: "A2A (Agent-to-Agent) is an open protocol Google published in April 2025 and later donated to the Linux Foundation. It lets one agent delegate a task to a completely unfamiliar agent and get a result back. Participants are a black box — you only need to know what the other side can do and how to submit a task."
+  - q: "How do A2A and MCP relate?"
+    a: "MCP is the vertical link from agent to tools and data — the agent's hands. A2A is the horizontal link from agent to agent — the diplomatic protocol. They complement each other; they do not compete. One agent can use both at once."
+  - q: "MCP can wrap a sub-agent as a tool. Why do you still need A2A?"
+    a: "MCP is for in-process or same-trust-domain tool calls and expects fine-grained capabilities to be exposed. Across organizations, the other party will not expose internal tools and does not want you managing its task lifecycle. A2A uses a task state machine plus a black-box envelope for cross-system collaboration."
+  - q: "What are A2A's core abstractions and workflow?"
+    a: "The core abstractions are Agent Card (discovery), Task (lifecycle), and Message/Artifact (conversation and deliverable). The four steps are discover, send task, get progress, and take output, all as JSON-RPC 2.0 over HTTP."
+  - q: "Why does A2A insist on async tasks?"
+    a: "Real collaboration is long-running — approvals, bookings, external execution. Blocking sync is unrealistic. The Task state machine plus poll or SSE lets both sides evolve independently."
 ---
 
 > Goal: understand the A2A protocol, learn how agents collaborate across processes and organizations, and write a runnable TypeScript sample.

@@ -3,6 +3,17 @@ title: MCP — Model Context Protocol
 date: 2026-10-15
 excerpt: MCP 把工具从 Agent 里抽成独立进程，用标准协议对外暴露。这篇从普通 Tool 的局限出发，讲清如何实现自定义 MCP Server，让 Cursor 等 Client 直接调用。
 category: AI
+faq:
+  - q: "MCP 和普通 Tool 的本质区别是什么？"
+    a: "普通 Tool 是「函数」，只能在定义它的 Agent 进程内部调用。MCP Tool 是「服务」，运行在独立进程里，通过标准协议对外暴露。任何支持 MCP 的 Client 都能直接调用，不必把工具代码复制过去重新注册。"
+  - q: "为什么 stdio 模式下不能用 console.log？"
+    a: "stdio 模式下 stdout 是协议专用数据线，流动的是按行分隔的 JSON-RPC。console.log 会写入非 JSON 文字，Client 解析失败甚至断开连接。调试应走 console.error（stderr）；Node 里 console.info / console.warn 默认也写 stdout，同样危险。"
+  - q: "JSON-RPC 2.0 和普通 JSON 有什么区别？"
+    a: "JSON 是数据格式；JSON-RPC 2.0 是用 JSON 做远程调用的协议约定。它只有请求、响应、通知三种消息，靠 id 匹配请求和响应。MCP 选它是因为工具调用是「动作」语义，且适合 stdio 双向流。"
+  - q: "MCP Server 什么时候启动？"
+    a: "Cursor 在需要时自动执行 mcp.json 里配置的命令来启动进程，不需要时自动关闭。你不需要手动管理进程生命周期。"
+  - q: "Agent 怎么知道 MCP Server 能做什么？"
+    a: "连接后 Client 立即发送 tools/list。Server 返回已注册工具的名称、描述和参数 schema，Client 再注入给模型。Agent 不是提前知道能力，而是每次连接时动态发现。"
 ---
 
 > 目标：理解 MCP 协议，实现一个自定义 MCP Server，让 Cursor 能调用我们的工具

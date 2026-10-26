@@ -4,6 +4,17 @@ date: 2026-10-23
 excerpt: "RAG lets an agent answer questions from a private knowledge base. This post covers chunking, embeddings, vector stores, hybrid BM25+vector+RRF, rerank, OpenSearch, and ACL / Permissions Collapse."
 category: AI
 lang: en
+faq:
+  - q: "What problem does RAG solve?"
+    a: "An LLM's knowledge comes from training data, with two hard limits — freshness and privacy. RAG (Retrieval-Augmented Generation) retrieves relevant documents and stuffs them into the prompt, so the model can answer from a private knowledge base, not only from what it learned in training."
+  - q: "What are the three stages of RAG?"
+    a: "Offline, documents are chunked, embedded, and stored in a vector database. Online, the question is embedded, nearest neighbors are retrieved, relevant chunks are stitched into the prompt, and the LLM generates an answer."
+  - q: "Why is vector search alone not enough in production?"
+    a: "Vectors cover meaning; BM25 covers lexical match. Together with metadata filtering they form multi-path recall, then Reciprocal Rank Fusion merges ranks, and a cross-encoder rerank improves precision. Lock recall first, then add rerank."
+  - q: "What is Permissions Collapse, and how should private RAG handle ACL?"
+    a: "Permissions Collapse is when fine-grained source-system permissions are lost after documents enter the vector index, so anyone who can query the store may semantically hit every document. Private RAG must push ACL down to the retrieval layer and clip the visible set before similarity search. Filtering after recall is only a backstop; redaction does not replace access control."
+  - q: "How do RAG, MCP, and A2A divide the work?"
+    a: "On the same agent capability chain, RAG covers reading knowledge, MCP covers using tools, and A2A covers collaborating with other agents. The three complement each other."
 ---
 
 > Goal: let an agent answer questions from a private knowledge base, not just from what the model learned during training.

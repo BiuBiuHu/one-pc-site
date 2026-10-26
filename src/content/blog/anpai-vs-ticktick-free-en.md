@@ -4,6 +4,17 @@ date: 2026-10-26
 excerpt: "Anpai.Life is a personal rhythm system: month/week/day calendar, a daily AI image-calendar poster, yearly goals and milestones, weekly review + AI insights, and an Agent that schedules and breaks down goals — synced across PC and phone. TickTick free is a fair hook; this post still stands if you never used TickTick."
 category: Thoughts
 lang: en
+faq:
+  - q: "What is Anpai.Life?"
+    a: "Anpai.Life is a personal rhythm system — goals, schedule, review, and Agent in one continuous workflow. The closed loop is that the calendar makes days visible, the image calendar gives today a color, goals set direction, review keeps the lesson, and the Agent helps you see the next step. Start at web.anpai.life."
+  - q: "How is Anpai different from a list app?"
+    a: "It is not another list app, and it is not a calendar with a few plugins bolted on. The home screen is the month, week, and day calendar, not a view hanging off a list. The product center is calendar, goals, review, and Agent."
+  - q: "What are the image calendar and the Almanac?"
+    a: "The image calendar is one AI poster a day — solar date, lunar date, stem-branch, and solar term, plus that day's do/avoid and a quote. The Almanac turns the do/avoid into actions you can follow and marks a few focus windows."
+  - q: "Does the Anpai Agent decide for you?"
+    a: "No. The product is explicit about the boundary — it does not decide for you. It works from your goals, existing schedule, and review record, and turns a fuzzy wish into a clear, doable next step. You keep the choice."
+  - q: "How does TickTick free compare with Anpai?"
+    a: "TickTick free is already a complete todo tool (9 lists, 99 tasks per list, and more); agenda/day view and richer calendar sit behind Premium. Anpai's month, week, and day views are the home screen with no upgrade wall; it asks you to sign in the first time you add or edit. The two can coexist — TickTick as a quick inbox, Anpai as the workbench for the week, goals, and review."
 ---
 
 The short version: **Anpai.Life (安排日历) is a closed loop — the calendar makes days visible, the image calendar gives today a color, goals set direction, review keeps the lesson, and the Agent helps you see the next step.** Start at [web.anpai.life](https://web.anpai.life/).
