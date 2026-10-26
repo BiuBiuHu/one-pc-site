@@ -1,12 +1,12 @@
 ---
 import Icon from "./Icon.astro";
+import { githubRepoSlug } from "../lib/github-stars";
 const { project } = Astro.props;
 const isEn = Astro.currentLocale === "en";
 const isWip = project.status === "wip";
 // 区分「开源仓库」（有 GitHub repo，显示 star、跳仓库）与「产品官网」（只有 homepage，跳官网）
-const isRepo = !!(project.repo || "").includes("github.com");
-// 从 repo URL 提取 owner/repo，供前端调 GitHub API 同步真实 star 数
-const repoFull = isRepo ? project.repo.replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "") : "";
+const repoFull = githubRepoSlug(project.repo);
+const isRepo = !!repoFull;
 const linkHref = isRepo ? project.repo : project.homepage || "#";
 const linkIcon = isRepo ? "github" : "external-link";
 const linkLabel = isRepo ? (isEn ? "Repository" : "仓库") : (isEn ? "Visit" : "访问");
