@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import FriendsList from "../components/FriendsList.astro";
 import Icon from "../components/Icon.astro";
 import { getFeaturedProjects } from "../data/projects";
 import { services } from "../data/services";
@@ -102,6 +103,8 @@ const fmt = (d) =>
           ))}
         </div>
       </section>
+
+      <FriendsList />
     </div>
   </section>
 </Base>
