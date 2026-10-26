@@ -3,8 +3,11 @@ import Base from "../layouts/Base.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Icon from "../components/Icon.astro";
 import { projects } from "../data/projects";
+
+const desc =
+  "One PC 的开源与个人产品展示：Anpai.Life 任务日历、OPC Skills 研发流水线，以及统一多模型接入的 AI Gateway。";
 ---
-<Base title="项目" altLocaleUrl="/en/projects/">
+<Base title="开源项目" description={desc} altLocaleUrl="/en/projects/">
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="boxes" size={14} />开源项目</span>
