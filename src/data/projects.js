@@ -1,5 +1,8 @@
+import { hydrateProjectStars } from "../lib/github-stars";
+
 // 开源项目数据 —— 改成你的真实项目
-export const projects = [
+// stars 是构建期拉不到 GitHub 时的占位；有 repo 的项目会在构建时写入真实 stargazers_count
+const projectList = [
   {
     name: "Anpai.Life",
     tagline: "AI 驱动的跨端任务管理",
@@ -20,7 +23,7 @@ export const projects = [
       "面向 OPC/Dida 类产品的 Codex Skill，把需求澄清、产品设计、B 端运营页、架构治理、研发、测试、联调、发布门禁串成一套可复用工作流，让 Agent 在复杂业务里持续做正确判断。",
     language: "Shell",
     languageColor: "#89e051",
-    stars: 1,
+    stars: 12,
     repo: "https://github.com/BiuBiuHu/opc-skills",
     homepage: "",
     tags: ["Skill", "研发流水线", "Agent"],
@@ -55,6 +58,8 @@ export const projects = [
     featured: true
   }
 ];
+
+export const projects = await hydrateProjectStars(projectList);
 
 export function getFeaturedProjects(limit = 3) {
   return projects.filter((p) => p.featured).slice(0, limit);
