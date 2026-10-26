@@ -160,7 +160,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     </div>
 
     <script is:inline>
-      // 项目 star 数同步：静态数字仅作占位，运行时调 GitHub API 拉真实值并刷新
+      // 项目 star 数：HTML 已是构建期 GitHub 实数；这里再拉一次，部署后新增的 star 也能跟上
       (function () {
         var nodes = document.querySelectorAll(".stars[data-repo]");
         if (!nodes.length) return;

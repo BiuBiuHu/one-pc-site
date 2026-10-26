@@ -1,5 +1,8 @@
+import { hydrateProjectStars } from "../lib/github-stars";
+
 // Open source projects data (English)
-export const projects = [
+// stars is a last-resort fallback when the build-time GitHub fetch misses
+const projectList = [
   {
     name: "Anpai.Life",
     tagline: "AI-powered cross-platform task management",
@@ -20,7 +23,7 @@ export const projects = [
       "A Codex Skill for OPC/Dida-style products that chains requirement clarification, product design, B-side ops pages, architecture governance, development, testing, integration, and release gates into one reusable workflow — so agents keep making correct calls in complex business contexts.",
     language: "Shell",
     languageColor: "#89e051",
-    stars: 1,
+    stars: 12,
     repo: "https://github.com/BiuBiuHu/opc-skills",
     homepage: "",
     tags: ["Skill", "Delivery Pipeline", "Agent"],
@@ -55,6 +58,8 @@ export const projects = [
     featured: true
   }
 ];
+
+export const projects = await hydrateProjectStars(projectList);
 
 export function getFeaturedProjects(limit = 3) {
   return projects.filter((p) => p.featured).slice(0, limit);
