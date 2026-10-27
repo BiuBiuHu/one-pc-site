@@ -8,7 +8,7 @@ export default defineConfig({
   output: "static",
   i18n: {
     defaultLocale: "zh",
-    locales: ["zh", "en"],
+    locales: ["zh", "en", "ja"],
     routing: { prefixDefaultLocale: false }
   },
   integrations: [
@@ -18,7 +18,8 @@ export default defineConfig({
         defaultLocale: "zh",
         locales: {
           zh: "zh-CN",
-          en: "en-US"
+          en: "en-US",
+          ja: "ja-JP"
         }
       },
       serialize(item) {

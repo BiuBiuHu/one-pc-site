@@ -1,11 +1,11 @@
 ---
 interface Props {
   items?: { q: string; a: string }[];
-  lang: "zh" | "en";
+  lang: "zh" | "en" | "ja";
 }
 
 const { items = [], lang } = Astro.props;
-const heading = lang === "en" ? "FAQ" : "常见问题";
+const heading = lang === "en" ? "FAQ" : lang === "ja" ? "よくある質問" : "常见问题";
 ---
 {
   items.length > 0 && (

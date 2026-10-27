@@ -1,0 +1,43 @@
+---
+import Base from "../../../layouts/Base.astro";
+import ProductHub from "../../../components/ProductHub.astro";
+import { getCollection } from "astro:content";
+import { projects } from "../../../data/projects.en";
+import { opcSkillsHub } from "../../../data/product-hubs";
+import { productLandingJsonLd } from "../../../lib/product-ld";
+
+const project = projects.find((p) => p.name === opcSkillsHub.projectName);
+const title = opcSkillsHub.title.ja;
+const description = opcSkillsHub.description.ja;
+const pageUrl = new URL("/ja/projects/opc-skills/", Astro.site).href;
+const softwareLd = productLandingJsonLd({
+  project,
+  isEn: false,
+  lang: "ja",
+  pageUrl,
+  authorUrl: new URL("/", Astro.site).href,
+  name: title,
+  description
+});
+
+const allPosts = await getCollection("blog");
+const relatedPosts = opcSkillsHub.relatedSlugs
+  .map((id) => allPosts.find((p) => p.id === `${id}-ja` && !p.data.draft))
+  .filter(Boolean);
+
+const hreflangUrls = {
+  zh: new URL("/projects/opc-skills/", Astro.site).href,
+  en: new URL("/en/projects/opc-skills/", Astro.site).href,
+  ja: pageUrl
+};
+---
+<Base
+  title={title}
+  description={description}
+  altLocaleUrl="/projects/opc-skills/"
+  localeUrls={{ zh: "/projects/opc-skills/", en: "/en/projects/opc-skills/", ja: "/ja/projects/opc-skills/" }}
+  hreflangUrls={hreflangUrls}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
+  <ProductHub hub={opcSkillsHub} project={project} relatedPosts={relatedPosts} lang="ja" />
+</Base>

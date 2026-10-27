@@ -1,29 +1,31 @@
 ---
+import { blogHref, DATE_LOCALE, normalizeLocale, postSlug } from "../lib/i18n.js";
+
 interface Props {
   posts: any[];
   project?: { name: string; href: string; note: string } | null;
-  lang: "zh" | "en";
+  lang: "zh" | "en" | "ja";
 }
 
 const { posts, project, lang } = Astro.props;
-const isEn = lang === "en";
-const ui = isEn
-  ? { title: "Related", project: "Also on this topic" }
-  : { title: "相关阅读", project: "同类实践" };
+const locale = normalizeLocale(lang);
+const ui =
+  locale === "en"
+    ? { title: "Related", project: "Also on this topic" }
+    : locale === "ja"
+      ? { title: "関連", project: "同じテーマ" }
+      : { title: "相关阅读", project: "同类实践" };
 
 const fmt = (d) =>
   d
-    .toLocaleDateString(isEn ? "en-US" : "zh-CN", {
+    .toLocaleDateString(DATE_LOCALE[locale], {
       year: "numeric",
       month: "2-digit",
       day: "2-digit"
     })
     .replace(/\//g, "-");
 
-const hrefOf = (p) => {
-  const slug = p.id.replace(/-en$/, "");
-  return isEn ? `/en/blog/${slug}/` : `/blog/${slug}/`;
-};
+const hrefOf = (p) => blogHref(locale, postSlug(p.id));
 
 const show = (posts && posts.length > 0) || !!project;
 ---

@@ -1,0 +1,106 @@
+---
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection } from "astro:content";
+import { opcSkillsHub } from "../../data/product-hubs";
+import { DATE_LOCALE, postSlug } from "../../lib/i18n.js";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => p.data.lang === "ja" && !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d) =>
+  d.toLocaleDateString(DATE_LOCALE.ja, { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+
+const title = "OPC Skills と Agent 実践";
+const description =
+  "One PC（BiuBiuHu）の日本語エントリ。Agent メモリ、Intent / Plan / Tool、Loop Engineering、OPC Skills、OPC ソフトウェア実践の5ページから公開しています。";
+---
+<Base
+  title={title}
+  description={description}
+  altLocaleUrl="/"
+  localeUrls={{ zh: "/", en: "/en/", ja: "/ja/" }}
+  hreflangUrls={{
+    zh: new URL("/", Astro.site).href,
+    en: new URL("/en/", Astro.site).href,
+    ja: new URL("/ja/", Astro.site).href
+  }}
+>
+  <section class="page">
+    <div class="hero-split">
+      <div class="hero">
+        <span class="eyebrow"><Icon name="sparkles" size={14} />日本語 · 実践メモ</span>
+        <h1>Agent を安定させる設計を、先に日本語で</h1>
+        <p class="lead">
+          One PC（BiuBiuHu）です。日本語は需要の高い5ページから公開しています。
+          メモリ、Intent、Loop Engineering、OPC Skills、一人プロダクトの納品まで。
+          全アーカイブは英語 / 中国語にあります。
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/ja/projects/opc-skills/">
+            OPC Skills <Icon name="arrow-right" size={16} />
+          </a>
+          <a class="btn ghost" href="/ja/blog/">日本語の記事</a>
+          <a class="btn ghost" href="/en/">English</a>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">Agent</span>
+          <span class="tag">Skills</span>
+          <span class="tag">Intent</span>
+          <span class="tag">OPC</span>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <p class="label">Now in Japanese</p>
+        <h3>5ページから公開</h3>
+        <p>空のサイト殻は作りません。公開中の日本語ページだけを、ここから辿れます。</p>
+        <div class="hero-stats">
+          <div class="stat"><strong>1</strong><span>プロジェクト</span></div>
+          <div class="stat"><strong>{posts.length}</strong><span>記事</span></div>
+          <div class="stat"><strong>5</strong><span>公開ページ</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="stack-vertical" style="margin-top:56px">
+      <section>
+        <div class="section-head">
+          <h2>OPC Skills</h2>
+          <p>{opcSkillsHub.tldr.ja}</p>
+        </div>
+        <article class="card">
+          <span class="eyebrow"><Icon name="boxes" size={14} />{opcSkillsHub.eyebrow.ja}</span>
+          <h3 style="margin-top:12px">{opcSkillsHub.h1.ja}</h3>
+          <p>{opcSkillsHub.description.ja}</p>
+          <div class="hero-actions" style="margin-top:18px">
+            <a class="btn primary" href="/ja/projects/opc-skills/">
+              日本語ページを読む <Icon name="arrow-right" size={16} />
+            </a>
+            <a class="btn ghost" href={opcSkillsHub.cta.href} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>日本語の記事</h2>
+          <p>Agent メモリ、Intent 設計、Loop Engineering、OPC ソフトウェア実践。</p>
+          <a class="more" href="/ja/blog/">一覧 <Icon name="arrow-right" size={15} /></a>
+        </div>
+        <div class="post-list">
+          {posts.map((post) => (
+            <a class="post-item" href={`/ja/blog/${postSlug(post.id)}/`}>
+              <div class="date">{fmt(post.data.date)}</div>
+              <h3>{post.data.title}</h3>
+              <p class="excerpt">{post.data.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </section>
+</Base>

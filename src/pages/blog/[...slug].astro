@@ -3,22 +3,31 @@ import Base from "../../layouts/Base.astro";
 import ArticlePost from "../../components/ArticlePost.astro";
 import ArticleSeo from "../../components/ArticleSeo.astro";
 import { getCollection } from "astro:content";
+import { blogHref, postSlug } from "../../lib/i18n.js";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   const zh = posts.filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft);
   const enIds = new Set(
-    posts.filter((p) => p.data.lang === "en" && !p.data.draft).map((p) => p.id.replace(/-en$/, ""))
+    posts.filter((p) => p.data.lang === "en" && !p.data.draft).map((p) => postSlug(p.id))
+  );
+  const jaIds = new Set(
+    posts.filter((p) => p.data.lang === "ja" && !p.data.draft).map((p) => postSlug(p.id))
   );
   return zh.map((post) => ({
     params: { slug: post.id },
-    props: { post, hasEn: enIds.has(post.id) }
+    props: { post, hasEn: enIds.has(post.id), hasJa: jaIds.has(post.id) }
   }));
 }
 
-const { post, hasEn } = Astro.props;
-const slug = post.id.replace(/\.en$/, "");
-const altLocaleUrl = hasEn ? `/en/blog/${slug}/` : "/en/blog/";
+const { post, hasEn, hasJa } = Astro.props;
+const slug = postSlug(post.id);
+const altLocaleUrl = hasEn ? blogHref("en", slug) : "/en/blog/";
+const localeUrls = {
+  zh: blogHref("zh", slug),
+  en: hasEn ? blogHref("en", slug) : "/en/blog/",
+  ja: hasJa ? blogHref("ja", slug) : undefined
+};
 ---
 
 <Base
@@ -27,7 +36,8 @@ const altLocaleUrl = hasEn ? `/en/blog/${slug}/` : "/en/blog/";
   type="article"
   image={post.data.ogImage}
   altLocaleUrl={altLocaleUrl}
+  localeUrls={localeUrls}
 >
-  <ArticleSeo slot="head" post={post} lang="zh" hasEn={hasEn} />
+  <ArticleSeo slot="head" post={post} lang="zh" hasEn={hasEn} hasJa={hasJa} />
   <ArticlePost post={post} lang="zh" />
 </Base>

@@ -1,6 +1,7 @@
 // 文末相关阅读：按系列 / 分类挑少量文章，主题对上时再挂一条项目。
 
 import { hubPathForProject } from "./product-hubs.js";
+import { normalizeLocale, postSlug } from "../lib/i18n.js";
 
 const PROJECTS = {
   anpai: {
@@ -13,6 +14,11 @@ const PROJECTS = {
       name: "Anpai.Life",
       href: "https://www.anpai.life/",
       note: "Task + calendar + AI planning"
+    },
+    ja: {
+      name: "Anpai.Life",
+      href: "https://www.anpai.life/",
+      note: "タスク + カレンダー + AIプランニング"
     }
   },
   "opc-skills": {
@@ -25,6 +31,11 @@ const PROJECTS = {
       name: "OPC Skills",
       href: hubPathForProject("OPC Skills", true),
       note: "Delivery-pipeline Skill for one-person products"
+    },
+    ja: {
+      name: "OPC Skills",
+      href: hubPathForProject("OPC Skills", "ja"),
+      note: "一人プロダクト向けの納品パイプライン Skill"
     }
   },
   gateway: {
@@ -37,6 +48,11 @@ const PROJECTS = {
       name: "AI Gateway",
       href: "https://apistation.cn/",
       note: "Unified multi-model gateway"
+    },
+    ja: {
+      name: "AI Gateway",
+      href: "https://apistation.cn/",
+      note: "マルチモデル中継とコスト管理"
     }
   }
 };
@@ -71,7 +87,7 @@ function take(list, picked, seen, limit) {
 }
 
 export function pickRelatedPosts(allPosts, current, { lang, limit = 3, skipSeries = false } = {}) {
-  const locale = lang === "en" ? "en" : "zh";
+  const locale = normalizeLocale(lang);
   const pool = allPosts
     .filter((p) => localeOf(p) === locale && !p.data.draft && p.id !== current.id)
     .sort(byDateDesc);
@@ -104,8 +120,8 @@ export function pickRelatedPosts(allPosts, current, { lang, limit = 3, skipSerie
 }
 
 export function pickRelatedProject(post, lang) {
-  const locale = lang === "en" ? "en" : "zh";
-  const slug = post.id.replace(/-en$/, "");
+  const locale = normalizeLocale(lang);
+  const slug = postSlug(post.id);
   const hay = [post.id, post.data.title, post.data.excerpt, post.data.series, post.data.category]
     .filter(Boolean)
     .join("\n");

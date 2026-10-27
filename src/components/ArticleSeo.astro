@@ -1,24 +1,29 @@
 ---
 import { site, personNode } from "../data/site";
 import { faqPageJsonLd } from "../lib/faq-ld";
+import { blogHref, inLanguageOf, normalizeLocale, postSlug } from "../lib/i18n.js";
+import LocaleLinks from "./LocaleLinks.astro";
 
 interface Props {
   post: any;
-  lang: "zh" | "en";
+  lang: "zh" | "en" | "ja";
   hasEn?: boolean;
+  hasJa?: boolean;
 }
 
-const { post, lang, hasEn = false } = Astro.props;
-const isEn = lang === "en";
-const slug = post.id.replace(/-en$/, "");
-const canonical = new URL(`${isEn ? "/en" : ""}/blog/${slug}/`, Astro.site).href;
-const zhUrl = new URL(`/blog/${slug}/`, Astro.site).href;
-const enUrl = new URL(`/en/blog/${slug}/`, Astro.site).href;
-const showEnHreflang = isEn || hasEn;
+const { post, lang, hasEn = false, hasJa = false } = Astro.props;
+const locale = normalizeLocale(lang);
+const slug = postSlug(post.id);
+const canonical = new URL(blogHref(locale, slug), Astro.site).href;
+const zhUrl = new URL(blogHref("zh", slug), Astro.site).href;
+const enUrl = new URL(blogHref("en", slug), Astro.site).href;
+const jaUrl = new URL(blogHref("ja", slug), Astro.site).href;
+const showEn = locale === "en" || hasEn;
+const showJa = locale === "ja" || hasJa;
 const ogImage = new URL(post.data.ogImage || site.ogImage, Astro.site).href;
 const datePublished = post.data.date;
 const dateModified = post.data.updated || post.data.date;
-const authorUrl = new URL(isEn ? "/en/about/" : "/about/", Astro.site).href;
+const authorUrl = new URL(locale === "en" || locale === "ja" ? "/en/about/" : "/about/", Astro.site).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -31,7 +36,7 @@ const jsonLd = {
   mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
   author: personNode({ url: authorUrl, sameAs: site.sameAs }),
   publisher: personNode({ url: new URL("/", Astro.site).href }),
-  inLanguage: isEn ? "en-US" : "zh-CN",
+  inLanguage: inLanguageOf(locale),
   image: ogImage
 };
 const faqItems = post.data.faq || [];
@@ -39,6 +44,4 @@ const faqLd = faqItems.length ? faqPageJsonLd(faqItems) : null;
 ---
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />}
-<link rel="alternate" hreflang="zh-CN" href={zhUrl} />
-{showEnHreflang && <link rel="alternate" hreflang="en-US" href={enUrl} />}
-<link rel="alternate" hreflang="x-default" href={zhUrl} />
+<LocaleLinks urls={{ zh: zhUrl, en: showEn ? enUrl : undefined, ja: showJa ? jaUrl : undefined }} />

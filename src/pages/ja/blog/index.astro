@@ -1,0 +1,40 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Icon from "../../../components/Icon.astro";
+import { getCollection } from "astro:content";
+import { DATE_LOCALE, postSlug } from "../../../lib/i18n.js";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => p.data.lang === "ja" && !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d) =>
+  d.toLocaleDateString(DATE_LOCALE.ja, { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+---
+<Base
+  title="日本語の記事"
+  description="Agent / Skills / OPC の日本語記事。需要の高い実践メモから公開しています。"
+  altLocaleUrl="/blog/"
+  localeUrls={{ zh: "/blog/", en: "/en/blog/", ja: "/ja/blog/" }}
+>
+  <section class="page">
+    <div class="section-head">
+      <span class="eyebrow"><Icon name="notebook" size={14} />日本語</span>
+      <h1 style="margin-top:14px">公開中の記事</h1>
+      <p>
+        まずは需要の高い {posts.length} 本だけ。全アーカイブは
+        <a href="/en/blog/">英語</a> / <a href="/blog/">中国語</a> にあります。
+      </p>
+    </div>
+
+    <div class="post-list">
+      {posts.map((post) => (
+        <a class="post-item" href={`/ja/blog/${postSlug(post.id)}/`}>
+          <div class="date">{fmt(post.data.date)}</div>
+          <h3>{post.data.title}</h3>
+          <p class="excerpt">{post.data.excerpt}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

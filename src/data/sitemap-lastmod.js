@@ -55,41 +55,47 @@ function collectBlogDates() {
   let latest = null;
   let latestZh = null;
   let latestEn = null;
+  let latestJa = null;
 
-  if (!existsSync(blogDir)) return { map, latest, latestZh, latestEn };
+  if (!existsSync(blogDir)) return { map, latest, latestZh, latestEn, latestJa };
 
   for (const name of readdirSync(blogDir)) {
     if (!name.endsWith(".md")) continue;
     const fm = parseFrontmatter(readFileSync(join(blogDir, name), "utf8"));
     if (fm.draft || !fm.date) continue;
     const last = later(fm.date, fm.updated);
-    const slug = name.replace(/\.md$/, "").replace(/-en$/, "");
-    const urlPath = fm.lang === "en" ? `/en/blog/${slug}` : `/blog/${slug}`;
+    const slug = name.replace(/\.md$/, "").replace(/-(en|ja)$/, "");
+    const urlPath =
+      fm.lang === "en" ? `/en/blog/${slug}` : fm.lang === "ja" ? `/ja/blog/${slug}` : `/blog/${slug}`;
     map.set(urlPath, last);
     latest = later(latest, last);
     if (fm.lang === "en") latestEn = later(latestEn, last);
+    else if (fm.lang === "ja") latestJa = later(latestJa, last);
     else latestZh = later(latestZh, last);
   }
 
-  return { map, latest, latestZh, latestEn };
+  return { map, latest, latestZh, latestEn, latestJa };
 }
 
 function buildLastmodLookup() {
-  const { map, latest, latestZh, latestEn } = collectBlogDates();
+  const { map, latest, latestZh, latestEn, latestJa } = collectBlogDates();
 
   const staticPages = [
     ["/", "src/pages/index.astro", latest],
     ["/en", "src/pages/en/index.astro", latest],
+    ["/ja", "src/pages/ja/index.astro", latestJa],
     ["/about", "src/pages/about.astro"],
     ["/en/about", "src/pages/en/about.astro"],
     ["/projects", "src/pages/projects.astro"],
     ["/en/projects", "src/pages/en/projects.astro"],
     ["/projects/opc-skills", "src/pages/projects/opc-skills.astro"],
     ["/en/projects/opc-skills", "src/pages/en/projects/opc-skills.astro"],
+    ["/ja/projects/opc-skills", "src/pages/ja/projects/opc-skills.astro"],
     ["/services", "src/pages/services.astro"],
     ["/en/services", "src/pages/en/services.astro"],
     ["/blog", "src/pages/blog/index.astro", latestZh],
-    ["/en/blog", "src/pages/en/blog/index.astro", latestEn]
+    ["/en/blog", "src/pages/en/blog/index.astro", latestEn],
+    ["/ja/blog", "src/pages/ja/blog/index.astro", latestJa]
   ];
 
   for (const [path, file, contentDate] of staticPages) {

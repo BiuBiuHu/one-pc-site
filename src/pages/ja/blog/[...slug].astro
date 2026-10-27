@@ -1,0 +1,36 @@
+---
+import Base from "../../../layouts/Base.astro";
+import ArticlePost from "../../../components/ArticlePost.astro";
+import ArticleSeo from "../../../components/ArticleSeo.astro";
+import { getCollection } from "astro:content";
+import { blogHref, postSlug } from "../../../lib/i18n.js";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const ja = posts.filter((p) => p.data.lang === "ja" && !p.data.draft);
+  return ja.map((post) => ({
+    params: { slug: postSlug(post.id) },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const slug = postSlug(post.id);
+const localeUrls = {
+  zh: blogHref("zh", slug),
+  en: blogHref("en", slug),
+  ja: blogHref("ja", slug)
+};
+---
+
+<Base
+  title={post.data.title}
+  description={post.data.excerpt}
+  type="article"
+  image={post.data.ogImage}
+  altLocaleUrl={blogHref("zh", slug)}
+  localeUrls={localeUrls}
+>
+  <ArticleSeo slot="head" post={post} lang="ja" hasEn hasJa />
+  <ArticlePost post={post} lang="ja" />
+</Base>
