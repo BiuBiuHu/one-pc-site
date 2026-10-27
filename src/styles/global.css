@@ -574,11 +574,16 @@ main.main { flex: 1; }
 }
 @media (max-width: 600px) {
   .container { padding: 0 18px; }
+  .topbar .container,
+  .footer .container {
+    padding-left: max(28px, env(safe-area-inset-left, 0px));
+    padding-right: max(28px, env(safe-area-inset-right, 0px));
+  }
   .nav { flex-wrap: wrap; min-height: auto; padding: 12px 0; gap: 10px; }
   .menu { order: 3; flex: 1 1 100%; width: 100%; overflow-x: auto; padding-bottom: 2px; }
   .nav-actions { margin-left: auto; }
   .menu a { padding: 6px 10px; }
   .hero h1 { max-width: none; }
-  .footer-inner { flex-direction: column; align-items: flex-start; padding: 18px 0; gap: 12px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; padding-block: 18px; gap: 12px; }
   .footer-links { width: 100%; row-gap: 10px; }
 }
