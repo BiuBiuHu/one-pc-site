@@ -5,35 +5,45 @@ import Icon from "./Icon.astro";
 import RelatedReading from "./RelatedReading.astro";
 import { render, getCollection } from "astro:content";
 import { pickRelatedPosts, pickRelatedProject } from "../data/related.js";
+import { blogHref, DATE_LOCALE, normalizeLocale, postSlug } from "../lib/i18n.js";
 
 interface Props {
   post: any;
-  lang: "zh" | "en";
+  lang: "zh" | "en" | "ja";
 }
 
 const { post, lang } = Astro.props;
-const isEn = lang === "en";
+const locale = normalizeLocale(lang);
+const isEn = locale === "en";
+const isJa = locale === "ja";
 const { Content, headings } = await render(post);
 const faqItems = post.data.faq || [];
 const tocItems = [
   ...headings.filter((h) => h.depth >= 2 && h.depth <= 3),
-  ...(faqItems.length ? [{ depth: 2, slug: "faq", text: isEn ? "FAQ" : "常见问题" }] : [])
+  ...(faqItems.length
+    ? [{ depth: 2, slug: "faq", text: isEn ? "FAQ" : isJa ? "よくある質問" : "常见问题" }]
+    : [])
 ];
 
-const slug = post.id.replace(/-en$/, "");
-const blogPath = isEn ? "/en/blog" : "/blog";
-const dateLocale = isEn ? "en-US" : "zh-CN";
+const slug = postSlug(post.id);
+const blogPath = blogHref(locale).replace(/\/$/, "");
 const fmt = (d) =>
-  d.toLocaleDateString(dateLocale, { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+  d.toLocaleDateString(DATE_LOCALE[locale], { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
 
-const canonical = new URL(`${isEn ? "/en" : ""}/blog/${slug}/`, Astro.site).href;
+const canonical = new URL(blogHref(locale, slug), Astro.site).href;
 
-const ui = isEn ? { back: "Back to blog", toc: "Contents" } : { back: "返回博客", toc: "目录" };
+const ui = isEn
+  ? { back: "Back to blog", toc: "Contents" }
+  : isJa
+    ? { back: "記事一覧", toc: "目次" }
+    : { back: "返回博客", toc: "目录" };
 const shareText = encodeURIComponent(post.data.title);
 const shareUrl = encodeURIComponent(canonical);
 const shareUi = isEn
   ? { label: "Share", copy: "Copy link", copied: "Copied!" }
-  : { label: "分享", copy: "复制链接", copied: "已复制" };
+  : isJa
+    ? { label: "共有", copy: "リンクをコピー", copied: "コピーしました" }
+    : { label: "分享", copy: "复制链接", copied: "已复制" };
 const allPosts = await getCollection("blog");
 const series = post.data.series;
 const seriesPosts = series
@@ -41,7 +51,7 @@ const seriesPosts = series
       .filter(
         (p) =>
           p.data.series === series &&
-          (p.data.lang ?? "zh") === (isEn ? "en" : "zh") &&
+          (p.data.lang ?? "zh") === locale &&
           !p.data.draft
       )
       .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
@@ -53,7 +63,7 @@ const relatedPosts = pickRelatedPosts(allPosts, post, {
   skipSeries: seriesShown
 });
 const relatedProject = pickRelatedProject(post, lang);
-const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
+const seriesUi = isEn ? { label: "Series" } : isJa ? { label: "シリーズ" } : { label: "系列" };
 ---
 <section class="page">
   <div class={`article-layout ${tocItems.length ? "has-toc" : ""}`}>
@@ -89,7 +99,7 @@ const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
         {
           post.data.updated && post.data.updated.getTime() !== post.data.date.getTime() && (
             <div class="date updated">
-              {isEn ? "Updated" : "更新于"}{" "}
+              {isEn ? "Updated" : isJa ? "更新" : "更新于"}{" "}
               <time datetime={post.data.updated.toISOString()}>{fmt(post.data.updated)}</time>
             </div>
           )
@@ -108,8 +118,8 @@ const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
       <ol class="series-list">
         {seriesPosts.map((p) => {
           const isCurrent = p.id === post.id;
-          const pSlug = p.id.replace(/-en$/, "");
-          const href = isEn ? `/en/blog/${pSlug}/` : `/blog/${pSlug}/`;
+          const pSlug = postSlug(p.id);
+          const href = blogHref(locale, pSlug);
           return (
             <li class:list={["series-item", { current: isCurrent }]}>
               {isCurrent ? <span>{p.data.title}</span> : <a href={href}>{p.data.title}</a>}
@@ -153,17 +163,20 @@ const seriesUi = isEn ? { label: "Series" } : { label: "系列" };
 
   function openLightbox(node) {
     closeLightbox();
-    const isEn = document.documentElement.getAttribute("data-lang") === "en";
+    const pageLang = document.documentElement.getAttribute("data-lang");
     const overlay = document.createElement("div");
     overlay.className = "zoom-lightbox";
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", isEn ? "Image preview" : "图片预览");
+    overlay.setAttribute(
+      "aria-label",
+      pageLang === "en" ? "Image preview" : pageLang === "ja" ? "画像プレビュー" : "图片预览"
+    );
 
     const closeBtn = document.createElement("button");
     closeBtn.type = "button";
     closeBtn.className = "zoom-lightbox-close";
-    closeBtn.setAttribute("aria-label", isEn ? "Close" : "关闭");
+    closeBtn.setAttribute("aria-label", pageLang === "en" ? "Close" : pageLang === "ja" ? "閉じる" : "关闭");
     closeBtn.innerHTML = "&times;";
 
     overlay.appendChild(node);

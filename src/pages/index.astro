@@ -21,6 +21,12 @@ const fmt = (d) =>
   title="Anpai.Life、OPC Skills 与研发实践"
   description="One PC：以博客记录 Agent / OPC 研发过程，并以 Anpai.Life、OPC Skills、AI Gateway 做产品展示。"
   altLocaleUrl="/en/"
+  localeUrls={{ zh: "/", en: "/en/", ja: "/ja/" }}
+  hreflangUrls={{
+    zh: new URL("/", Astro.site).href,
+    en: new URL("/en/", Astro.site).href,
+    ja: new URL("/ja/", Astro.site).href
+  }}
 >
   <section class="page">
     <div class="hero-split">

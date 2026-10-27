@@ -3,33 +3,40 @@ import "../styles/global.css";
 import { site, personNode } from "../data/site";
 import Icon from "../components/Icon.astro";
 import Analytics from "@vercel/analytics/astro";
+import LocaleLinks from "../components/LocaleLinks.astro";
+import { HREFLANG, HTML_LANG, LOCALE_LABEL, homeHref, inLanguageOf, normalizeLocale } from "../lib/i18n.js";
 
-const { title, description, type = "website", image, altLocaleUrl, robots } = Astro.props;
-const isEn = Astro.currentLocale === "en";
+const { title, description, type = "website", image, altLocaleUrl, robots, hreflangUrls, localeUrls } = Astro.props;
+const locale = normalizeLocale(Astro.currentLocale);
+const isEn = locale === "en";
+const isJa = locale === "ja";
 const path = Astro.url.pathname;
-const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${isEn ? "Personal Site" : "个人站点"}`;
+const siteLabel = isEn ? "Personal Site" : isJa ? "個人サイト" : "个人站点";
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${siteLabel}`;
 const desc =
   description ||
   (isEn
     ? "One PC — open source projects, daily thoughts, and ready-to-use services."
-    : "One PC 的个人站点 —— 开源项目、日常思考，以及邮件、AI 等可直接使用的服务。");
+    : isJa
+      ? "One PC — Agent / Skills / OPC の実践。日本語は需要の高いページから公開しています。"
+      : "One PC 的个人站点 —— 开源项目、日常思考，以及邮件、AI 等可直接使用的服务。");
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 if (!canonicalUrl.pathname.endsWith("/")) canonicalUrl.pathname += "/";
 const canonical = canonicalUrl.href;
 const ogImage = new URL(image || site.ogImage, Astro.site).href;
-const isHome = path === "/" || path === "/en" || path === "/en/";
+const isHome = path === "/" || path === "/en" || path === "/en/" || path === "/ja" || path === "/ja/";
 const altAbs = altLocaleUrl ? new URL(altLocaleUrl, Astro.site).href : null;
 const websiteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: site.name,
-  url: new URL("/", Astro.site).href,
+  url: new URL(isJa ? "/ja/" : isEn ? "/en/" : "/", Astro.site).href,
   description: desc,
-  inLanguage: isEn ? "en-US" : "zh-CN",
+  inLanguage: inLanguageOf(locale),
   publisher: personNode({ url: new URL("/", Astro.site).href })
 };
 
-const pathKey = path.replace(/^\/en(?=\/|$)/, "").replace(/\/+$/, "") || "/";
+const pathKey = path.replace(/^\/(en|ja)(?=\/|$)/, "").replace(/\/+$/, "") || "/";
 const NAV = isEn
   ? [
       { href: "/", label: "Home", match: (p) => p === "/" },
@@ -38,22 +45,43 @@ const NAV = isEn
       { href: "/en/services", label: "Services", match: (p) => p.startsWith("/services") },
       { href: "/en/about", label: "About", match: (p) => p.startsWith("/about") }
     ]
-  : [
-      { href: "/", label: "首页", match: (p) => p === "/" },
-      { href: "/projects", label: "项目", match: (p) => p.startsWith("/projects") },
-      { href: "/blog", label: "博客", match: (p) => p.startsWith("/blog") },
-      { href: "/services", label: "服务", match: (p) => p.startsWith("/services") },
-      { href: "/about", label: "关于", match: (p) => p.startsWith("/about") }
-    ];
+  : isJa
+    ? [
+        { href: "/ja/", label: "ホーム", match: (p) => p === "/" },
+        { href: "/ja/blog/", label: "記事", match: (p) => p.startsWith("/blog") },
+        { href: "/ja/projects/opc-skills/", label: "OPC Skills", match: (p) => p.startsWith("/projects") }
+      ]
+    : [
+        { href: "/", label: "首页", match: (p) => p === "/" },
+        { href: "/projects", label: "项目", match: (p) => p.startsWith("/projects") },
+        { href: "/blog", label: "博客", match: (p) => p.startsWith("/blog") },
+        { href: "/services", label: "服务", match: (p) => p.startsWith("/services") },
+        { href: "/about", label: "关于", match: (p) => p.startsWith("/about") }
+      ];
 
-const switchHref = altLocaleUrl || (isEn ? "/" : "/en/blog/");
-const switchLabel = isEn ? "中文" : "English";
+const switchHref = altLocaleUrl || (isEn ? "/" : isJa ? "/" : "/en/blog/");
+const switchers = localeUrls
+  ? Object.entries(localeUrls)
+      .filter(([key, href]) => href && key !== locale)
+      .map(([key, href]) => ({ lang: key, href, label: LOCALE_LABEL[key] }))
+  : [{ lang: isEn || isJa ? "zh" : "en", href: switchHref, label: isEn || isJa ? "中文" : "English" }];
+const localeUrlMap = localeUrls
+  ? Object.fromEntries(Object.entries(localeUrls).filter(([, href]) => href))
+  : null;
 const year = new Date().getFullYear();
-// GA4 Measurement ID：从环境变量读取（Vercel 配 PUBLIC_GA_ID），未配置则不注入
 const gaId = import.meta.env.PUBLIC_GA_ID;
+const brandHref = homeHref(locale);
+const ogAlternates = Object.entries(HREFLANG)
+  .filter(([key]) => key !== locale)
+  .map(([, value]) => value);
 ---
 <!doctype html>
-<html lang={isEn ? "en" : "zh-CN"} data-lang={isEn ? "en" : "zh"} data-alt-url={switchHref || ""}>
+<html
+  lang={HTML_LANG[locale]}
+  data-lang={locale}
+  data-alt-url={switchHref || ""}
+  data-locale-urls={localeUrlMap ? JSON.stringify(localeUrlMap) : undefined}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,8 +94,8 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta property="og:description" content={desc} />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content={isEn ? "en-US" : "zh-CN"} />
-    <meta property="og:locale:alternate" content={isEn ? "zh-CN" : "en-US"} />
+    <meta property="og:locale" content={HREFLANG[locale]} />
+    {ogAlternates.map((code) => <meta property="og:locale:alternate" content={code} />)}
     <link rel="canonical" href={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
@@ -75,16 +103,21 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:image" content={ogImage} />
     {
-      type !== "article" && !robots && altAbs && (
+      type !== "article" && !robots && hreflangUrls && (
+        <LocaleLinks urls={hreflangUrls} />
+      )
+    }
+    {
+      type !== "article" && !robots && !hreflangUrls && altAbs && (
         <>
-          <link rel="alternate" hreflang={isEn ? "en-US" : "zh-CN"} href={canonical} />
+          <link rel="alternate" hreflang={HREFLANG[locale]} href={canonical} />
           <link rel="alternate" hreflang={isEn ? "zh-CN" : "en-US"} href={altAbs} />
-          <link rel="alternate" hreflang="x-default" href={isEn ? altAbs : canonical} />
+          <link rel="alternate" hreflang="x-default" href={isEn || isJa ? altAbs : canonical} />
         </>
       )
     }
     {isHome && <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />}
-    <link rel="alternate" type="application/rss+xml" title={`${site.name} · ${isEn ? "Blog RSS" : "博客 RSS"}`} href={isEn ? "/en/rss.xml" : "/rss.xml"} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} · ${isEn ? "Blog RSS" : isJa ? "Blog RSS" : "博客 RSS"}`} href={isEn || isJa ? "/en/rss.xml" : "/rss.xml"} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
       // 语言分流：优先用户手动选择（lang-pref），否则按浏览器语言；爬虫跳过
@@ -92,19 +125,24 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         var root = document.documentElement;
         var cur = root.getAttribute("data-lang");
         var alt = root.getAttribute("data-alt-url");
-        if (!alt) return;
+        var map = null;
+        try { map = JSON.parse(root.getAttribute("data-locale-urls") || "null"); } catch (e) {}
         var ua = navigator.userAgent.toLowerCase();
         if (/bot|crawler|spider|slurp|bing|baiduspider/i.test(ua)) return;
         var pref = null;
         try { pref = localStorage.getItem("lang-pref"); } catch (e) {}
         var target;
-        if (pref === "zh" || pref === "en") {
+        if (pref === "zh" || pref === "en" || pref === "ja") {
           target = pref;
+        } else if (cur === "ja") {
+          return;
         } else {
           var lang = (navigator.language || navigator.userLanguage || "").toLowerCase();
           target = lang.indexOf("en") === 0 ? "en" : "zh";
         }
-        if (target !== cur) location.replace(alt);
+        if (target === cur) return;
+        var dest = (map && map[target]) || (target === "ja" ? "" : alt);
+        if (dest) location.replace(dest);
       })();
     </script>
     <slot name="head" />
@@ -113,7 +151,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <div class="site">
       <header class="topbar">
         <div class="container nav">
-          <a class="brand" href="/">
+          <a class="brand" href={brandHref}>
             <span class="brand-mark">OP</span>
             <span>{site.name}</span>
           </a>
@@ -125,7 +163,9 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
             ))}
           </nav>
           <div class="nav-actions">
-            <a class="lang-switch" href={switchHref} data-lang={isEn ? "zh" : "en"}>{switchLabel}</a>
+            {switchers.map((item) => (
+              <a class="lang-switch" href={item.href} data-lang={item.lang}>{item.label}</a>
+            ))}
             <a class="icon-link" href={site.githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub" title={site.githubUrl}>
               <Icon name="github" size={18} />
             </a>
@@ -144,15 +184,25 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         <div class="container footer-inner">
           <div class="footer-brand">
             <span class="brand-mark">OP</span>
-            <span>{site.name} · {isEn ? "Personal Site" : "个人站点"}</span>
+            <span>{site.name} · {siteLabel}</span>
           </div>
           <div class="footer-links">
-            <a href={isEn ? "/en/about" : "/about"}>{isEn ? "About" : "关于"}</a>
-            <a href={isEn ? "/en/projects" : "/projects"}>{isEn ? "Projects" : "项目"}</a>
-            <a href={isEn ? "/en/blog" : "/blog"}>{isEn ? "Blog" : "博客"}</a>
-            <a href={isEn ? "/en/services" : "/services"}>{isEn ? "Services" : "服务"}</a>
+            {isJa ? (
+              <>
+                <a href="/ja/">ホーム</a>
+                <a href="/ja/blog/">記事</a>
+                <a href="/ja/projects/opc-skills/">OPC Skills</a>
+              </>
+            ) : (
+              <>
+                <a href={isEn ? "/en/about" : "/about"}>{isEn ? "About" : "关于"}</a>
+                <a href={isEn ? "/en/projects" : "/projects"}>{isEn ? "Projects" : "项目"}</a>
+                <a href={isEn ? "/en/blog" : "/blog"}>{isEn ? "Blog" : "博客"}</a>
+                <a href={isEn ? "/en/services" : "/services"}>{isEn ? "Services" : "服务"}</a>
+              </>
+            )}
             <a href={site.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
-            <a href={`mailto:${site.email}`}>{isEn ? "Contact · " : "联系我 · "}{site.email}</a>
+            <a href={`mailto:${site.email}`}>{isEn ? "Contact · " : isJa ? "連絡 · " : "联系我 · "}{site.email}</a>
           </div>
           <div>© {year} {site.name}</div>
         </div>

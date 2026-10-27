@@ -21,6 +21,12 @@ const fmt = (d) =>
   title="Anpai.Life, OPC Skills, and research practice"
   description="One PC documents Agent and OPC research, and showcases products including Anpai.Life, OPC Skills, and AI Gateway."
   altLocaleUrl="/"
+  localeUrls={{ zh: "/", en: "/en/", ja: "/ja/" }}
+  hreflangUrls={{
+    zh: new URL("/", Astro.site).href,
+    en: new URL("/en/", Astro.site).href,
+    ja: new URL("/ja/", Astro.site).href
+  }}
 >
   <section class="page">
     <div class="hero-split">

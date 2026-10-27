@@ -6,16 +6,18 @@ interface Props {
   hub: any;
   project: any;
   relatedPosts: any[];
-  lang: "zh" | "en";
+  lang: "zh" | "en" | "ja";
 }
 
 const { hub, project, relatedPosts, lang } = Astro.props;
-const isEn = lang === "en";
 const pick = (field) => (field && typeof field === "object" ? field[lang] : field);
-const projectsHref = isEn ? "/en/projects/" : "/projects/";
-const ui = isEn
-  ? { back: "All projects", tldr: "TL;DR", problem: "The problem", solution: "What it is", more: "All projects" }
-  : { back: "全部项目", tldr: "TL;DR", problem: "问题", solution: "做法", more: "全部项目" };
+const projectsHref = lang === "en" ? "/en/projects/" : lang === "ja" ? "/ja/" : "/projects/";
+const ui =
+  lang === "en"
+    ? { back: "All projects", tldr: "TL;DR", problem: "The problem", solution: "What it is", more: "All projects" }
+    : lang === "ja"
+      ? { back: "ホーム", tldr: "TL;DR", problem: "課題", solution: "このプロダクト", more: "ホーム" }
+      : { back: "全部项目", tldr: "TL;DR", problem: "问题", solution: "做法", more: "全部项目" };
 ---
 <section class="page">
   <a class="back-link" href={projectsHref}>
@@ -27,7 +29,7 @@ const ui = isEn
     <div class="about-head">
       <span class="eyebrow"><Icon name="boxes" size={14} />{pick(hub.eyebrow)}</span>
       <h1>{pick(hub.h1)}</h1>
-      <p class="lead">{project.tagline}</p>
+      <p class="lead">{pick(hub.tagline) || project.tagline}</p>
     </div>
 
     <div class="tldr card">

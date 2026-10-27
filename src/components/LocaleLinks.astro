@@ -1,0 +1,13 @@
+---
+import { HREFLANG } from "../lib/i18n.js";
+
+interface Props {
+  urls: { zh: string; en?: string; ja?: string };
+}
+
+const { urls } = Astro.props;
+---
+<link rel="alternate" hreflang={HREFLANG.zh} href={urls.zh} />
+{urls.en && <link rel="alternate" hreflang={HREFLANG.en} href={urls.en} />}
+{urls.ja && <link rel="alternate" hreflang={HREFLANG.ja} href={urls.ja} />}
+<link rel="alternate" hreflang="x-default" href={urls.zh} />

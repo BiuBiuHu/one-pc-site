@@ -1,5 +1,20 @@
 import { getCollection } from "astro:content";
 import { site } from "../data/site";
+import { localeOf, postSlug } from "../lib/i18n.js";
+
+function blogUrl(base, post) {
+  const slug = postSlug(post.id);
+  const lang = localeOf(post);
+  if (lang === "en") return `${base}/en/blog/${slug}/`;
+  if (lang === "ja") return `${base}/ja/blog/${slug}/`;
+  return `${base}/blog/${slug}/`;
+}
+
+function langTag(lang) {
+  if (lang === "en") return "EN";
+  if (lang === "ja") return "JA";
+  return "ZH";
+}
 
 // llms.txt：让 LLM 爬虫 / AI 工具（agent、IDE）快速读懂站点内容地图
 // 规范：https://llmstxt.org
@@ -7,6 +22,7 @@ export async function GET(context) {
   const posts = (await getCollection("blog"))
     .filter((p) => !p.data.draft)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  const jaPosts = posts.filter((p) => localeOf(p) === "ja");
   const base = context.site.origin;
 
   const out = [];
@@ -30,15 +46,24 @@ export async function GET(context) {
   out.push(`- [OPC Skills (EN)](${base}/en/projects/opc-skills/): OPC Skills landing`);
   out.push(`- [服务](${base}/services/): 可直接使用的服务`);
   out.push("");
+  out.push("## Japanese (live pages only)");
+  out.push("");
+  out.push(`- [日本語ホーム](${base}/ja/): Agent / Skills / OPC の日本語エントリ`);
+  out.push(`- [OPC Skills (JA)](${base}/ja/projects/opc-skills/): OPC Skills 日本語`);
+  out.push(`- [日本語の記事](${base}/ja/blog/): 公開中の日本語記事（全アーカイブではない）`);
+  for (const post of jaPosts) {
+    const date = post.data.date.toISOString().slice(0, 10);
+    const excerpt = post.data.excerpt || "";
+    out.push(`- [JA] [${post.data.title}](${blogUrl(base, post)})（${date}）：${excerpt}`);
+  }
+  out.push("");
   out.push(`## 博客文章（${posts.length} 篇）`);
   out.push("");
   for (const post of posts) {
-    const isEn = post.data.lang === "en";
-    const slug = post.id.replace(/-en$/, "");
-    const url = isEn ? `${base}/en/blog/${slug}/` : `${base}/blog/${slug}/`;
+    const lang = localeOf(post);
     const date = post.data.date.toISOString().slice(0, 10);
     const excerpt = post.data.excerpt || "";
-    out.push(`- [${isEn ? "EN" : "ZH"}] [${post.data.title}](${url})（${date}）：${excerpt}`);
+    out.push(`- [${langTag(lang)}] [${post.data.title}](${blogUrl(base, post)})（${date}）：${excerpt}`);
   }
 
   return new Response(out.join("\n") + "\n", {

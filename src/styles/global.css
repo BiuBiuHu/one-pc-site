@@ -107,7 +107,7 @@ main.main { flex: 1; }
 }
 .menu a:hover { color: var(--text); background: var(--bg-subtle); text-decoration: none; }
 .menu a[aria-current="page"] { color: var(--brand); background: var(--brand-soft); }
-.nav-actions { display: flex; align-items: center; gap: 4px; }
+.nav-actions { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 .icon-link {
   display: inline-grid; place-items: center;
   width: 36px; height: 36px; border-radius: var(--radius-sm);
