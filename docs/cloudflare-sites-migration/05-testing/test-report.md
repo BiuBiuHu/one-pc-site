@@ -35,3 +35,7 @@
 Vercel博客Git连接已实际断开并通过平台API复核，旧deployment仍READY；不以CLI退出码或仓库配置代替该证据。
 
 正式作者UI加载46篇文章，原草稿恢复正常，未编辑草稿或发送写请求。临时凭据、Preview Worker与测试分支均已清理；部署token和正式Worker secrets保留在各自安全位置。
+
+## 发布收尾补查：脚本客户端
+
+Python urllib默认客户端在正式域名和workers.dev均返回403/1010；浏览器和Node成功不能替代此失败。读取到本博客zone的browser_check=on。官方1010文档与BIC说明确认此类客户端可能被拦截。拟仅在公开博客zone将browser_check关闭，保留写作鉴权、其他WAF/DDoS设置；不伪装客户端UA。workers.dev内置策略不可由站点关闭，正式自有域名才作为客户端兼容验收入口。操作前后响应与配置状态继续回填。
