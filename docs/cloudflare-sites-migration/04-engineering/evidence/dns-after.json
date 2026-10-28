@@ -1,0 +1,29 @@
+{
+  "timestampUTC": "2026-10-28T03:32:04.408484+00:00",
+  "records": [
+    {
+      "id": "ba336a0b5725b033b26f5e9bfd32372e",
+      "name": "peak-lake.com",
+      "type": "CNAME",
+      "content": "www.peak-lake.com",
+      "proxied": true,
+      "ttl": 1
+    },
+    {
+      "id": "27a0ff2bce0916b59f4fab1042c0bfe5",
+      "name": "peak-lake.com",
+      "type": "TXT",
+      "content": "\"google-site-verification=A2gzAklrumLKwbyaCpQxjcZcYHNBe9kYkJ-fa_GWZXg\"",
+      "proxied": false,
+      "ttl": 3600
+    },
+    {
+      "id": "a8a1fd7eb93983471eb58278efa70251",
+      "name": "www.peak-lake.com",
+      "type": "AAAA",
+      "content": "100::",
+      "proxied": true,
+      "ttl": 1
+    }
+  ]
+}

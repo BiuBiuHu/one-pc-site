@@ -1,0 +1,72 @@
+{
+  "base": "https://www.peak-lake.com",
+  "target": "production",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "canonical": true,
+      "hreflang": true
+    },
+    {
+      "path": "/en/",
+      "status": 200,
+      "canonical": true,
+      "hreflang": true
+    },
+    {
+      "path": "/ja/",
+      "status": 200,
+      "canonical": true,
+      "hreflang": true
+    },
+    {
+      "path": "/blog/mcp-model-context-protocol",
+      "status": 200,
+      "canonical": true,
+      "hreflang": true
+    },
+    {
+      "path": "/en/blog/mcp-model-context-protocol",
+      "status": 200,
+      "canonical": true,
+      "hreflang": true
+    },
+    {
+      "path": "/ja/blog/loop-engineering",
+      "status": 200,
+      "canonical": true,
+      "hreflang": true
+    },
+    {
+      "path": "/write",
+      "status": 200,
+      "canonical": true,
+      "hreflang": "not applicable: private writer"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200
+    },
+    {
+      "path": "/llms.txt",
+      "status": 200
+    },
+    {
+      "path": "/rss.xml",
+      "status": 200
+    },
+    {
+      "path": "/en/rss.xml",
+      "status": 200
+    },
+    {
+      "path": "/sitemap-index.xml",
+      "status": 200
+    },
+    {
+      "path": "/sitemap-0.xml",
+      "status": 200
+    }
+  ]
+}

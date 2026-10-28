@@ -1,0 +1,48 @@
+{
+  "timestampUTC": "2026-10-28T03:29:59.290Z",
+  "base": "https://www.peak-lake.com",
+  "mode": "production",
+  "records": [
+    {
+      "label": "native health",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "wrong password",
+      "status": 401,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "authenticated list",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "authenticated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "public comments",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "post requires content",
+      "status": 400,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "delete requires slug/SHA",
+      "status": 400,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "comment requires content",
+      "status": 400,
+      "provider": "cloudflare"
+    }
+  ],
+  "productionWrites": 0
+}

@@ -1,0 +1,9 @@
+{
+  "timestampUTC": "2026-10-28T03:30:50.546561+00:00",
+  "previewWorkerDeleted": true,
+  "previewDeleteStatus": 200,
+  "isolatedValidationBranchDeleted": true,
+  "productionWorkerPreserved": true,
+  "productionContentPreserved": true,
+  "previewRecreation": "Prepare an isolated GitHub branch and Worker secrets before manually deploying another preview."
+}

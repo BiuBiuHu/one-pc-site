@@ -1,0 +1,116 @@
+{
+  "domains": [
+    {
+      "id": "4bc22da62fceec99cf2fcacd8589322f634c207a",
+      "zone_id": "f25684d9c51c5a602e2f38a6b17b7af2",
+      "zone_name": "peak-lake.com",
+      "hostname": "www.peak-lake.com",
+      "service": "peak-lake-blog",
+      "environment": "production",
+      "cert_id": "1b977e40-2063-4b50-9569-726405c16213",
+      "previews_enabled": false,
+      "enabled": true
+    }
+  ],
+  "deployments": {
+    "deployments": [
+      {
+        "id": "54f7ec4b-f85b-4a74-83cc-86aa684fc174",
+        "source": "wrangler",
+        "strategy": "percentage",
+        "annotations": {
+          "workers/triggered_by": "deployment"
+        },
+        "versions": [
+          {
+            "version_id": "5ac5427c-4116-4d89-8bb9-8706fde18475",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-10-28T03:27:33.32271Z"
+      },
+      {
+        "id": "889ce100-008d-414a-a62e-3006b6dfccdc",
+        "source": "wrangler",
+        "strategy": "percentage",
+        "annotations": {
+          "workers/triggered_by": "deployment"
+        },
+        "versions": [
+          {
+            "version_id": "21d6136c-ce9e-4b99-8461-58f887e22c9f",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-10-28T03:24:20.349029Z"
+      },
+      {
+        "id": "71c290fd-a40f-4483-9221-cf2f2677286e",
+        "source": "wrangler",
+        "strategy": "percentage",
+        "annotations": {
+          "workers/message": "Automatic deployment on upload.",
+          "workers/triggered_by": "upload"
+        },
+        "versions": [
+          {
+            "version_id": "8be69e33-74db-457b-88a8-eee857f91028",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-10-28T03:22:23.283263Z"
+      }
+    ]
+  },
+  "settings": {
+    "placement": {},
+    "compatibility_date": "2026-04-15",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "usage_model": "standard",
+    "tags": [
+      "cf:service=peak-lake-blog",
+      "cf:environment=production"
+    ],
+    "tail_consumers": [],
+    "logpush": false,
+    "annotations": {
+      "workers/triggered_by": "version_upload"
+    },
+    "bindings": [
+      {
+        "name": "ASSETS",
+        "type": "assets"
+      },
+      {
+        "name": "DEPLOY_ENV",
+        "type": "plain_text",
+        "text": "production"
+      },
+      {
+        "name": "GH_BRANCH",
+        "type": "plain_text",
+        "text": "main"
+      },
+      {
+        "name": "GH_OWNER",
+        "type": "plain_text",
+        "text": "BiuBiuHu"
+      },
+      {
+        "name": "GH_REPO",
+        "type": "plain_text",
+        "text": "one-pc-site"
+      },
+      {
+        "name": "GH_TOKEN",
+        "type": "secret_text"
+      },
+      {
+        "name": "WRITE_PASSWORD",
+        "type": "secret_text"
+      }
+    ]
+  }
+}

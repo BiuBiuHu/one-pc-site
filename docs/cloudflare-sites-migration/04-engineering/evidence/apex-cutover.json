@@ -1,0 +1,50 @@
+{
+  "timestampUTC": "2026-10-28T03:26:07.429Z",
+  "rule": {
+    "description": "Preserve the existing apex-to-www blog redirect in Cloudflare",
+    "id": "e11aff58d39a4a67b5e06128a8433d68",
+    "kind": "zone",
+    "last_updated": "2026-10-28T03:26:06.347487Z",
+    "name": "Blog canonical hostname",
+    "phase": "http_request_dynamic_redirect",
+    "rules": [
+      {
+        "action": "redirect",
+        "action_parameters": {
+          "from_value": {
+            "preserve_query_string": true,
+            "status_code": 308,
+            "target_url": {
+              "expression": "concat(\"https://www.peak-lake.com\", http.request.uri.path)"
+            }
+          }
+        },
+        "description": "Blog apex to www with path and query",
+        "enabled": true,
+        "expression": "(http.host eq \"peak-lake.com\")",
+        "id": "13de6c376d0348138417d378ebad6872",
+        "last_updated": "2026-10-28T03:26:06.347487Z",
+        "ref": "blog_apex_to_www",
+        "version": "1"
+      }
+    ],
+    "version": "1"
+  },
+  "dns": {
+    "id": "ba336a0b5725b033b26f5e9bfd32372e",
+    "name": "peak-lake.com",
+    "type": "CNAME",
+    "content": "www.peak-lake.com",
+    "proxiable": true,
+    "proxied": true,
+    "ttl": 1,
+    "settings": {
+      "flatten_cname": false
+    },
+    "meta": {},
+    "comment": null,
+    "tags": [],
+    "created_on": "2026-08-09T08:40:33.189639Z",
+    "modified_on": "2026-10-28T03:26:06.859924Z"
+  }
+}
