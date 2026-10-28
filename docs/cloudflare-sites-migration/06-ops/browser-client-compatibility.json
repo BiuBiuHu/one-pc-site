@@ -1,0 +1,13 @@
+{
+  "zoneName": "peak-lake.com",
+  "zoneId": "f25684d9c51c5a602e2f38a6b17b7af2",
+  "setting": "browser_check",
+  "before": "on",
+  "desired": "off",
+  "scope": "Public blog zone only; no other zone settings or Workers account settings",
+  "reason": "Preserve public blog, RSS and API access for standard non-browser HTTP clients after migration",
+  "retain": ["API writing password", "GitHub token server-side binding", "other WAF and DDoS rules"],
+  "rollback": "Restore browser_check=on if this compatibility change is reverted",
+  "observedBefore": {"Python urllib": "HTTP 403, Cloudflare 1010", "browser and Node fetch": "HTTP 200"},
+  "officialSource": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/"
+}
