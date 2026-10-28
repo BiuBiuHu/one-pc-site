@@ -1,0 +1,7 @@
+{
+  "client": "unmodified Python urllib",
+  "path": "/api/post",
+  "status": 401,
+  "expectedStatus": 401,
+  "productionWrites": 0
+}
