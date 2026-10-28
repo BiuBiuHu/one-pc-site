@@ -26,7 +26,7 @@
 
 - Preview：peak-lake-blog-preview，无域名，noindex、无GA；绑定cf-validation-20261028隔离分支，实际写入只在该分支。正式main的文章和comments.json不变。
 - Production：peak-lake-blog，原GH_TOKEN/WRITE_PASSWORD安全注入，正式GH_BRANCH=main，保留原口令。Cloudflare现有受限token用于脚本部署，DNS/规则操作使用已登录控制台，仅本博客zone。凭据文件在仓库外mode600目录，不进入代码、产物和日志。
-- 正式www使用Custom Domain；原CNAME与新绑定冲突，先上传production无域名候选并验证，再备份/删除www CNAME并绑定。裸域保持原跳转语义。其他DNS记录不改。
+- 正式www使用Custom Domain；原CNAME与新绑定冲突，先上传production无域名候选并验证，再按快照核验现有记录；Wrangler的Custom Domain操作在本博客hostname范围替换冲突CNAME，避免先手工删除产生间隙。裸域保持原跳转语义。其他DNS记录不改。
 - 不做PG迁移，不改正式文章/评论。预览写作/编辑/删除和并发评论仅写隔离分支；验证后关闭写入并删除隔离分支。
 
 ## 3. 顺序与门禁
@@ -34,7 +34,7 @@
 1. 保存旧DNS/路由/serving/GA和本地代码，完成本地测试、静态构建、Worker dry-run与自审。
 2. 提交并创建Code PR，部署隔离Preview（不先归并，避免提前触发正式构建），完成页面、API、隔离真实写作/评论与浏览器验收。
 3. 预览通过后归并Code PR，主分支pull到精确merge SHA；重建production产物并扫描secret。运行发布完整性检查，先用--stage-only部署无域名production候选。
-4. 验证production workers.dev健康和只读写作/评论，检查版本/摘要，再切www Custom Domain与裸域redirect。失败立即按第5节回滚。
+4. 验证production workers.dev健康和只读写作/评论，检查版本/摘要，再通过Wrangler切www Custom Domain，并创建cloudflare/apex-redirect.json中的裸域308规则与CNAME。失败立即按第5节回滚。
 5. 固定域名复测、受控作者只读验证、无副作用探针、日志和GitHub内容前后检查；启用自动生产构建，手动触发一次真实Actions验证。
 6. 发布证据用独立Release PR回填，核对主干/worktree、实际版本、CI、域名漂移。旧Vercel资源保留至少14天，本轮不删除。
 

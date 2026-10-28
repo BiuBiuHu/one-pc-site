@@ -1,0 +1,65 @@
+{
+  "timestampUTC": "2026-10-28T03:13:31.308Z",
+  "branch": "cf-validation-20261028",
+  "records": [
+    {
+      "label": "native health",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "unauthorized list",
+      "status": 401,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "create isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "read isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "update isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "list isolated articles",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "append isolated comment 1",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "append isolated comment 2",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "read isolated comments",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "delete isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "deleted article is gone",
+      "status": 404,
+      "provider": "cloudflare"
+    }
+  ],
+  "utf8": true,
+  "articleCreateUpdateReadDelete": true,
+  "twoCommentsPreserved": true,
+  "productionWrites": 0
+}
