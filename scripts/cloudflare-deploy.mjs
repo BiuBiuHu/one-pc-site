@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, unlinkSync } from 'node:fs';
 import path from 'node:path';
 import { hashAssets } from './cloudflare-artifact.mjs';
 
@@ -20,9 +20,25 @@ if (target === 'production') {
 }
 const args = ['node_modules/wrangler/bin/wrangler.js', 'deploy', '--env', target];
 if (process.env.CLOUDFLARE_SECRETS_FILE) args.push('--secrets-file', process.env.CLOUDFLARE_SECRETS_FILE);
-// Upload the final production artifact before changing any public hostname.
+// Upload the exact production artifact through an explicit no-domain config.
+// Wrangler requires a value after --routes; an empty CLI flag is invalid.
+let stageConfig;
 if (process.argv[3] === '--stage-only') {
   if (target !== 'production') throw new Error('Staging override applies only to production');
-  args.push('--routes');
+  const config = JSON.parse(readFileSync('wrangler.jsonc', 'utf8'));
+  const account = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const token = process.env.CLOUDFLARE_API_TOKEN;
+  if (!account || !token) throw new Error('Explicit account/token required for staging');
+  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/workers/domains`, { headers: { Authorization: `Bearer ${token}` } });
+  const domains = await response.json();
+  if (!response.ok || !domains.success) throw new Error('Cannot verify staging hostname isolation');
+  if (domains.result.some(domain => domain.service === config.env.production.name)) throw new Error('Stage-only is limited to initial bootstrap before domain binding');
+  config.env.production.routes = [];
+  config.main = path.resolve(config.main);
+  config.assets.directory = path.resolve(config.assets.directory);
+  stageConfig = path.resolve('.cloudflare/wrangler-stage.json');
+  writeFileSync(stageConfig, JSON.stringify(config, null, 2) + '\n');
+  args.push('--config', stageConfig);
 }
-execFileSync(process.execPath, args, { stdio: 'inherit' });
+try { execFileSync(process.execPath, args, { stdio: 'inherit' }); }
+finally { if (stageConfig) unlinkSync(stageConfig); }
