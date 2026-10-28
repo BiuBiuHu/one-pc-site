@@ -1,0 +1,11 @@
+{
+  "timestampUTC": "2026-10-28T03:35:29.659268+00:00",
+  "sensitiveLiteralScan": "passed",
+  "filesScanned": 179,
+  "privateCredentialFilesRemoved": true,
+  "previewWorkerAbsent": true,
+  "validationBranchAbsent": true,
+  "productionWorkerPresent": true,
+  "staticDeploymentTokenPreserved": true,
+  "runtimeSecretsLocation": "Cloudflare production Worker secret bindings; original Vercel credentials retained for rollback"
+}

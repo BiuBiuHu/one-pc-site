@@ -1,0 +1,98 @@
+{
+  "startedUTC": "2026-10-28T03:26:40.087419+00:00",
+  "finishedUTC": "2026-10-28T03:26:54.417206+00:00",
+  "events": [
+    {
+      "timestamp": 1793158003283,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    },
+    {
+      "timestamp": 1793158004811,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    },
+    {
+      "timestamp": 1793158006348,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    },
+    {
+      "timestamp": 1793158007830,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    },
+    {
+      "timestamp": 1793158009373,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    },
+    {
+      "timestamp": 1793158010885,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    },
+    {
+      "timestamp": 1793158012377,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    },
+    {
+      "timestamp": 1793158013894,
+      "outcome": "ok",
+      "method": "GET",
+      "path": "/api/health",
+      "exceptionCount": 0,
+      "logCount": 0,
+      "scriptVersion": {
+        "id": "21d6136c-ce9e-4b99-8461-58f887e22c9f"
+      }
+    }
+  ],
+  "observedEvents": 8,
+  "exceptions": 0,
+  "unexpectedOutcomes": [],
+  "caveat": "Short active synthetic-probe observation only, not a long-term availability proof. Query strings and log bodies deliberately excluded."
+}

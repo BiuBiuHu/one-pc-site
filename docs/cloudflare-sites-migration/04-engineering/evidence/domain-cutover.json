@@ -1,0 +1,17 @@
+{
+  "timestampUTC": "2026-10-28T03:25:16.717Z",
+  "oldDNSRecordId": "342115e1a430a2a7b12cf19b4a702918",
+  "oldCNAME": "cname.vercel-dns.com",
+  "oldRecordDeleted": true,
+  "customDomain": {
+    "id": "4bc22da62fceec99cf2fcacd8589322f634c207a",
+    "zone_id": "f25684d9c51c5a602e2f38a6b17b7af2",
+    "zone_name": "peak-lake.com",
+    "hostname": "www.peak-lake.com",
+    "service": "peak-lake-blog",
+    "environment": "production",
+    "cert_id": "1b977e40-2063-4b50-9569-726405c16213",
+    "previews_enabled": false,
+    "enabled": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "timestampUTC": "2026-10-28T03:35:29.721191+00:00",
+  "JSONFilesParsed": 25,
+  "relativeDocumentLinksChecked": 4,
+  "sensitiveValueScan": "passed",
+  "productionSourceCommit": "1dd26827e8d5b498c72673a043d27b1034364481",
+  "activeWorkerVersion": "5ac5427c-4116-4d89-8bb9-8706fde18475",
+  "productionStaticPaths": 184,
+  "historicalRedirects": 60,
+  "productionAPIReadOnlyChecks": 8,
+  "productionSEOPaths": 13,
+  "directWorkerTests": 12,
+  "longTermSLO": "not claimed"
+}

@@ -1,0 +1,15 @@
+{
+  "timestampUTC": "2026-10-28T03:32:36.047664+00:00",
+  "projectId": "prj_dTxPkJ9nvfupiFZzYGdS9k8peYxe",
+  "name": "blog",
+  "gitDisconnected": true,
+  "oldGitLink": {
+    "type": "github",
+    "repo": "one-pc-site",
+    "org": "BiuBiuHu",
+    "productionBranch": "main"
+  },
+  "rollbackDeploymentId": "dpl_J5oLyYmtypxZVkSd8wnKrHu1eTAz",
+  "rollbackDeploymentUrl": "blog-6fme0ld1t-biubiu-hus-projects.vercel.app",
+  "rollbackDeploymentReadyState": "READY"
+}
