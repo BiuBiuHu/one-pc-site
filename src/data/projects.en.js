@@ -42,20 +42,6 @@ const projectList = [
     tags: ["AI", "Gateway", "LLM"],
     status: "active",
     featured: true
-  },
-  {
-    name: "Mail Service",
-    tagline: "Ready-to-use transactional email service",
-    description:
-      "A lightweight email API and template system for verification codes, notifications, and marketing, with deliverability tracking and retry.",
-    language: "Go",
-    languageColor: "#00add8",
-    stars: 64,
-    repo: "https://github.com/BiuBiuHu/mail-service",
-    homepage: "",
-    tags: ["Email", "API", "Infrastructure"],
-    status: "active",
-    featured: true
   }
 ];
 

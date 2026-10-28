@@ -42,20 +42,6 @@ const projectList = [
     tags: ["AI", "Gateway", "LLM"],
     status: "active",
     featured: true
-  },
-  {
-    name: "Mail Service",
-    tagline: "开箱即用的交易邮件服务",
-    description:
-      "轻量的邮件发送 API 与模板系统，支持验证码、通知和营销邮件，带送达追踪与重试。",
-    language: "Go",
-    languageColor: "#00add8",
-    stars: 64,
-    repo: "https://github.com/BiuBiuHu/mail-service",
-    homepage: "",
-    tags: ["Email", "API", "基础设施"],
-    status: "active",
-    featured: true
   }
 ];
 

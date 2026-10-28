@@ -3,20 +3,6 @@ import { site } from "./site.js";
 
 export const services = [
   {
-    icon: "mail",
-    name: "Mail Service",
-    summary:
-      "Ready-to-use email sending — verification codes, notifications, and marketing in one place, with deliverability tracking and template management.",
-    features: [
-      "REST API + SMTP dual channel",
-      "Template variables & multi-language",
-      "Deliverability tracking & retry",
-      "Per-key quota & rate limiting"
-    ],
-    cta: { label: "Learn more", href: "/blog/ai-gateway-01" },
-    highlight: false
-  },
-  {
     icon: "sparkles",
     name: "AI Service",
     summary:

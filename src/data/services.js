@@ -3,20 +3,6 @@ import { site } from "./site.js";
 
 export const services = [
   {
-    icon: "mail",
-    name: "邮件服务",
-    summary:
-      "开箱即用的邮件发送能力，验证码、通知、营销邮件一站搞定，带送达追踪和模板管理。",
-    features: [
-      "REST API + SMTP 双通道接入",
-      "模板变量与多语言支持",
-      "送达率追踪与失败重试",
-      "独立密钥与配额控制"
-    ],
-    cta: { label: "了解邮件服务", href: "/blog/ai-gateway-01" },
-    highlight: false
-  },
-  {
     icon: "sparkles",
     name: "AI 服务",
     summary:

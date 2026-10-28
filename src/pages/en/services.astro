@@ -6,7 +6,7 @@ import { services } from "../../data/services.en";
 import { servicesPageJsonLd } from "../../lib/service-ld";
 
 const desc =
-  "Services from One PC: a ready-to-use email sending API, a unified multi-model AI gateway, and one-on-one AI consulting from demo to production.";
+  "Services from One PC: a unified multi-model AI gateway, and one-on-one AI consulting from demo to production.";
 const pageUrl = new URL("/en/services/", Astro.site).href;
 const serviceLd = servicesPageJsonLd({
   services,
@@ -14,7 +14,7 @@ const serviceLd = servicesPageJsonLd({
   providerUrl: new URL("/", Astro.site).href
 });
 ---
-<Base title="Email & AI Services" description={desc} altLocaleUrl="/services/">
+<Base title="AI Services" description={desc} altLocaleUrl="/services/">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceLd)} />
   <section class="page">
     <div class="section-head">
@@ -23,7 +23,7 @@ const serviceLd = servicesPageJsonLd({
       <p>These services come from my own projects and experience — use them directly, or ask for something custom.</p>
     </div>
 
-    <div class="grid cols-3">
+    <div class="grid cols-2">
       {services.map((s) => <ServiceCard service={s} />)}
     </div>
 
