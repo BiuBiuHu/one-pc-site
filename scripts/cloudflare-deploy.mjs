@@ -18,4 +18,11 @@ if (target === 'production') {
   execFileSync('git', ['fetch', 'origin', defaultBranch], { stdio: 'inherit' });
   if (git('rev-parse', `origin/${defaultBranch}`) !== commit) throw new Error('Production must use the current remote default-branch commit');
 }
-execFileSync(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'deploy', '--env', target], { stdio: 'inherit' });
+const args = ['node_modules/wrangler/bin/wrangler.js', 'deploy', '--env', target];
+if (process.env.CLOUDFLARE_SECRETS_FILE) args.push('--secrets-file', process.env.CLOUDFLARE_SECRETS_FILE);
+// Upload the final production artifact before changing any public hostname.
+if (process.argv[3] === '--stage-only') {
+  if (target !== 'production') throw new Error('Staging override applies only to production');
+  args.push('--routes');
+}
+execFileSync(process.execPath, args, { stdio: 'inherit' });

@@ -1,10 +1,11 @@
-# 迁移候选自审
+# 博客 Cloudflare 迁移代码自审
 
-2026-10-28：按本次托管迁移范围审查。
+2026-10-28。当前为主Agent自审，未声称独立人工review。生产前创建Code PR，并在预览通过后归并默认分支。
 
-- 后端源码无变化；Worker 使用固定 origin，只代理指定 API/观测路径，保留方法、请求内容和响应状态，避免自动跟随跨域跳转；敏感 API 禁止缓存。
-- Preview 独立 Worker、无生产 Route、只读后端。Production 校验远端默认分支、源码 commit、目标环境与资源摘要。
-- CI 凭据仅提供给部署步骤，不写入静态包；环境文件、Wrangler 缓存与构建包已忽略。
-- Vercel 自动构建关闭只存在本地候选，未推送或部署，当前服务不受影响。
-- Blog 历史重定向从原配置生成，保持单一事实源；SSG 不启用 SPA fallback。
-- 需真实预览确认 Route 同域回源、域名证书和缓存效果，当前不把本地通过当作上线完成。
+复核范围：API工厂使用请求级env，Vercel与Worker共享handler，无跨环境process.env修改；Worker六条原生路由无旧平台fetch；静态优先、真实404、no-store；预览main写入保护、缺凭据fail-closed、slug限制与1MiB正文限制；base64使用node:buffer保证中文；评论使用同一GitHub快照内容/SHA与有限冲突重试，读取错误不覆盖原评论。没有迁移数据库、真实文章或用户身份。
+
+生产域名Custom Domain与CNAME冲突以先无域名部署、再切流处理；裸域单独redirect保持路径/query。原Vercel部署保留；自动生产开关在首轮验证前保持关闭。构建记录source/target/摘要，production要求当前远端默认分支精确SHA。预览禁用GA/noindex，production重建清除预览_headers。
+
+风险：GitHub为写作与评论存储，存在API限额和短时上游故障；并发冲突重试最多3次，持续冲突返回可重试503。正式写操作不作探针，隔离分支执行真实CRUD。依赖原有GA与外链服务，未更换第三方。旧Vercel资源至少14天保留。
+
+本地12项直接测试已通过，构建和dry-run通过；真实Preview/Production证据待测试报告回填。未发现阻止部署隔离Preview的已知P0；生产须等Preview验收。

@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { lastmodForUrl } from "./src/data/sitemap-lastmod.js";
 
-// 静态页面部署到 Cloudflare；/api 通过 Worker Route 回源现有 Vercel 服务。
+// Cloudflare Static Assets serves pages; the same Worker runs the blog APIs.
 export default defineConfig({
   site: "https://www.peak-lake.com",
   output: "static",

@@ -1,0 +1,53 @@
+{
+  "timestampUTC": "2026-10-28T03:08:00.659255+00:00",
+  "vercel": {
+    "projectId": "prj_dTxPkJ9nvfupiFZzYGdS9k8peYxe",
+    "deploymentId": "dpl_J5oLyYmtypxZVkSd8wnKrHu1eTAz",
+    "url": "blog-6fme0ld1t-biubiu-hus-projects.vercel.app",
+    "sourceCommit": "17c5568daafe9dd51f4e49220debf520a2939d08"
+  },
+  "dns": [
+    {
+      "id": "ba336a0b5725b033b26f5e9bfd32372e",
+      "name": "peak-lake.com",
+      "type": "CNAME",
+      "content": "cname.vercel-dns.com",
+      "proxiable": true,
+      "proxied": false,
+      "ttl": 1,
+      "settings": {
+        "flatten_cname": false
+      },
+      "meta": {},
+      "comment": null,
+      "tags": [],
+      "created_on": "2026-08-09T08:40:33.189639Z",
+      "modified_on": "2026-08-09T08:40:41.147084Z"
+    },
+    {
+      "id": "342115e1a430a2a7b12cf19b4a702918",
+      "name": "www.peak-lake.com",
+      "type": "CNAME",
+      "content": "cname.vercel-dns.com",
+      "proxiable": true,
+      "proxied": false,
+      "ttl": 1,
+      "settings": {
+        "flatten_cname": false
+      },
+      "meta": {},
+      "comment": null,
+      "tags": [],
+      "created_on": "2026-07-14T07:50:10.888006Z",
+      "modified_on": "2026-07-14T07:58:29.405793Z"
+    }
+  ],
+  "workerDomains": [],
+  "workerRoutes": [],
+  "accountId": "d5e6996beb7d22802f5b1d86fd9eea54",
+  "blogZone": "f25684d9c51c5a602e2f38a6b17b7af2",
+  "secretsMigratedByNameOnly": [
+    "GH_TOKEN",
+    "WRITE_PASSWORD"
+  ]
+}

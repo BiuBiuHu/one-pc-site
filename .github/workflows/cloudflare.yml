@@ -1,7 +1,8 @@
-name: Cloudflare static site
+name: Cloudflare blog
 on:
   push:
     branches: [main]
+    paths-ignore: ["docs/**", "comments.json", "**/*.md.bak"]
   workflow_dispatch:
     inputs:
       target:
@@ -16,6 +17,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
+    if: github.event_name == 'workflow_dispatch' || vars.CLOUDFLARE_PRODUCTION_ENABLED == 'true'
     runs-on: ubuntu-latest
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
