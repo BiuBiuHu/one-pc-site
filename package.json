@@ -6,7 +6,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:cloudflare": "PUBLIC_HOSTING_PROVIDER=cloudflare astro build --outDir .cloudflare/assets && node scripts/cloudflare-redirects.mjs && node scripts/cloudflare-provenance.mjs",
+    "preview:cloudflare": "wrangler dev --env preview",
+    "deploy:cloudflare:preview": "node scripts/cloudflare-deploy.mjs preview",
+    "deploy:cloudflare:production": "node scripts/cloudflare-deploy.mjs production",
+    "test:cloudflare": "node --test cloudflare/worker.test.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
@@ -14,5 +19,8 @@
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.0.3",
     "mermaid": "^11.17.2"
+  },
+  "devDependencies": {
+    "wrangler": "4.83.0"
   }
 }

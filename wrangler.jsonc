@@ -1,0 +1,61 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "peak-lake-blog",
+  "main": "cloudflare/worker.mjs",
+  "compatibility_date": "2026-04-15",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": ".cloudflare/assets",
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": [
+      "/api",
+      "/api/*",
+      "/_vercel/*",
+      "/_vitals/*"
+    ]
+  },
+  "vars": {
+    "GH_OWNER": "BiuBiuHu",
+    "GH_REPO": "one-pc-site",
+    "GH_BRANCH": "main",
+    "DEPLOY_ENV": "production"
+  },
+  "env": {
+    "preview": {
+      "name": "peak-lake-blog-preview",
+      "workers_dev": true,
+      "preview_urls": false,
+      "routes": [],
+      "vars": {
+        "GH_OWNER": "BiuBiuHu",
+        "GH_REPO": "one-pc-site",
+        "GH_BRANCH": "cf-validation-20261028",
+        "DEPLOY_ENV": "preview"
+      }
+    },
+    "production": {
+      "name": "peak-lake-blog",
+      "workers_dev": true,
+      "preview_urls": false,
+      "routes": [
+        {
+          "pattern": "www.peak-lake.com",
+          "custom_domain": true,
+          "zone_name": "peak-lake.com"
+        }
+      ],
+      "vars": {
+        "GH_OWNER": "BiuBiuHu",
+        "GH_REPO": "one-pc-site",
+        "GH_BRANCH": "main",
+        "DEPLOY_ENV": "production"
+      }
+    }
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}

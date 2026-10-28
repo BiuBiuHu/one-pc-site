@@ -1,0 +1,68 @@
+{
+  "timestampUTC": "2026-10-28T03:19:05.018Z",
+  "base": "https://peak-lake-blog-preview.491887095.workers.dev",
+  "mode": "preview",
+  "records": [
+    {
+      "label": "native health",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "wrong password",
+      "status": 401,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "authenticated list",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "authenticated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "public comments",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "create isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "read isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "update isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "append isolated comment",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "read isolated comment",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "delete isolated article",
+      "status": 200,
+      "provider": "cloudflare"
+    },
+    {
+      "label": "deleted article gone",
+      "status": 404,
+      "provider": "cloudflare"
+    }
+  ],
+  "productionWrites": 0
+}

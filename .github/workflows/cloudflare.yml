@@ -1,0 +1,50 @@
+name: Cloudflare blog
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["docs/**", "comments.json", "**/*.md.bak"]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Deployment environment
+        type: choice
+        options: [preview, production]
+        default: preview
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-${{ github.repository }}-${{ inputs.target || 'production' }}
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || vars.CLOUDFLARE_PRODUCTION_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_DEPLOY_ENV: ${{ inputs.target || 'production' }}
+      VITE_GA_MEASUREMENT_ID: ${{ vars.VITE_GA_MEASUREMENT_ID }}
+      PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run test:cloudflare
+      - name: Build for the selected environment
+        run: |
+          if [ "$CLOUDFLARE_DEPLOY_ENV" = preview ]; then
+            VITE_GA_MEASUREMENT_ID= PUBLIC_GA_ID= npm run build:cloudflare
+          else
+            npm run build:cloudflare
+          fi
+      - name: Deploy committed artifact
+        env:
+          DEPLOY_TARGET: ${{ inputs.target || 'production' }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/cloudflare-deploy.mjs "$DEPLOY_TARGET"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-provenance
+          path: .cloudflare/deployment-manifest.json
