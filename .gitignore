@@ -14,3 +14,9 @@ src/content/notes/
 
 # 运行时评论数据（API 写入，不入库）
 comments.json
+
+# Cloudflare local outputs and credentials
+.wrangler/
+.cloudflare/
+.dev.vars*
+.env.production.local

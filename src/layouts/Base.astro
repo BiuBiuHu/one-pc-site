@@ -245,7 +245,7 @@ const ogAlternates = Object.entries(HREFLANG)
       })();
     </script>
 
-    <Analytics />
+    {import.meta.env.PUBLIC_HOSTING_PROVIDER !== "cloudflare" && <Analytics />}
 
     {
       /* Google Analytics 4：空闲时异步加载，零阻塞首屏（未配 PUBLIC_GA_ID 时不注入） */
