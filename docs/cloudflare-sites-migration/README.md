@@ -14,3 +14,5 @@ main文章提交触发GitHub Actions；comments.json与docs-only提交跳过，�
 本轮Preview为临时环境，已删除Worker与隔离数据分支。今后重新验证Preview前，先创建与main隔离的内容分支、核对wrangler的GH_BRANCH并安全设置预览secret，再手动部署。不能省略这些准备后拿生产分支做写入测试。
 
 短时回归已通过，未声称完成长期SLO或GA后台归因验收。回滚时先关闭Cloudflare自动生产开关；按快照撤销新增域名绑定/redirect并恢复原DNS，必要时重新连接原Vercel Git仓库并恢复其deploymentEnabled配置。若切流后有新文章，恢复发布须包含新内容，不能仅指向旧静态部署。
+
+HTTP客户端补查已修复：仅博客zone关闭BIC，Python默认客户端的文章/RSS/API读取通过，写作鉴权仍401；其他WAF与其他应用保持。配置定义与操作证据见测试报告，workers.dev诊断入口不作为正式客户端地址。

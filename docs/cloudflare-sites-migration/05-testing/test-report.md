@@ -39,3 +39,8 @@ Vercel博客Git连接已实际断开并通过平台API复核，旧deployment仍R
 ## 发布收尾补查：脚本客户端
 
 Python urllib默认客户端在正式域名和workers.dev均返回403/1010；浏览器和Node成功不能替代此失败。读取到本博客zone的browser_check=on。官方1010文档与BIC说明确认此类客户端可能被拦截。拟仅在公开博客zone将browser_check关闭，保留写作鉴权、其他WAF/DDoS设置；不伪装客户端UA。workers.dev内置策略不可由站点关闭，正式自有域名才作为客户端兼容验收入口。操作前后响应与配置状态继续回填。
+
+
+补查修正已完成：配置定义由Code PR #37归并为86ae2ca，平台API仅将peak-lake.com zone的browser_check从on改为off。相同Python urllib默认客户端、不改User-Agent，正式域名的部署指纹、health、RSS、文章4项现均200；未授权写作仍401。没有修改其他WAF/DDoS规则或其他zone。自动生产构建开关已恢复true；Worker代码/版本没有重新部署。workers.dev诊断入口的内置策略不可关闭，不作为正式客户端入口。
+
+依据：[Cloudflare 1010说明](https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/)；原失败与配置/复验记录保留在evidence的browser-client-setting.json、python-client-after.json和python-unauthorized-write.json。

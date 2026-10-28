@@ -51,3 +51,7 @@
 生产已部署，Code PR #34/#35已归并默认分支；精确source **1dd26827e8d5b498c72673a043d27b1034364481**，CI run **40626736033** 成功，实际Worker版本 **5ac5427c-4116-4d89-8bb9-8706fde18475**。域名、静态/API/SEO、内容hash与短时日志验收已回填测试报告。发布证据通过独立Release PR归档，最后再核对主干和worktree。
 
 正式www绑定id为4bc22da62fceec99cf2fcacd8589322f634c207a；裸域redirect ruleset为e11aff58d39a4a67b5e06128a8433d68。自动生产开关已开启，comments/docs-only不触发构建。原Vercel项目与旧deployment保留，Git自动部署连接在核对后断开。
+
+## 7. 脚本客户端收尾修正
+
+正式自有域名的Python默认请求曾触发1010。配置候选PR #37先归并main，再以平台API仅关闭本博客zone的browser_check，保持其他WAF和API鉴权。4项Python读取均200，未授权写作401，自动生产开关恢复true。Worker source/version保持前述1dd2682/5ac5427c，配置来源为86ae2ca；两者分别核验。回滚该兼容配置只需恢复browser_check=on。

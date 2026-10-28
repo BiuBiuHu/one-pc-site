@@ -1,0 +1,19 @@
+{
+  "timestampUTC": "2026-10-28T03:40:49.243261+00:00",
+  "sourceConfigCommit": "86ae2cab9cd65d8ce83320af73ce0d0ed3be6caf",
+  "settingBefore": {
+    "id": "browser_check",
+    "value": "on",
+    "modified_on": null,
+    "editable": true
+  },
+  "updateStatus": 200,
+  "updateSuccess": true,
+  "settingAfter": {
+    "id": "browser_check",
+    "value": "off",
+    "modified_on": "2026-10-28T03:40:48.912363Z",
+    "editable": true
+  },
+  "errors": []
+}

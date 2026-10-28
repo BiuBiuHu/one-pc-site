@@ -1,0 +1,27 @@
+{
+  "timestampUTC": "2026-10-28T03:41:01.833266+00:00",
+  "client": "unmodified Python urllib default user agent",
+  "records": [
+    {
+      "path": "/__deployment.json",
+      "status": 200,
+      "bytes": 106
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "bytes": 60
+    },
+    {
+      "path": "/rss.xml",
+      "status": 200,
+      "bytes": 10813
+    },
+    {
+      "path": "/blog/loop-engineering",
+      "status": 200,
+      "bytes": 20306
+    }
+  ],
+  "passed": true
+}
