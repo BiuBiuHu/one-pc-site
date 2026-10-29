@@ -2,7 +2,7 @@
 title: MCP — Model Context Protocol
 date: 2026-10-15
 excerpt: MCP 把工具从 Agent 里抽成独立进程，用标准协议对外暴露。这篇从普通 Tool 的局限出发，讲清如何实现自定义 MCP Server，让 Cursor 等 Client 直接调用。
-category: AI
+category: AI 基础设施
 faq:
   - q: "MCP 和普通 Tool 的本质区别是什么？"
     a: "普通 Tool 是「函数」，只能在定义它的 Agent 进程内部调用。MCP Tool 是「服务」，运行在独立进程里，通过标准协议对外暴露。任何支持 MCP 的 Client 都能直接调用，不必把工具代码复制过去重新注册。"

@@ -2,7 +2,7 @@
 title: Loop Engineering 没有银弹：垂直场景 Skills + spec/TDD 落地 coding agent
 date: 2026-08-09
 excerpt: 追求大而全的「全自动驾驶」行不通。密集用 coding agent 半年后的结论：Loop Engineering 的正确载体是垂直场景 Skills，核心是 spec + TDD。
-category: 思考
+category: AI Agent
 ---
 
 Loop Engineering（让 AI agent 自己写代码、自己测试、自己发布的全自动开发流程）没有银弹——追求一个大而全的"全自动驾驶"是错的。我踩了大半年的坑得出的结论：**正确做法是每个垂直场景一套 Skills，核心是 spec + TDD**。这篇文章讲我是怎么落地的。

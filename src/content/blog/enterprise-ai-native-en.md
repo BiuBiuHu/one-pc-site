@@ -2,7 +2,7 @@
 title: "Enterprise AI Transformation: From Dev Efficiency to a Self-Evolving AI Organization"
 date: 2026-09-10
 excerpt: "What are the stages of enterprise AI Native adoption? From AI-ready infrastructure, enterprise knowledge engineering, and SkillOps, to Multi-Agent and AI Organization — this post lays out the full evolution path and best practices."
-category: Engineering
+category: AI Infrastructure
 ogImage: /images/enterprise-ai-native.png
 draft: true
 lang: en

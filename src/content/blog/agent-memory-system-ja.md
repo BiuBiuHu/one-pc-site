@@ -3,7 +3,7 @@ title: "Agentメモリのハイブリッド検索：Dense・Lexical・RRF"
 date: 2026-09-07
 updated: 2026-10-27
 excerpt: "Agentの長期メモリを、Dense＋Lexicalのハイブリッド検索とRRF融合、非同期書き込み、4状態ガバナンスで実装する。会話を遅くせず、検索精度を保つ設計。"
-category: AI
+category: AI Agent
 ogImage: /images/agent-memory-system.png
 lang: ja
 ---

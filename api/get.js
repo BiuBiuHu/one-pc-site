@@ -52,7 +52,7 @@ export function createHandler(env) {
       title: meta.title || slug,
       date: meta.date || "",
       excerpt: meta.excerpt || "",
-      category: meta.category || "思考",
+      category: meta.category || "工程",
       series: meta.series || "",
       body: body.replace(/^\n+|\n+$/g, "")
     });

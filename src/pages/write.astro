@@ -62,9 +62,10 @@ import Base from "../layouts/Base.astro";
           <label class="field">
             <span>分类</span>
             <select id="f-category">
-              <option value="思考">思考</option>
-              <option value="AI">AI</option>
-              <option value="工程">工程</option>
+              <option value="AI Agent">AI Agent</option>
+              <option value="AI 基础设施">AI 基础设施</option>
+              <option value="玩转流量">玩转流量</option>
+              <option value="工程" selected>工程</option>
               <option value="后端">后端</option>
               <option value="__other">其他…</option>
             </select>
@@ -443,17 +444,29 @@ import Base from "../layouts/Base.astro";
       border-radius: 99px;
       line-height: 1.6;
     }
-    .post-cat[data-cat="AI"] {
+    .post-cat[data-cat="AI Agent"] {
       background: #e0e7ff;
       color: #3730a3;
     }
-    .post-cat[data-cat="工程"] {
+    .post-cat[data-cat="AI 基础设施"],
+    .post-cat[data-cat="AI Infrastructure"] {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    .post-cat[data-cat="玩转流量"],
+    .post-cat[data-cat="Traffic Growth"] {
+      background: #fce7f3;
+      color: #9d174d;
+    }
+    .post-cat[data-cat="工程"],
+    .post-cat[data-cat="Engineering"] {
       background: var(--green-soft);
       color: #047857;
     }
-    .post-cat[data-cat="思考"] {
-      background: #f3e8ff;
-      color: #6b21a8;
+    .post-cat[data-cat="后端"],
+    .post-cat[data-cat="Backend"] {
+      background: #ffedd5;
+      color: #9a3412;
     }
     .post-cat[data-cat="其他"] {
       background: var(--bg-section);
@@ -628,13 +641,13 @@ import Base from "../layouts/Base.astro";
       }
       function currentCategory() {
         if (fCategory.value === "__other") {
-          return (fCategoryOther.value || "").trim() || "思考";
+          return (fCategoryOther.value || "").trim() || "工程";
         }
         return fCategory.value;
       }
       function restoreCategory(val) {
         if (!val) {
-          fCategory.value = "思考";
+          fCategory.value = "工程";
           fCategoryOther.hidden = true;
           return;
         }
@@ -680,7 +693,7 @@ import Base from "../layouts/Base.astro";
         }
         fTitle.value = "";
         fExcerpt.value = "";
-        fCategory.value = "思考";
+        fCategory.value = "工程";
         fCategoryOther.hidden = true;
         fCategoryOther.value = "";
         fSeries.value = "";
@@ -771,7 +784,7 @@ import Base from "../layouts/Base.astro";
           row.className = "post-row" + (it.slug === editingSlug ? " editing" : "");
           var main = document.createElement("div");
           main.className = "post-row-main";
-          var cat = it.category || "思考";
+          var cat = it.category || "工程";
           main.innerHTML =
             '<div class="post-row-date">' + escapeHtml(it.date) +
             ' <span class="post-cat" data-cat="' + escapeHtml(cat) + '">' + escapeHtml(cat) + "</span></div>" +
@@ -989,7 +1002,7 @@ import Base from "../layouts/Base.astro";
               fTitle.value = "";
               fExcerpt.value = "";
               fPassword.value = "";
-              fCategory.value = "思考";
+              fCategory.value = "工程";
               fCategoryOther.hidden = true;
               fCategoryOther.value = "";
               fSeries.value = "";
