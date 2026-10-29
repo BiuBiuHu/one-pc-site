@@ -2,7 +2,7 @@
 title: "A2A — Agent-to-Agent Protocol"
 date: 2026-10-23
 excerpt: "A2A lets agents in different processes, orgs, and vendors collaborate via a task state machine. This post covers Agent Cards, the four-step flow, and a runnable TypeScript sample."
-category: AI
+category: AI Agent
 lang: en
 faq:
   - q: "What is A2A?"

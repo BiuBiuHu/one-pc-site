@@ -2,7 +2,7 @@
 title: 清单应用的客户端和 PC 端同步架构
 date: 2026-05-07
 excerpt: 清单类应用难点不在页面，而在多端同步和冲突处理；设计对了，同步体验才会"像本地一样自然"。这篇讲同步架构的几个关键设计，以及最容易翻车的坑。
-category: 工程
+category: 后端
 ogImage: /images/todo-app-sync-01.png
 ---
 

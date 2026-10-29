@@ -2,7 +2,7 @@
 title: "RAG — Retrieval-Augmented Generation"
 date: 2026-10-23
 excerpt: "RAG lets an agent answer questions from a private knowledge base. This post covers chunking, embeddings, vector stores, hybrid BM25+vector+RRF, rerank, OpenSearch, and ACL / Permissions Collapse."
-category: AI
+category: AI Infrastructure
 lang: en
 faq:
   - q: "What problem does RAG solve?"

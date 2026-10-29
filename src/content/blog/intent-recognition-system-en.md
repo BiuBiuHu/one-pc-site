@@ -2,7 +2,7 @@
 title: "Intent Recognition: Unbounded to the Model, Bounded to Code"
 date: 2026-09-07
 excerpt: "Intent recognition (and intent parsing) isn't a classification problem — it's an observable, verifiable execution chain that can admit uncertainty. Give unbounded language to the model; keep bounded facts in code."
-category: AI
+category: AI Agent
 series: 意图识别
 ogImage: /images/intent-recognition-system.png
 lang: en
