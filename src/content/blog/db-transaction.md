@@ -7,6 +7,7 @@ lang: zh
 ---
 
 > **读者**：前端工程师（同一条学习路线〔本文〕→ 锁 → 幂等 → 对账 → 分库分表）
+> **系列**：事务 → 锁 → 幂等。本文 · [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock) · [幂等](/blog/idempotency)
 > **配套**：并发写的两种锁见 [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock)
 > **与锁的分工**：本篇专心讲**事务**（ACID / 隔离级别 / MVCC / 分布式事务），第 8 节只给 Java 落地；锁的**对比 / 选型 / 现金贷实战案例**统一收在 [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock)（含「悲观锁≠禁读、乐观锁≠禁写」的纠正）。建议先读本篇 1~7 章懂事务，再看锁篇补锁。
 >
@@ -640,6 +641,7 @@ public void publishOutbox() {
 ## 延伸阅读
 
 - [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock) — 乐观锁/悲观锁对比与现金贷案例
+- [幂等](/blog/idempotency) — 同一操作执行一次和执行 N 次，结果必须一样
 - [数据过载与分布式改造](/blog/data-overload-distributed) — 分库分表与分布式事务概览
 
 ---
