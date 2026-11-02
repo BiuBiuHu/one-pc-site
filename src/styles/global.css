@@ -285,7 +285,7 @@ main.main { flex: 1; }
 .archive-posts { grid-template-columns: 1fr !important; gap: 14px; }
 
 /* ---------- 文章正文 + 目录侧栏 ---------- */
-.article-layout { display: grid; gap: 0; }
+.article-layout { display: grid; gap: 0; min-width: 0; }
 .article-layout.has-toc {
   grid-template-columns: 200px minmax(0, 720px);
   gap: 48px;
@@ -293,7 +293,7 @@ main.main { flex: 1; }
   justify-content: center;
 }
 @media (max-width: 1024px) {
-  .article-layout.has-toc { grid-template-columns: 1fr; gap: 0; }
+  .article-layout.has-toc { grid-template-columns: minmax(0, 1fr); gap: 0; }
 }
 
 /* 目录侧栏 */
@@ -303,8 +303,12 @@ main.main { flex: 1; }
   max-height: calc(100vh - 110px);
   overflow-y: auto;
   padding-right: 8px;
+  min-width: 0;
 }
 .toc .back-link { margin-bottom: 20px; }
+.toc-panel { min-width: 0; }
+.toc-panel > summary { list-style: none; }
+.toc-panel > summary::-webkit-details-marker { display: none; }
 .toc-label {
   font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
   color: var(--muted-2); margin-bottom: 12px; padding-left: 12px;
@@ -313,39 +317,121 @@ main.main { flex: 1; }
 .toc-link {
   display: block; font-size: 13px; line-height: 1.5; color: var(--muted);
   padding: 5px 12px; border-radius: 0 6px 6px 0; transition: color 0.15s ease, background 0.15s ease;
+  overflow-wrap: anywhere;
 }
 .toc-link:hover { color: var(--brand); background: var(--brand-soft); text-decoration: none; }
 .toc-d3 { padding-left: 24px; font-size: 12.5px; color: var(--muted-2); }
+@media (min-width: 1025px) {
+  .toc-panel > summary { cursor: default; pointer-events: none; }
+}
 @media (max-width: 1024px) {
-  .toc { position: static; max-height: none; margin-bottom: 24px; }
+  .toc { position: static; max-height: none; margin-bottom: 16px; overflow: visible; padding-right: 0; }
+  .toc-panel > .toc-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+    color: var(--text-2);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .toc-panel > .toc-label::after {
+    content: "";
+    width: 0.42em;
+    height: 0.42em;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    flex: none;
+  }
+  .toc-panel[open] > .toc-label::after {
+    transform: rotate(-135deg);
+    margin-top: 4px;
+  }
+  .toc-panel[open] .toc-nav { margin-top: 10px; }
 }
 
-.article { max-width: var(--prose); margin: 0 auto; }
+.article { max-width: min(var(--prose), 100%); margin: 0 auto; min-width: 0; width: 100%; }
 .article-layout.has-toc .article { max-width: none; }
 .article-cover { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); margin-bottom: 24px; }
+.article-head,
+.prose {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
 .article-head { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
 .article-head .date { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
 .article-head .date.updated { margin-top: -6px; }
-.article-head h1 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+.article-head h1 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); overflow-wrap: anywhere; }
 .back-link { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 24px; }
 .back-link:hover { color: var(--brand); }
 
 /* ---------- Markdown 排版 ---------- */
-.prose { font-size: 16px; line-height: 1.75; color: var(--text-2); }
+.prose {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-2);
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 .prose :where(h1, h2, h3, h4) { color: var(--text); margin-top: 1.8em; margin-bottom: 0.6em; line-height: 1.3; }
 .prose h1 { font-size: 1.6em; }
 .prose h2 { font-size: 1.35em; padding-bottom: 0.3em; border-bottom: 1px solid var(--border); }
 .prose h3 { font-size: 1.15em; }
-.prose :where(p, ul, ol, blockquote) { margin: 0 0 1em; }
+.prose :where(p, ul, ol, blockquote) { margin: 0 0 1em; min-width: 0; max-width: 100%; }
 .prose ul, .prose ol { padding-left: 1.4em; }
-.prose li { margin-bottom: 0.4em; }
-.prose a { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
-.prose code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.88em; background: var(--code-bg); color: var(--text); border-radius: 5px; padding: 0.15em 0.4em; }
-.prose pre { background: #0f172a; border: 1px solid #1e293b; border-radius: var(--radius-sm); padding: 16px 18px; overflow: auto; margin: 0 0 1.2em; }
+.prose li { margin-bottom: 0.4em; min-width: 0; }
+.prose a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--code-bg);
+  color: var(--text);
+  border-radius: 5px;
+  padding: 0.15em 0.4em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.prose pre {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  overflow: auto;
+  margin: 0 0 1.2em;
+  max-width: 100%;
+  min-width: 0;
+}
 .prose pre code { background: transparent; color: #e2e8f0; padding: 0; font-size: 0.86em; line-height: 1.6; }
-.prose blockquote { border-left: 3px solid var(--brand-line); background: var(--brand-soft); padding: 4px 16px; color: var(--text-2); border-radius: 0 6px 6px 0; }
-.prose table { width: 100%; border-collapse: collapse; margin: 0 0 1.2em; font-size: 0.92em; }
-.prose th, .prose td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.prose blockquote {
+  border-left: 3px solid var(--brand-line);
+  background: var(--brand-soft);
+  padding: 4px 16px;
+  color: var(--text-2);
+  border-radius: 0 6px 6px 0;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.prose table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 0 0 1.2em; font-size: 0.92em; }
+.prose th, .prose td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; overflow-wrap: anywhere; }
 .prose th { background: var(--bg-subtle); font-weight: 600; color: var(--text); }
 .prose img { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
 .prose img[src*="tuli-poster-portrait"] {
@@ -479,7 +565,7 @@ main.main { flex: 1; }
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 12px; color: var(--muted-2);
 }
-.related-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.45; }
+.related-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.45; overflow-wrap: anywhere; }
 .related-project { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
 .related-project a { font-weight: 600; }
 .related-note { color: var(--muted-2); }
@@ -586,4 +672,22 @@ main.main { flex: 1; }
   .hero h1 { max-width: none; }
   .footer-inner { flex-direction: column; align-items: flex-start; padding-block: 18px; gap: 12px; }
   .footer-links { width: 100%; row-gap: 10px; }
+
+  /* 博客正文：标题与内容同一列宽，长链接/引用/列表不撑出，行长更舒服 */
+  .main.container { padding-left: 20px; padding-right: 20px; }
+  .article-head { margin-bottom: 22px; padding-bottom: 16px; }
+  .article-head h1 {
+    font-size: 1.65rem;
+    line-height: 1.35;
+  }
+  .prose {
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  .prose :where(h2, h3, h4) { line-height: 1.4; }
+  .prose ul, .prose ol { padding-left: 1.15em; }
+  .prose li { margin-bottom: 0.55em; }
+  .prose blockquote { padding: 10px 12px; }
+  .prose pre { padding: 12px 14px; }
+  .series-item { overflow-wrap: anywhere; }
 }

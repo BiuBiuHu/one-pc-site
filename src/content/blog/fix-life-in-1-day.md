@@ -7,8 +7,8 @@ lang: zh
 ---
 
 > 本文为中文译介 / 好文共读，原文作者 **Dan Koe**，原文标题 *How to fix your entire life in 1 day*。  
-> 原文 Newsletter：<https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1>  
-> X 原文：<https://x.com/thedankoe/status/2010751592346030461>  
+> 原文 Newsletter：[letters.thedankoe.com](https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1)  
+> X 原文：[x.com/thedankoe](https://x.com/thedankoe/status/2010751592346030461)  
 > 译文仅供学习交流，版权归原作者所有；鼓励阅读原文。
 
 ## 摘要
@@ -400,4 +400,4 @@ lang: zh
 
 ---
 
-**译者按：** 以上为 Dan Koe 一文的中文共读译介，力求忠实于原文论证与一天协议中的全部问题清单，未作删减。若某句触发你，建议对照原文 Newsletter（<https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1>）与 X 原文（<https://x.com/thedankoe/status/2010751592346030461>）细读；版权归原作者所有，译文仅供学习交流。
+**译者按：** 以上为 Dan Koe 一文的中文共读译介，力求忠实于原文论证与一天协议中的全部问题清单，未作删减。若某句触发你，建议对照原文 Newsletter（[letters.thedankoe.com](https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1)）与 X 原文（[x.com/thedankoe](https://x.com/thedankoe/status/2010751592346030461)）细读；版权归原作者所有，译文仅供学习交流。

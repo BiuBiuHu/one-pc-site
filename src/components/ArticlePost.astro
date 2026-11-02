@@ -73,14 +73,16 @@ const seriesUi = isEn ? { label: "Series" } : isJa ? { label: "シリーズ" } :
           <a class="back-link" href={blogPath}>
             <Icon name="arrow-left" size={15} />{ui.back}
           </a>
-          <div class="toc-label">{ui.toc}</div>
-          <nav class="toc-nav">
-            {tocItems.map((h) => (
-              <a href={`#${h.slug}`} class={`toc-link toc-d${h.depth}`}>
-                {h.text}
-              </a>
-            ))}
-          </nav>
+          <details class="toc-panel" open>
+            <summary class="toc-label">{ui.toc}</summary>
+            <nav class="toc-nav">
+              {tocItems.map((h) => (
+                <a href={`#${h.slug}`} class={`toc-link toc-d${h.depth}`}>
+                  {h.text}
+                </a>
+              ))}
+            </nav>
+          </details>
         </aside>
       )
     }
@@ -142,6 +144,12 @@ const seriesUi = isEn ? { label: "Series" } : isJa ? { label: "シリーズ" } :
 
 <script>
   import mermaid from "mermaid";
+
+  // 窄屏默认收起目录，先把标题和正文推到首屏
+  const tocPanel = document.querySelector(".toc-panel");
+  if (tocPanel && window.matchMedia("(max-width: 1024px)").matches) {
+    tocPanel.open = false;
+  }
 
   // 正文图 / mermaid 共用轻量 lightbox：暗色遮罩、居中放大，点遮罩 / Esc / 关闭按钮退出
   let activeLightbox = null;
