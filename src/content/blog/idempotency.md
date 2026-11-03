@@ -8,7 +8,7 @@ lang: zh
 
 > 一句话：分布式里「重试」是常态（超时重试、MQ at-least-once、用户狂点），**没有幂等，每次重试都是一次新写入**——幂等就是把「重试安全」变成默认能力。
 >
-> **系列**：事务 → 锁 → 幂等。[数据库事务](/blog/db-transaction) · [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock) · 本文。
+> **系列**：事务 → 锁 → 幂等 → DDD → 查询优化。[数据库事务](/blog/db-transaction) · [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock) · 本文 · [领域驱动设计（DDD）](/blog/domain-driven-design) · [数据库查询性能优化](/blog/db-query-performance)。
 
 ---
 

@@ -10,7 +10,7 @@ lang: zh
 >
 > 学习方式：以**现金贷提现**为贯穿例，从「切边界 → 建模型 → 四层落地 → 画图」一路走过来，最后用总结回看全貌。
 >
-> **系列**：事务 → 锁 → 幂等 → DDD。[数据库事务](/blog/db-transaction) · [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock) · [幂等](/blog/idempotency) · 本文。
+> **系列**：事务 → 锁 → 幂等 → DDD → 查询优化。[数据库事务](/blog/db-transaction) · [乐观锁与悲观锁](/blog/optimistic-pessimistic-lock) · [幂等](/blog/idempotency) · 本文 · [数据库查询性能优化](/blog/db-query-performance)。
 
 ---
 
