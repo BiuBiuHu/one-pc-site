@@ -8,7 +8,7 @@ lang: en
 
 > Slow queries have two paths — **first use indexes to make in-table queries fast; only when the data volume is truly large, split the table with database and table sharding**. This post goes from the basics up: indexes first, then sharding, then how the two work together.
 >
-> **Series**: Transactions → Locks → Idempotency → DDD → Query performance. Database transactions · Optimistic and pessimistic locks · Idempotency · Domain-driven design (DDD) · This post.
+> **Series**: Transactions → Locks → Idempotency → DDD → Query performance. [Database transactions](/en/blog/db-transaction) · [Optimistic and pessimistic locks](/en/blog/optimistic-pessimistic-lock) · [Idempotency](/en/blog/idempotency) · [Domain-driven design (DDD)](/en/blog/domain-driven-design) · This post.
 
 ---
 
@@ -130,7 +130,7 @@ So a relational store's primary index is a B+ tree. Hash is only a special helpe
 |---|---|
 | **Primary-key index (clustered)** | The primary key decides physical storage order; the leaf *is* the full row |
 | **Secondary index (non-clustered)** | The leaf stores the **primary key**; looking up by it requires a **table lookup** |
-| **Unique index** | Prevents duplicates + makes equality fast (echoes the unique constraint in the idempotency post) |
+| **Unique index** | Prevents duplicates + makes equality fast (echoes the unique constraint in the [idempotency](/en/blog/idempotency) post) |
 | **Composite index** | Built on several columns together; relies on the **leftmost prefix** |
 | **Covering index** | Every column the query needs is in the index → **no table lookup** |
 
@@ -296,7 +296,7 @@ Indexes have a ceiling inside a single table — only when volume hits hundreds 
 
 - **When to shard**: single-table volume is large (tens of millions to hundreds of millions), single-database connections / I/O are the bottleneck, and writes plus hot rows all crowd the same table (hotspot concentration).
 - **When not to**: volume is not there yet, or the query is slow only because the index is unused — **fix indexes / SQL first; sharding is the last resort** (sharding too early = distributed transactions, cross-database joins, consistency, and ops complexity all arrive at once).
-- Same mindset as the transactions post and DDD: get the domain boundary and the consistency model clear, then split.
+- Same mindset as the [transactions](/en/blog/db-transaction) post and [DDD](/en/blog/domain-driven-design): get the domain boundary and the consistency model clear, then split.
 
 ---
 
@@ -409,7 +409,7 @@ Multi-shard results have to be "merged":
 ```
 
 - **Globally unique primary keys**: auto-increment collides across databases → **Snowflake IDs** (timestamp + machine bits + sequence) or UUID.
-- **Cross-shard write consistency**: a single-database transaction cannot cover cross-shard writes → local message table / eventual consistency (see the transactions post) + idempotency / compensation + reconciliation as a backstop. This is the same chain as in DDD: "domain event lands on the MQ → consumer is idempotent".
+- **Cross-shard write consistency**: a single-database transaction cannot cover cross-shard writes → local message table / eventual consistency (see [Database transactions](/en/blog/db-transaction)) + [idempotency](/en/blog/idempotency) / compensation + reconciliation as a backstop. This is the same chain as in [DDD](/en/blog/domain-driven-design): "domain event lands on the MQ → consumer is idempotent".
 
 > **🎯 Interview favorite: why not use offset for deep pagination?** — Every shard must fetch `offset+limit` rows and then merge. An offset of 100,000 becomes 100,000 × shard-count I/O. A keyset only takes `limit` rows where `id > last id on the previous page`; the per-shard volume stays constant. It fits sequential paging (but only forward, no random jumps).
 
@@ -454,7 +454,7 @@ Slow query
 - Do not shard just because a table is slow: **fix indexes / SQL first**; sharding is the last resort (it is expensive).
 - Deep pagination must mean keyset; saying "offset+limit" out loud is a sharding-beginner tell.
 - The shard key / mapping table **must have indexes** — splitting the table does not retire index work.
-- Do not stretch a single-database transaction over cross-shard consistency — cross-shard = eventual consistency (transactions post + idempotency / reconciliation).
+- Do not stretch a single-database transaction over cross-shard consistency — cross-shard = eventual consistency ([transactions](/en/blog/db-transaction) + [idempotency](/en/blog/idempotency) / reconciliation).
 - Do not sprinkle a pile of secondary indexes: after sharding each shard has its own copy, **write amplification doubles**.
 
 ---
@@ -464,4 +464,4 @@ Slow query
 - Indexes: **short B+ tree + leaf linked list**; covering index skips the table lookup; composite indexes follow the leftmost prefix; `EXPLAIN` for `type/key/Extra`.
 - Sharding: **indexes first, shard second**; hit the shard key and go straight there; miss → mapping / gene; cross-shard merge uses keyset.
 - Together: shard key / mapping table still need indexes; write amplification doubles, so do not sprinkle indexes.
-- **The chain**: transactions handle atomicity, locks handle concurrency, idempotency handles retries, DDD handles boundaries and events — this post handles "query it fast"; cross-shard writes still walk the eventual-consistency chain.
+- **The chain**: [transactions](/en/blog/db-transaction) handle atomicity, [locks](/en/blog/optimistic-pessimistic-lock) handle concurrency, [idempotency](/en/blog/idempotency) handles retries, [DDD](/en/blog/domain-driven-design) handles boundaries and events — this post handles "query it fast"; cross-shard writes still walk the eventual-consistency chain.
