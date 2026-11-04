@@ -17,6 +17,19 @@ const projectList = [
     featured: true
   },
   {
+    name: "Smart Tab Pilot",
+    tagline: "Chrome extension for task-based tab management",
+    description:
+      "Exact URL dedupe across windows plus a learnable task navigation graph. Side panel only; models go on-device Nano → your OpenAI-compatible endpoint → local heuristics.",
+    language: "JavaScript",
+    languageColor: "#f1e05a",
+    repo: "https://github.com/BiuBiuHu/smart-tab-pilot",
+    homepage: "https://biubiuhu.github.io/smart-tab-pilot/",
+    tags: ["Chrome", "Productivity", "AI"],
+    status: "active",
+    featured: true
+  },
+  {
     name: "OPC Skills",
     tagline: "BiuBiuHu / One PC Codex skill template for OPC delivery",
     description:

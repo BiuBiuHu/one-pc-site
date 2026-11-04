@@ -6,7 +6,9 @@ import Icon from "../../components/Icon.astro";
 import { projects } from "../../data/projects.en";
 import { site, personNode } from "../../data/site";
 
-const showcase = projects.filter((p) => ["Anpai.Life", "OPC Skills", "AI Gateway"].includes(p.name));
+const showcase = projects.filter((p) =>
+  ["Anpai.Life", "Smart Tab Pilot", "OPC Skills", "AI Gateway"].includes(p.name)
+);
 const desc =
   "Personal site of One PC. Agent engineer building OPC products. Posts and repos are open — write if it resonates.";
 const personLd = {
@@ -35,7 +37,7 @@ const personLd = {
         I spend my days on agents and OPC software, and write down the pits I fall into. The byline is {site.name}, based in {site.location.name}.
       </p>
       <p>
-        This is not an ad page. Anpai.Life, OPC Skills, and AI Gateway are things I run and am happy to have taken apart.
+        This is not an ad page. Anpai.Life, Smart Tab Pilot, OPC Skills, and AI Gateway are things I run and am happy to have taken apart.
         Posts stay specific. If it clicks, write; if not, the articles and repos are enough.
       </p>
     </div>
@@ -51,7 +53,7 @@ const personLd = {
       <section>
         <div class="section-head">
           <h2>What I am building</h2>
-          <p>Three things left open, so the right people can look inside.</p>
+          <p>Things left open, so the right people can look inside.</p>
           <a class="more" href="/en/projects">All projects <Icon name="arrow-right" size={15} /></a>
         </div>
         <div class="grid cols-3">

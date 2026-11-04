@@ -7,7 +7,7 @@ import { getFeaturedProjects } from "../../data/projects.en";
 import { services } from "../../data/services.en";
 import { getCollection } from "astro:content";
 
-const featured = getFeaturedProjects(3);
+const featured = getFeaturedProjects(4);
 const allPosts = (await getCollection("blog"))
   .filter((p) => p.data.lang === "en" && !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -18,8 +18,8 @@ const fmt = (d) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
 ---
 <Base
-  title="Anpai.Life, OPC Skills, and research practice"
-  description="One PC documents Agent and OPC research, and showcases products including Anpai.Life, OPC Skills, and AI Gateway."
+  title="Anpai.Life, Smart Tab Pilot, and research practice"
+  description="One PC documents Agent and OPC research, and showcases products including Anpai.Life, Smart Tab Pilot, OPC Skills, and AI Gateway."
   altLocaleUrl="/"
   localeUrls={{ zh: "/", en: "/en/", ja: "/ja/" }}
   hreflangUrls={{

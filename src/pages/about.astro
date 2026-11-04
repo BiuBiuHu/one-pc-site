@@ -6,7 +6,9 @@ import Icon from "../components/Icon.astro";
 import { projects } from "../data/projects";
 import { site, personNode } from "../data/site";
 
-const showcase = projects.filter((p) => ["Anpai.Life", "OPC Skills", "AI Gateway"].includes(p.name));
+const showcase = projects.filter((p) =>
+  ["Anpai.Life", "Smart Tab Pilot", "OPC Skills", "AI Gateway"].includes(p.name)
+);
 const desc =
   "One PC 的个人站点。Agent engineer，做 OPC 产品。文章和仓库摊开，对上号再聊。";
 const personLd = {
@@ -35,7 +37,7 @@ const personLd = {
         白天在写 Agent 和 OPC 软件，晚上把踩过的坑写成文字。站长署名 {site.name}，在{site.location.nameZh}。
       </p>
       <p>
-        这里不是投放页。Anpai.Life、OPC Skills、AI Gateway 都是我自己在用、也愿意被拆开看的。
+        这里不是投放页。Anpai.Life、Smart Tab Pilot、OPC Skills、AI Gateway 都是我自己在用、也愿意被拆开看的。
         博客写具体问题，不写空口号。对得上再往下聊；对不上，翻翻文章或仓库就好。
       </p>
     </div>
@@ -51,7 +53,7 @@ const personLd = {
       <section>
         <div class="section-head">
           <h2>正在做的东西</h2>
-          <p>三件摊开的作品。不是清单，是方便对上号的人顺着摸进去。</p>
+          <p>摊开的作品。不是清单，是方便对上号的人顺着摸进去。</p>
           <a class="more" href="/projects">全部项目 <Icon name="arrow-right" size={15} /></a>
         </div>
         <div class="grid cols-3">

@@ -17,6 +17,19 @@ const projectList = [
     featured: true
   },
   {
+    name: "Smart Tab Pilot",
+    tagline: "按任务管理标签页的 Chrome 扩展",
+    description:
+      "精确 URL 去重（跨窗口跳转）+ 任务导航图归组。侧边栏操作；模型顺序为设备端 Nano → 自定义 OpenAI 兼容接口 → 本地启发式。",
+    language: "JavaScript",
+    languageColor: "#f1e05a",
+    repo: "https://github.com/BiuBiuHu/smart-tab-pilot",
+    homepage: "https://biubiuhu.github.io/smart-tab-pilot/",
+    tags: ["Chrome", "效率", "AI"],
+    status: "active",
+    featured: true
+  },
+  {
     name: "OPC Skills",
     tagline: "BiuBiuHu / One PC 的 OPC 交付 Codex Skill 模板",
     description:

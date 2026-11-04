@@ -3,10 +3,11 @@ import { hubPathForProject } from "../data/product-hubs.js";
 import { inLanguageOf } from "./i18n.js";
 import { opcSkillsJsonLd } from "./opc-skills-ld.js";
 
-const PRODUCT_NAMES = ["Anpai.Life", "OPC Skills", "AI Gateway"];
+const PRODUCT_NAMES = ["Anpai.Life", "Smart Tab Pilot", "OPC Skills", "AI Gateway"];
 
 const APPLICATION_CATEGORY = {
   "Anpai.Life": "ProductivityApplication",
+  "Smart Tab Pilot": "BrowserApplication",
   "AI Gateway": "DeveloperApplication"
 };
 

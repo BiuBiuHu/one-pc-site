@@ -1,5 +1,5 @@
 // peak-lake 上只给 GitHub-first 的 OPC Skills 做实体页。
-// Anpai.Life / AI Gateway 已有官网，不在本站再做产品页。
+// Anpai.Life / Smart Tab Pilot / AI Gateway 已有官网，不在本站再做产品页。
 
 export const HUB_SLUG_BY_NAME = {
   "OPC Skills": "opc-skills"

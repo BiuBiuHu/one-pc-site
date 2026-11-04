@@ -6,7 +6,7 @@ import { projects } from "../../data/projects.en";
 import { projectsPageJsonLd } from "../../lib/product-ld";
 
 const desc =
-  "Open-source and personal products by One PC: Anpai.Life task calendar, OPC Skills delivery pipeline, and a unified multi-model AI Gateway.";
+  "Open-source and personal products by One PC: Anpai.Life task calendar, Smart Tab Pilot tab management, OPC Skills delivery pipeline, and a unified multi-model AI Gateway.";
 const softwareLd = projectsPageJsonLd({
   projects,
   isEn: true,
@@ -19,7 +19,7 @@ const softwareLd = projectsPageJsonLd({
     <div class="section-head">
       <span class="eyebrow"><Icon name="boxes" size={14} />Open source</span>
       <h1 style="margin-top:14px">What I build</h1>
-      <p>Open source projects I maintain around AI and developer productivity. OPC Skills has its own page here; Anpai.Life and AI Gateway live on their product sites.</p>
+      <p>Open source projects I maintain around AI and developer productivity. OPC Skills has its own page here; Anpai.Life, Smart Tab Pilot, and AI Gateway live on their product sites.</p>
     </div>
     <div class="grid cols-3">
       {projects.map((p) => <ProjectCard project={p} />)}
