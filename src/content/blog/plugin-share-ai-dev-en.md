@@ -1,5 +1,5 @@
 ---
-title: "Sharing AI Development Capabilities Through Plugins: A Frontend Workflow in Practice"
+title: "Sharing AI Development Capabilities Through Plugins: A Development Workflow in Practice"
 date: 2026-11-04
 excerpt: "Skills stay the entry point; plugins own the maintenance boundary. Three layers—core, base, and scene—separate shared frontend AI workflow from business recipes, with real onboarding and verification scope."
 category: Engineering
