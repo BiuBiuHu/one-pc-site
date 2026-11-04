@@ -6,7 +6,7 @@ const { project } = Astro.props;
 const isEn = Astro.currentLocale === "en";
 const isWip = project.status === "wip";
 const hubHref = hubPathForProject(project.name, isEn);
-// 有独立入口页时标题和页脚进 hub；其余仍区分仓库 / 官网
+// 标题与页脚共用目标：有 hub 进独立页，否则仓库优先于官网
 const repoFull = githubRepoSlug(project.repo);
 const isRepo = !!repoFull;
 const linkHref = hubHref || (isRepo ? project.repo : project.homepage || "#");
@@ -36,7 +36,13 @@ const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开
     )}
   </div>
 
-  <h3>{hubHref ? <a href={hubHref}>{project.name}</a> : project.name}</h3>
+  <h3>
+    <a
+      href={linkHref}
+      target={linkExternal ? "_blank" : undefined}
+      rel={linkExternal ? "noreferrer" : undefined}
+    >{project.name}</a>
+  </h3>
   <p class="tagline">{project.tagline}</p>
   <p class="desc">{project.description}</p>
 
