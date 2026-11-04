@@ -1,12 +1,12 @@
 ---
 title: "Sharing AI Development Capabilities Through Plugins: A Development Workflow in Practice"
 date: 2026-11-04
-excerpt: "Skills stay the entry point; plugins own the maintenance boundary. Three layers—core, base, and scene—separate shared frontend AI workflow from business recipes, with real onboarding and verification scope."
+excerpt: "Skills stay the entry point; plugins own the maintenance boundary. Three layers—core, base, and scene—separate shared AI development workflow from business recipes, with real onboarding and verification scope."
 category: Engineering
 lang: en
 ---
 
-> We originally started frontend tasks through a skill, loading design, implementation, testing, and deployment instructions as needed. Reuse across businesses raised ownership questions: who maintains the shared process, who owns business differences, and how do common fixes reach each project?
+> We originally started development tasks through a skill, loading design, implementation, testing, and deployment instructions as needed. Reuse across businesses raised ownership questions: who maintains the shared process, who owns business differences, and how do common fixes reach each project?
 >
 > We adopted three plugin layers: core owns the workflow and harness, base provides shared capabilities, and scene carries business recipes. Users still start through a scene skill. This account explains the decision and implementation, with business names and internal platforms anonymized.
 >
@@ -82,7 +82,7 @@ This anonymized teaching example uses the intended native invocation path. The c
 
 The user asks:
 
-> Use the event frontend workflow to add a registration page, feature event-signup. Include event details, a phone number, and a registration button. Use the design link I supplied.
+> Use the event development workflow to add a registration page, feature event-signup. Include event details, a phone number, and a registration button. Use the design link I supplied.
 
 The host loads `event-workflow/SKILL.md`. The entry reuses core and this recipe excerpt:
 
@@ -120,7 +120,7 @@ event-workflow entry
   → Load core and the scene recipe; initialize event-signup
   → Complete S1 and enter S2
   → Read subskills/spec/INSTRUCTIONS.md
-  → Skill("frontend-base:design-fetch", args="<design-link> <artifact-directory>")
+  → Skill("shared-base:design-fetch", args="<design-link> <artifact-directory>")
   → Main session collects the design and writes the design and test plan
   → Core validates S2; advance only when it passes
 ```
@@ -150,7 +150,7 @@ S4 consumes these artifacts for implementation. S5 uses the scene deployment ada
 The target standard invocation is:
 
 ```text
-Skill("frontend-base:design-fetch", args="<design-link> <artifact-directory>")
+Skill("shared-base:design-fetch", args="<design-link> <artifact-directory>")
 ```
 
 The plugin name is anonymized. **Plugins manage installation and updates, qualified names reference capabilities, and the main session executes their tools and procedures.** `Skill(...)` is a host loading operation; reading Markdown does not itself collect a design.

@@ -1,12 +1,12 @@
 ---
 title: 用插件共享 AI 研发能力：一套研发流水线的落地实践
 date: 2026-11-04
-excerpt: Skill 仍是入口，插件管维护边界：用 core / base / scene 三层把前端 AI 流水线的公共流程与业务差异拆开，并记录真实接入与验证边界。
+excerpt: Skill 仍是入口，插件管维护边界：用 core / base / scene 三层把 AI 研发流水线的公共流程与业务差异拆开，并记录真实接入与验证边界。
 category: 工程
 lang: zh
 ---
 
-> 我们最初通过一个 skill 发起前端研发任务，按需加载设计、编码、测试和发布步骤。跨业务复用后，问题变成了：谁维护公共流程，谁维护业务差异，公共修复怎样送达各项目？
+> 我们最初通过一个 skill 发起研发任务，按需加载设计、编码、测试和发布步骤。跨业务复用后，问题变成了：谁维护公共流程，谁维护业务差异，公共修复怎样送达各项目？
 >
 > 最终采用三个插件层次：core 管工作流与 harness，base 提供公共能力，scene 承载业务配方。用户仍从场景 skill 发起任务。本文记录选择依据和落地经验，业务名称与内部平台已脱敏。
 >
@@ -82,7 +82,7 @@ skills/<scene-entry>/
 
 用户输入：
 
-> 用活动前端流水线新增报名页，功能名 event-signup。包含活动详情、手机号和报名按钮，设计稿使用我提供的链接。
+> 用活动研发流水线新增报名页，功能名 event-signup。包含活动详情、手机号和报名按钮，设计稿使用我提供的链接。
 
 宿主加载 `event-workflow/SKILL.md`，入口复用 core 工作流和下面的场景配方节选：
 
@@ -120,7 +120,7 @@ event-workflow 入口
   → 加载 core 工作流与场景配方，初始化 event-signup
   → 完成 S1，进入 S2
   → 读取 subskills/spec/INSTRUCTIONS.md
-  → Skill("frontend-base:design-fetch", args="<设计稿链接> <产物目录>")
+  → Skill("shared-base:design-fetch", args="<设计稿链接> <产物目录>")
   → 主会话执行采集、编写方案和测试计划
   → core 验收 S2，通过后进入下一阶段
 ```
@@ -150,7 +150,7 @@ S4 消费这些产物完成开发；S5 使用场景发布适配；S6 执行公�
 目标标准调用为：
 
 ```text
-Skill("frontend-base:design-fetch", args="<设计稿链接> <产物目录>")
+Skill("shared-base:design-fetch", args="<设计稿链接> <产物目录>")
 ```
 
 插件名为脱敏示意。**插件管理安装和更新，限定名引用能力，主会话执行技能说明中的工具与步骤。** `Skill(...)` 是宿主加载操作；读取 Markdown 本身不会完成设计采集。
