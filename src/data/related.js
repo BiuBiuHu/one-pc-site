@@ -62,7 +62,8 @@ const SLUG_PROJECT = {
   "anpai-vs-ticktick-free": "anpai",
   "ai-gateway-01": "gateway",
   "opc-software-practice": "anpai",
-  "loop-engineering": "opc-skills"
+  "loop-engineering": "opc-skills",
+  "plugin-share-ai-dev": "opc-skills"
 };
 
 const SERIES_PROJECT = {
