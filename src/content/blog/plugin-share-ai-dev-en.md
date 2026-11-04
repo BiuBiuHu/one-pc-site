@@ -4,7 +4,6 @@ date: 2026-11-04
 excerpt: "Skills stay the entry point; plugins own the maintenance boundary. Three layers—core, base, and scene—separate shared frontend AI workflow from business recipes, with real onboarding and verification scope."
 category: Engineering
 lang: en
-ogImage: /images/plugin-architecture.en.png
 ---
 
 > We originally started frontend tasks through a skill, loading design, implementation, testing, and deployment instructions as needed. Reuse across businesses raised ownership questions: who maintains the shared process, who owns business differences, and how do common fixes reach each project?

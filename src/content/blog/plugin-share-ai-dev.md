@@ -4,7 +4,6 @@ date: 2026-11-04
 excerpt: Skill 仍是入口，插件管维护边界：用 core / base / scene 三层把前端 AI 流水线的公共流程与业务差异拆开，并记录真实接入与验证边界。
 category: 工程
 lang: zh
-ogImage: /images/plugin-architecture.zh.png
 ---
 
 > 我们最初通过一个 skill 发起前端研发任务，按需加载设计、编码、测试和发布步骤。跨业务复用后，问题变成了：谁维护公共流程，谁维护业务差异，公共修复怎样送达各项目？
