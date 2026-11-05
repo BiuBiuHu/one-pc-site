@@ -58,11 +58,11 @@ export function createHandler(env) {
             title: meta.title || slug,
             date: meta.date || "",
             excerpt: meta.excerpt || "",
-            category: meta.category || "思考",
+            category: meta.category || "工程",
             sha: f.sha || ""
           };
         } catch (e) {
-          return { slug, title: slug, date: "", excerpt: "", category: "思考", sha: f.sha || "" };
+          return { slug, title: slug, date: "", excerpt: "", category: "工程", sha: f.sha || "" };
         }
       })
     );

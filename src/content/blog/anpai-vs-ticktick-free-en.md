@@ -2,7 +2,7 @@
 title: "What Anpai Calendar Actually Does: Month/Week/Day, Goals, Review, Agent"
 date: 2026-10-26
 excerpt: "Anpai.Life is a personal rhythm system: month/week/day calendar, a daily AI image-calendar poster, yearly goals and milestones, weekly review + AI insights, and an Agent that schedules and breaks down goals — synced across PC and phone. TickTick free is a fair hook; this post still stands if you never used TickTick."
-category: Thoughts
+category: Engineering
 lang: en
 faq:
   - q: "What is Anpai.Life?"

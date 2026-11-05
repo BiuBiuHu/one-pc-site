@@ -2,7 +2,7 @@
 title: 混合检索做 Agent 记忆：dense + lexical + RRF
 date: 2026-09-07
 excerpt: 怎么给 Agent 记忆做混合检索：dense + lexical 双路召回、RRF 融合，再配上异步写路径和四态治理，查得准还不拖慢对话。
-category: AI
+category: AI Agent
 ogImage: /images/agent-memory-system.png
 ---
 

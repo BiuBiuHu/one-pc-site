@@ -2,7 +2,7 @@
 title: A2A — Agent-to-Agent 协议
 date: 2026-10-23
 excerpt: A2A 让不同进程、组织和厂商的 Agent 用任务状态机协作；这篇讲清 Agent Card、四步流程，以及一份可跑的 TypeScript 示例。
-category: AI
+category: AI Agent
 faq:
   - q: "A2A 是什么？"
     a: "A2A（Agent-to-Agent）是 Google 于 2025 年 4 月发布、后来捐给 Linux Foundation 的开放协议。它让一个 Agent 能把任务委托给另一个完全陌生的 Agent 并拿回结果；对参与方按黑盒要求，只需要知道对方能做什么、怎么提交任务。"

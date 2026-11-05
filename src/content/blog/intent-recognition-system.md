@@ -2,7 +2,7 @@
 title: 意图识别：无界给模型、有界给代码
 date: 2026-09-07
 excerpt: 意图识别（含意图解析 / intent parsing）不是分类问题，而是一条可观察、可校验、允许承认不确定的执行链：无界语言给模型听懂，有界事实给代码算准、守住。
-category: AI
+category: AI Agent
 series: 意图识别
 ogImage: /images/intent-recognition-system.png
 ---

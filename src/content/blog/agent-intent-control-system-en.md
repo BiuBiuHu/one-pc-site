@@ -2,7 +2,7 @@
 title: "Agent Intent Recognition: From Classifier to Executable Control System"
 date: 2026-08-23
 excerpt: "How to design an agent's intent recognition. The core: intent recognition isn't labeling a sentence — it's a control system deciding whether to call tools, which tool, whether side effects are allowed, and whether the last sentence can be trusted."
-category: AI
+category: AI Agent
 lang: en
 ---
 

@@ -2,7 +2,7 @@
 title: AI 研发从 Demo 到生产环境差了什么
 date: 2026-05-07
 excerpt: 真正的差距不在模型效果，而在工程化：观测、回归、成本、权限和故障恢复是否完整。这篇逐项讲 Demo 到生产要补齐的五件事，以及每件事最容易被忽略的坑。
-category: AI
+category: AI 基础设施
 ogImage: /images/ai-rnd-prod-01.png
 ---
 

@@ -2,7 +2,7 @@
 title: "MCP Dual Role: Client and Server Together on an AI Testing Platform"
 date: 2026-10-15
 excerpt: "An AI testing platform in both MCP roles — Client and Server: a three-layer protocol primer, dual-sided engineering notes, and a postmortem of wiring a gateway from errors to the spec-compliant path."
-category: AI
+category: AI Infrastructure
 lang: en
 ---
 
