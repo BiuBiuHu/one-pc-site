@@ -2,8 +2,8 @@ import { localePrefix } from "./i18n.js";
 
 const SERIES_ORDER_FALLBACK = Number.MAX_SAFE_INTEGER;
 
-export const ZH_CATEGORY_ORDER = ["后端", "AI 工程提效", "AI", "思考", "好文共读", "玩转流量"];
-export const EN_CATEGORY_ORDER = ["Engineering", "AI", "Thoughts", "Traffic & Growth"];
+export const ZH_CATEGORY_ORDER = ["后端", "AI 工程提效", "Agent 开发", "思考", "好文共读", "玩转流量"];
+export const EN_CATEGORY_ORDER = ["Engineering", "Agent Development", "Thoughts", "Traffic & Growth"];
 
 /** Stable slugs so ZH/EN counterparts of the same column share a URL segment. */
 const SERIES_SLUGS = {

@@ -2,7 +2,7 @@
 title: MCP 双角色：在 AI 测试平台同时做 MCP Client 与 MCP Server
 date: 2026-10-15
 excerpt: 一个 AI 测试平台同时扮演 MCP Client 与 Server 双角色：原理三层速览、双端工程实践，以及接入网关时从报错到规范姿势的排障复盘。
-category: AI
+category: Agent 开发
 series: Agent 开发
 seriesOrder: 9
 ---

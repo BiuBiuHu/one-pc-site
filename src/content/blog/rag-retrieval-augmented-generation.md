@@ -2,7 +2,7 @@
 title: RAG — 检索增强生成
 date: 2026-10-23
 excerpt: RAG 让 Agent 能回答私有知识库里的问题；这篇从切片、Embedding、向量库讲到混合 BM25+向量+RRF、精排、OpenSearch，以及私人 RAG 的 ACL / Permissions Collapse。
-category: AI
+category: Agent 开发
 series: Agent 开发
 seriesOrder: 10
 faq:
