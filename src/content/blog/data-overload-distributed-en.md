@@ -2,7 +2,7 @@
 title: "Data Overload and Distributed Refactoring: Sharding, Read/Write Split, Snowflake IDs, and Transactions"
 date: 2026-10-10
 excerpt: "Sharding, read/write splitting, globally unique IDs (Snowflake), and distributed transactions often arrive together. This is a practical map of when to use each — and why cheaper moves should come first — when data volume and concurrency outgrow a single database."
-category: Engineering
+category: Backend
 lang: en
 ---
 

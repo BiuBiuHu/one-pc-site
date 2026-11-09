@@ -2,7 +2,7 @@
 title: "Sync Architecture for a Todo App: Client and Desktop"
 date: 2026-05-07
 excerpt: "The hard part of a todo app isn't the UI, it's multi-device sync and conflict handling. Get the design right and sync feels as natural as local. This post covers the key designs and the traps that break them."
-category: Engineering
+category: Backend
 ogImage: /images/todo-app-sync-01.png
 lang: en
 ---

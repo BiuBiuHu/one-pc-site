@@ -2,7 +2,7 @@
 title: 我为什么要做 AI Gateway：独立开发者的模型中转、成本与限流
 date: 2026-05-07
 excerpt: 对独立开发者来说，AI Gateway（模型中转）不是炫技，而是把模型接入、成本与限流、稳定性收拢到一处的最小工程单元。这篇讲上线级中转站的五个能力，以及每个能力背后的坑。
-category: AI
+category: AI 基础设施
 ogImage: /images/ai-gateway-01.png
 ---
 

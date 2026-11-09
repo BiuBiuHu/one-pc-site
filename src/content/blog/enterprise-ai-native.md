@@ -2,7 +2,7 @@
 title: 企业级 AI 转型实践：从研发提效，到构建一个能够自我进化的 AI 组织
 date: 2026-09-10
 excerpt: 企业级落地 AI Native 分哪些阶段？从 AI Ready 基础设施、企业知识工程、SkillOps，到 Multi-Agent 和 AI Organization——这篇讲清完整演进路径和最佳实践。
-category: 工程
+category: AI 基础设施
 ogImage: /images/enterprise-ai-native.png
 draft: true
 ---
