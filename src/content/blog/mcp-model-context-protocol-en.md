@@ -4,7 +4,7 @@ date: 2026-10-15
 excerpt: "MCP pulls tools out of the agent into a standalone process and exposes them over a standard protocol. Starting from the limits of ordinary in-process tools, this post walks through a custom MCP Server that clients like Cursor can call directly — plus remote MCP, auth, and the 2026 stateless spec."
 category: AI
 series: Agent Development
-seriesOrder: 7
+seriesOrder: 8
 lang: en
 faq:
   - q: "What is the essential difference between MCP and an ordinary Tool?"

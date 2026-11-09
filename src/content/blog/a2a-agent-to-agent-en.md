@@ -4,7 +4,7 @@ date: 2026-10-23
 excerpt: "A2A lets agents in different processes, orgs, and vendors collaborate via a task state machine. This post covers Agent Cards, the four-step flow, and a runnable TypeScript sample."
 category: AI
 series: Agent Development
-seriesOrder: 10
+seriesOrder: 11
 lang: en
 faq:
   - q: "What is A2A?"

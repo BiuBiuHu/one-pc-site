@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
 import ArchiveCard from "../../components/ArchiveCard.astro";
 import { getCollection } from "astro:content";
-import { collectSeries, seriesHref, sortCategoryKeys, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
+import { collectSeries, listArchiveCategories, seriesHref, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
 
 const posts = (await getCollection("blog"))
   .filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft)
@@ -16,7 +16,7 @@ for (const p of posts) {
   if (!groups.has(cat)) groups.set(cat, []);
   groups.get(cat).push(p);
 }
-const categories = sortCategoryKeys(groups.keys(), ZH_CATEGORY_ORDER);
+const categories = listArchiveCategories(groups, ZH_CATEGORY_ORDER);
 const seriesList = collectSeries(posts);
 
 const fmt = (d) =>
@@ -39,7 +39,7 @@ const slug = (s, i) => `cat-${i}`;
           {categories.map((cat, i) => (
             <a href={`#${slug(cat, i)}`} class="toc-link">
               {cat}
-              <span class="toc-count">{groups.get(cat).length}</span>
+              <span class="toc-count">{(groups.get(cat) || []).length}</span>
             </a>
           ))}
         </nav>
@@ -63,7 +63,7 @@ const slug = (s, i) => `cat-${i}`;
           <section class="archive-group" id={slug(cat, i)}>
             <h3 class="archive-cat">{cat}</h3>
             <div class="post-list archive-posts">
-              {groups.get(cat).map((post) => (
+              {(groups.get(cat) || []).map((post) => (
                 <ArchiveCard
                   href={`/blog/${post.id}`}
                   date={fmt(post.data.date)}
@@ -73,6 +73,9 @@ const slug = (s, i) => `cat-${i}`;
                   seriesHref={post.data.series ? seriesHref("zh", post.data.series) : undefined}
                 />
               ))}
+              {(groups.get(cat) || []).length === 0 && (
+                <p class="archive-empty">还没有文章。</p>
+              )}
             </div>
           </section>
         ))}

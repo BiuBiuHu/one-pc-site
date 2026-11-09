@@ -4,7 +4,7 @@ date: 2026-09-07
 excerpt: "The model claimed \"schedule created\" without calling any write tool. Blocking phrases like \"created\" fails because the model rewords endlessly. Use an exit invariant: only a real database write counts as success."
 category: AI
 series: Agent Development
-seriesOrder: 5
+seriesOrder: 6
 ogImage: /images/llm-agent-exit-validation.png
 lang: en
 ---

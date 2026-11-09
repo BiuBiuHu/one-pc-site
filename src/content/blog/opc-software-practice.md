@@ -2,7 +2,7 @@
 title: 一个人，也可以做完一款产品：我的 OPC 软件研发实践
 date: 2026-09-10
 excerpt: 独立开发者如何一个人做完一款产品？以「安排日历」为实践，用 AI、Coding Agent 与 Skills，把真实痛点转化为需求、设计、开发、测试到发布运营的完整软件生产体系。
-category: 工程
+category: AI 工程提效
 ogImage: /images/opc-software-practice.png
 faq:
   - q: "什么是 OPC 式的软件研发？"

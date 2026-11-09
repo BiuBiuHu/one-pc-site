@@ -2,8 +2,8 @@ import { localePrefix } from "./i18n.js";
 
 const SERIES_ORDER_FALLBACK = Number.MAX_SAFE_INTEGER;
 
-export const ZH_CATEGORY_ORDER = ["后端", "工程", "AI", "思考", "好文共读"];
-export const EN_CATEGORY_ORDER = ["Engineering", "AI", "Thoughts"];
+export const ZH_CATEGORY_ORDER = ["后端", "AI 工程提效", "AI", "思考", "好文共读", "玩转流量"];
+export const EN_CATEGORY_ORDER = ["Engineering", "AI", "Thoughts", "Traffic & Growth"];
 
 /** Stable slugs so ZH/EN counterparts of the same column share a URL segment. */
 const SERIES_SLUGS = {
@@ -23,6 +23,13 @@ export function sortCategoryKeys(keys, preferred = []) {
     if (ib === -1) return -1;
     return ia - ib;
   });
+}
+
+/** Preferred labels first (even if empty), then any extra categories that have posts. */
+export function listArchiveCategories(groups, preferred = []) {
+  const keys = new Set(preferred);
+  for (const key of groups.keys()) keys.add(key);
+  return sortCategoryKeys(keys, preferred);
 }
 
 export function compareSeriesPosts(a, b) {

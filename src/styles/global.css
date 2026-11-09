@@ -292,6 +292,11 @@ main.main { flex: 1; }
   font-size: 15px; color: var(--text); margin: 0 0 10px;
   padding-bottom: 6px; border-bottom: 1px solid var(--border);
 }
+.archive-empty {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
 .archive-posts { grid-template-columns: 1fr !important; gap: 10px; }
 .archive-posts .post-item { padding: 12px 14px; }
 .archive-posts .post-item:hover { transform: none; }

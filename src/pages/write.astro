@@ -64,9 +64,10 @@ import Base from "../layouts/Base.astro";
             <select id="f-category">
               <option value="思考">思考</option>
               <option value="AI">AI</option>
-              <option value="工程">工程</option>
+              <option value="AI 工程提效">AI 工程提效</option>
               <option value="后端">后端</option>
               <option value="好文共读">好文共读</option>
+              <option value="玩转流量">玩转流量</option>
               <option value="__other">其他…</option>
             </select>
             <input
@@ -448,9 +449,13 @@ import Base from "../layouts/Base.astro";
       background: #e0e7ff;
       color: #3730a3;
     }
-    .post-cat[data-cat="工程"] {
+    .post-cat[data-cat="AI 工程提效"] {
       background: var(--green-soft);
       color: #047857;
+    }
+    .post-cat[data-cat="玩转流量"] {
+      background: #fef3c7;
+      color: #92400e;
     }
     .post-cat[data-cat="思考"] {
       background: #f3e8ff;
