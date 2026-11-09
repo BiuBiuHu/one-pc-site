@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>春风 AI 从提问到归档</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #eff3ed;
+      color: #182c27;
+      font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 34px 38px;
+      background: #eff3ed;
+    }
+    header { margin-bottom: 22px; }
+    h1 { font-size: 37px; line-height: 1.22; margin: 0; letter-spacing: -.025em; }
+    h2 { font-size: 24px; line-height: 1.25; margin: 0 0 8px; }
+    p { margin: 0; line-height: 1.42; }
+    .eyebrow { font-size: 16px; font-weight: 700; color: #365c4e; margin-bottom: 8px; }
+    .route {
+      padding: 14px 20px;
+      border-radius: 12px;
+      background: #214e40;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .down { font-size: 27px; font-weight: 700; color: #336752; text-align: center; line-height: 1.15; }
+    .fork {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      padding-top: 12px;
+    }
+    .fork::before, .fork::after { content: ""; position: absolute; background: #5d967f; }
+    .fork::before { top: 0; left: calc(50% - 1px); width: 2px; height: 13px; }
+    .fork::after { top: 12px; left: 16.3%; right: 16.3%; height: 2px; }
+    .fork span { position: relative; font-size: 23px; line-height: 1; }
+    .branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .branch {
+      min-height: 126px;
+      padding: 14px 16px;
+      background: #fff;
+      border: 1px solid #bacfc3;
+      border-radius: 12px;
+      font-size: 19px;
+    }
+    .branch p { color: #35534a; }
+    .branch-persona { border-color: #5d967f; background: #e0eee6; }
+    .subgraph {
+      margin-top: 18px;
+      padding: 17px 18px;
+      border: 1px solid #5d967f;
+      border-radius: 14px;
+      background: #f9fcfa;
+    }
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+    .input {
+      padding: 9px 10px;
+      text-align: center;
+      background: #deebe3;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .steps {
+      padding: 12px;
+      border-radius: 8px;
+      background: #214e40;
+      color: #fff;
+      text-align: center;
+      font-size: 21px;
+      font-weight: 700;
+    }
+    .archives {
+      margin-top: 12px;
+      color: #35534a;
+      text-align: center;
+      font-size: 17px;
+    }
+    @media (max-width: 540px) {
+      main { padding: 24px 16px; }
+      h1 { font-size: 28px; }
+      .branches { grid-template-columns: 1fr; }
+      .branch { min-height: 0; }
+      .steps, .route { font-size: 18px; }
+      .fork { grid-template-columns: 1fr; padding-top: 0; }
+      .fork::before, .fork::after, .fork span:not(:first-child) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">春风 AI · LangGraph 编排示意</p>
+      <h1>从提问到归档</h1>
+    </header>
+    <div class="route">复盘页提问 → 春风识别意图</div>
+    <div class="down fork" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span></div>
+    <div class="branches">
+      <section class="branch">
+        <h2>整周复盘</h2>
+        <p>准备周资料</p>
+        <p>并行派发 → 春风汇总</p>
+      </section>
+      <section class="branch">
+        <h2>普通聊天</h2>
+        <p>加载相关上下文</p>
+        <p>春风直接回复</p>
+      </section>
+      <section class="branch branch-persona">
+        <h2>点名人物</h2>
+        <p>交给顾问咨询子图 ↓</p>
+      </section>
+    </div>
+    <section class="subgraph">
+      <h2>顾问咨询子图</h2>
+      <div class="inputs">
+        <div class="input">复盘里点名</div>
+        <div class="input">侧栏王阳明</div>
+      </div>
+      <div class="down" aria-hidden="true">↓</div>
+      <div class="steps">检索顾问知识库 → 生成流式回复</div>
+      <p class="archives">复盘对话与侧栏会话各自归档</p>
+    </section>
+  </main>
+</body>
+</html>
