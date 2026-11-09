@@ -4,6 +4,7 @@ date: 2026-09-06
 excerpt: 意图识别不止是「分类出意图」，还得抽出时间、标题这些槽位。时间是最容易翻车的槽位：「7点半」无前缀时是早上 7:30 还是晚上 19:30？难点不在听懂，而在歧义消解。
 category: AI
 series: Agent 开发
+seriesOrder: 3
 ogImage: /images/chinese-time-parsing.png
 ---
 
