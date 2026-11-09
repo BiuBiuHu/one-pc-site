@@ -9,7 +9,9 @@ export const EN_CATEGORY_ORDER = ["Engineering", "AI", "Thoughts"];
 const SERIES_SLUGS = {
   前端转全栈: "frontend-to-full-stack",
   "Frontend to Full-Stack": "frontend-to-full-stack",
-  意图识别: "intent-recognition"
+  "Agent 开发": "agent-development",
+  "Agent Development": "agent-development",
+  意图识别: "agent-development"
 };
 
 export function sortCategoryKeys(keys, preferred = []) {

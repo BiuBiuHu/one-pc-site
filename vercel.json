@@ -77,6 +77,11 @@
     { "source": "/blog/mtw5k47k", "destination": "/blog/", "permanent": true },
     { "source": "/blog/mtw5k47k/", "destination": "/blog/", "permanent": true },
     { "source": "/en/blog/mtw5k47k", "destination": "/en/blog/", "permanent": true },
-    { "source": "/en/blog/mtw5k47k/", "destination": "/en/blog/", "permanent": true }
+    { "source": "/en/blog/mtw5k47k/", "destination": "/en/blog/", "permanent": true },
+
+    { "source": "/blog/series/intent-recognition", "destination": "/blog/series/agent-development", "permanent": true },
+    { "source": "/blog/series/intent-recognition/", "destination": "/blog/series/agent-development", "permanent": true },
+    { "source": "/en/blog/series/intent-recognition", "destination": "/en/blog/series/agent-development", "permanent": true },
+    { "source": "/en/blog/series/intent-recognition/", "destination": "/en/blog/series/agent-development", "permanent": true }
   ]
 }

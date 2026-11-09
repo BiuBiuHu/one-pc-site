@@ -73,7 +73,7 @@ p { color: var(--text-2); }
 }
 .page:has(.archive-layout),
 .page.series-page {
-  padding: 24px 0 36px;
+  padding: 12px 0 32px;
 }
 
 .site { display: flex; flex-direction: column; min-height: 100vh; }
@@ -130,9 +130,9 @@ main.main { flex: 1; }
 .section-head { margin-bottom: 18px; }
 .page .section-head + .archive-layout { margin-top: 0; }
 .page:has(.archive-layout) .section-head,
-.page.series-page .section-head { margin-bottom: 8px; }
+.page.series-page .section-head { margin-bottom: 4px; }
 .page:has(.archive-layout) .section-head h1,
-.page.series-page .section-head h1 { margin-bottom: 4px; }
+.page.series-page .section-head h1 { margin-bottom: 2px; }
 .page.series-page .back-link { margin-bottom: 12px; }
 .section-head h1,
 .section-head h2 { margin: 0 0 8px; font-size: 24px; }
@@ -287,13 +287,13 @@ main.main { flex: 1; }
   .archive-toc .toc-link { border: 1px solid var(--border); border-radius: 999px; }
 }
 .archive-group { scroll-margin-top: 88px; }
-.archive-group + .archive-group { margin-top: 16px; }
+.archive-group + .archive-group { margin-top: 20px; }
 .archive-cat {
-  font-size: 15px; color: var(--text); margin: 0 0 6px;
-  padding-bottom: 4px; border-bottom: 1px solid var(--border);
+  font-size: 15px; color: var(--text); margin: 0 0 10px;
+  padding-bottom: 6px; border-bottom: 1px solid var(--border);
 }
-.archive-posts { grid-template-columns: 1fr !important; gap: 6px; }
-.archive-posts .post-item { padding: 8px 12px; }
+.archive-posts { grid-template-columns: 1fr !important; gap: 10px; }
+.archive-posts .post-item { padding: 12px 14px; }
 .archive-posts .post-item:hover { transform: none; }
 .archive-posts .post-item-body {
   display: block;
@@ -306,12 +306,12 @@ main.main { flex: 1; }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .archive-posts .post-item .date { margin-bottom: 0; }
-.archive-posts .post-item h3 { margin: 0 0 2px; font-size: 16px; }
+.archive-posts .post-item h3 { margin: 0 0 4px; font-size: 16px; }
 .archive-posts .post-item .excerpt {
-  line-height: 1.4;
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -746,7 +746,7 @@ a.series-chip:hover { color: var(--brand-hover); border-color: var(--brand); tex
   .hero-split { grid-template-columns: 1fr; gap: 28px; }
   .page { padding: 44px 0 56px; }
   .page:has(.archive-layout),
-  .page.series-page { padding: 16px 0 28px; }
+  .page.series-page { padding: 8px 0 24px; }
 }
 @media (max-width: 600px) {
   .container { padding: 0 18px; }
