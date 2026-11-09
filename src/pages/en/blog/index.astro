@@ -28,7 +28,7 @@ const slug = (s, i) => `cat-${i}`;
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="notebook" size={14} />Blog</span>
-      <h1 style="margin-top:8px">Archive</h1>
+      <h1 style="margin-top:4px">Archive</h1>
       <p>All posts by category, {posts.length} in total.</p>
     </div>
 
@@ -64,7 +64,10 @@ const slug = (s, i) => `cat-${i}`;
             <div class="post-list archive-posts">
               {groups.get(cat).map((post) => (
                 <a class="post-item" href={`/en/blog/${post.id.replace(/-en$/, "")}`}>
-                  <div class="date">{fmt(post.data.date)}</div>
+                  <div class="post-meta">
+                    <div class="date">{fmt(post.data.date)}</div>
+                    {post.data.series && <span class="post-series">{post.data.series}</span>}
+                  </div>
                   <h3>{post.data.title}</h3>
                   <p class="excerpt">{post.data.excerpt}</p>
                 </a>

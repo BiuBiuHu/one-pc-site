@@ -1,0 +1,28 @@
+---
+import { blogHref, postSlug } from "../lib/i18n.js";
+
+interface Props {
+  series: string;
+  label: string;
+  posts: any[];
+  currentId: string;
+  lang: "zh" | "en" | "ja";
+  compact?: boolean;
+}
+
+const { series, label, posts, currentId, lang, compact = false } = Astro.props;
+---
+<nav class:list={["series-nav", { "series-nav-top": compact }]} aria-label={`${label} · ${series}`}>
+  <div class="series-label">{label} · {series}</div>
+  <ol class="series-list">
+    {posts.map((p) => {
+      const isCurrent = p.id === currentId;
+      const href = blogHref(lang, postSlug(p.id));
+      return (
+        <li class:list={["series-item", { current: isCurrent }]}>
+          {isCurrent ? <span>{p.data.title}</span> : <a href={href}>{p.data.title}</a>}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

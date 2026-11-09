@@ -3,6 +3,7 @@ import ArticleFaq from "./ArticleFaq.astro";
 import Comments from "./Comments.astro";
 import Icon from "./Icon.astro";
 import RelatedReading from "./RelatedReading.astro";
+import SeriesNav from "./SeriesNav.astro";
 import { render, getCollection } from "astro:content";
 import { pickRelatedPosts, pickRelatedProject } from "../data/related.js";
 import { compareSeriesPosts } from "../lib/blog.js";
@@ -58,13 +59,27 @@ const seriesPosts = series
       .sort(compareSeriesPosts)
   : [];
 const seriesShown = seriesPosts.length > 1;
+const seriesIndex = seriesPosts.findIndex((p) => p.id === post.id) + 1;
 const relatedPosts = pickRelatedPosts(allPosts, post, {
   lang,
   limit: 3,
   skipSeries: seriesShown
 });
 const relatedProject = pickRelatedProject(post, lang);
-const seriesUi = isEn ? { label: "Series" } : isJa ? { label: "シリーズ" } : { label: "系列" };
+const seriesUi = isEn
+  ? {
+      label: "Series",
+      part: seriesShown ? `Part ${seriesIndex} of ${seriesPosts.length}` : ""
+    }
+  : isJa
+    ? {
+        label: "シリーズ",
+        part: seriesShown ? `${seriesIndex} / ${seriesPosts.length}` : ""
+      }
+    : {
+        label: "专栏",
+        part: seriesShown ? `第 ${seriesIndex} / ${seriesPosts.length} 篇` : ""
+      };
 ---
 <section class="page">
   <div class={`article-layout ${tocItems.length ? "has-toc" : ""}`}>
@@ -107,9 +122,24 @@ const seriesUi = isEn ? { label: "Series" } : isJa ? { label: "シリーズ" } :
             </div>
           )
         }
-        {series && <div class="series-chip">{series}</div>}
+        {series && (
+          <div class="series-kicker">
+            <span class="series-chip">{seriesUi.label} · {series}</span>
+            {seriesUi.part && <span class="series-part">{seriesUi.part}</span>}
+          </div>
+        )}
         <h1>{post.data.title}</h1>
       </header>
+      {seriesShown && (
+        <SeriesNav
+          series={series}
+          label={seriesUi.label}
+          posts={seriesPosts}
+          currentId={post.id}
+          lang={locale}
+          compact
+        />
+      )}
       <div class="prose">
         <Content />
         <ArticleFaq items={faqItems} lang={lang} />
@@ -117,21 +147,13 @@ const seriesUi = isEn ? { label: "Series" } : isJa ? { label: "シリーズ" } :
     </div>
   </div>
   {seriesShown && (
-    <nav class="series-nav">
-      <div class="series-label">{seriesUi.label} · {series}</div>
-      <ol class="series-list">
-        {seriesPosts.map((p) => {
-          const isCurrent = p.id === post.id;
-          const pSlug = postSlug(p.id);
-          const href = blogHref(locale, pSlug);
-          return (
-            <li class:list={["series-item", { current: isCurrent }]}>
-              {isCurrent ? <span>{p.data.title}</span> : <a href={href}>{p.data.title}</a>}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
+    <SeriesNav
+      series={series}
+      label={seriesUi.label}
+      posts={seriesPosts}
+      currentId={post.id}
+      lang={locale}
+    />
   )}
   <RelatedReading posts={relatedPosts} project={relatedProject} lang={lang} />
   <div class="share-box">

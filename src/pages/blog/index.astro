@@ -28,7 +28,7 @@ const slug = (s, i) => `cat-${i}`;
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="notebook" size={14} />博客</span>
-      <h1 style="margin-top:8px">目录与归档</h1>
+      <h1 style="margin-top:4px">目录与归档</h1>
       <p>按分类归档的全部文章，共 {posts.length} 篇。</p>
     </div>
 
@@ -64,7 +64,10 @@ const slug = (s, i) => `cat-${i}`;
             <div class="post-list archive-posts">
               {groups.get(cat).map((post) => (
                 <a class="post-item" href={`/blog/${post.id}`}>
-                  <div class="date">{fmt(post.data.date)}</div>
+                  <div class="post-meta">
+                    <div class="date">{fmt(post.data.date)}</div>
+                    {post.data.series && <span class="post-series">{post.data.series}</span>}
+                  </div>
                   <h3>{post.data.title}</h3>
                   <p class="excerpt">{post.data.excerpt}</p>
                 </a>
