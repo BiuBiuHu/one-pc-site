@@ -1,7 +1,16 @@
+import { localePrefix } from "./i18n.js";
+
 const SERIES_ORDER_FALLBACK = Number.MAX_SAFE_INTEGER;
 
 export const ZH_CATEGORY_ORDER = ["后端", "工程", "AI", "思考", "好文共读"];
 export const EN_CATEGORY_ORDER = ["Engineering", "AI", "Thoughts"];
+
+/** Stable slugs so ZH/EN counterparts of the same column share a URL segment. */
+const SERIES_SLUGS = {
+  前端转全栈: "frontend-to-full-stack",
+  "Frontend to Full-Stack": "frontend-to-full-stack",
+  意图识别: "intent-recognition"
+};
 
 export function sortCategoryKeys(keys, preferred = []) {
   return [...keys].sort((a, b) => {
@@ -21,8 +30,26 @@ export function compareSeriesPosts(a, b) {
   return a.data.date.getTime() - b.data.date.getTime();
 }
 
-/** Series with ≥2 posts in the given collection, each linking to the first post. */
-export function collectSeries(posts) {
+export function seriesSlug(name) {
+  if (!name) return "";
+  if (SERIES_SLUGS[name]) return SERIES_SLUGS[name];
+  const ascii = String(name)
+    .trim()
+    .toLowerCase()
+    .replace(/['’"]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return ascii || "series";
+}
+
+export function seriesHref(lang, name) {
+  const slug = seriesSlug(name);
+  const prefix = localePrefix(lang === "en" ? "en" : "zh");
+  return slug ? `${prefix}/blog/series/${slug}/` : `${prefix}/blog/`;
+}
+
+/** Series in the given collection. Default min=2 for archive strips. */
+export function collectSeries(posts, { min = 2 } = {}) {
   const groups = new Map();
   for (const post of posts) {
     const name = post.data.series;
@@ -30,11 +57,13 @@ export function collectSeries(posts) {
     if (!groups.has(name)) groups.set(name, []);
     groups.get(name).push(post);
   }
-  return [...groups.entries()]
-    .filter(([, list]) => list.length >= 2)
-    .map(([name, list]) => {
-      const sorted = [...list].sort(compareSeriesPosts);
-      return { name, count: sorted.length, first: sorted[0] };
-    })
-    .sort((a, b) => compareSeriesPosts(a.first, b.first));
+  const bySlug = new Map();
+  for (const [name, list] of groups) {
+    if (list.length < min) continue;
+    const sorted = [...list].sort(compareSeriesPosts);
+    const slug = seriesSlug(name);
+    if (bySlug.has(slug)) continue;
+    bySlug.set(slug, { name, slug, count: sorted.length, first: sorted[0], posts: sorted });
+  }
+  return [...bySlug.values()].sort((a, b) => compareSeriesPosts(a.first, b.first));
 }

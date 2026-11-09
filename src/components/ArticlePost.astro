@@ -6,7 +6,7 @@ import RelatedReading from "./RelatedReading.astro";
 import SeriesNav from "./SeriesNav.astro";
 import { render, getCollection } from "astro:content";
 import { pickRelatedPosts, pickRelatedProject } from "../data/related.js";
-import { compareSeriesPosts } from "../lib/blog.js";
+import { compareSeriesPosts, seriesHref } from "../lib/blog.js";
 import { blogHref, DATE_LOCALE, normalizeLocale, postSlug } from "../lib/i18n.js";
 
 interface Props {
@@ -124,7 +124,7 @@ const seriesUi = isEn
         }
         {series && (
           <div class="series-kicker">
-            <span class="series-chip">{seriesUi.label} · {series}</span>
+            <a class="series-chip" href={seriesHref(locale, series)}>{seriesUi.label} · {series}</a>
             {seriesUi.part && <span class="series-part">{seriesUi.part}</span>}
           </div>
         )}

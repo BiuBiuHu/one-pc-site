@@ -1,0 +1,54 @@
+---
+import Icon from "./Icon.astro";
+import ArchiveCard from "./ArchiveCard.astro";
+import { blogHref, DATE_LOCALE, postSlug } from "../lib/i18n.js";
+
+interface Props {
+  lang: "zh" | "en";
+  series: {
+    name: string;
+    count: number;
+    posts: any[];
+  };
+}
+
+const { lang, series } = Astro.props;
+const isEn = lang === "en";
+const fmt = (d) =>
+  d.toLocaleDateString(DATE_LOCALE[lang], { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+const total = series.count;
+const ui = isEn
+  ? {
+      back: "Back to blog",
+      eyebrow: "Column",
+      blurb: `${total} posts in reading order.`,
+      part: (n) => `Part ${n} of ${total}`
+    }
+  : {
+      back: "返回博客",
+      eyebrow: "专栏",
+      blurb: `按学习顺序排列，共 ${total} 篇。`,
+      part: (n) => `第 ${n} / ${total} 篇`
+    };
+---
+<section class="page series-page">
+  <a class="back-link" href={blogHref(lang)}>
+    <Icon name="arrow-left" size={15} />{ui.back}
+  </a>
+  <div class="section-head">
+    <span class="eyebrow"><Icon name="notebook" size={14} />{ui.eyebrow}</span>
+    <h1 style="margin-top:4px">{series.name}</h1>
+    <p>{ui.blurb}</p>
+  </div>
+  <div class="post-list archive-posts">
+    {series.posts.map((post, i) => (
+      <ArchiveCard
+        href={blogHref(lang, postSlug(post.id))}
+        date={fmt(post.data.date)}
+        title={post.data.title}
+        excerpt={post.data.excerpt}
+        part={ui.part(i + 1)}
+      />
+    ))}
+  </div>
+</section>

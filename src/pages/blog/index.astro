@@ -1,9 +1,9 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
+import ArchiveCard from "../../components/ArchiveCard.astro";
 import { getCollection } from "astro:content";
-import { collectSeries, sortCategoryKeys, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
-import { blogHref, postSlug } from "../../lib/i18n.js";
+import { collectSeries, seriesHref, sortCategoryKeys, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
 
 const posts = (await getCollection("blog"))
   .filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft)
@@ -36,7 +36,7 @@ const slug = (s, i) => `cat-${i}`;
       <div class="archive-series">
         <div class="toc-label">专栏</div>
         {seriesList.map((s) => (
-          <a class="archive-series-item" href={blogHref("zh", postSlug(s.first.id))}>
+          <a class="archive-series-item" href={seriesHref("zh", s.name)}>
             {s.name}
             <span class="toc-count">{s.count}</span>
           </a>
@@ -63,14 +63,14 @@ const slug = (s, i) => `cat-${i}`;
             <h3 class="archive-cat">{cat}</h3>
             <div class="post-list archive-posts">
               {groups.get(cat).map((post) => (
-                <a class="post-item" href={`/blog/${post.id}`}>
-                  <div class="post-meta">
-                    <div class="date">{fmt(post.data.date)}</div>
-                    {post.data.series && <span class="post-series">{post.data.series}</span>}
-                  </div>
-                  <h3>{post.data.title}</h3>
-                  <p class="excerpt">{post.data.excerpt}</p>
-                </a>
+                <ArchiveCard
+                  href={`/blog/${post.id}`}
+                  date={fmt(post.data.date)}
+                  title={post.data.title}
+                  excerpt={post.data.excerpt}
+                  seriesName={post.data.series}
+                  seriesHref={post.data.series ? seriesHref("zh", post.data.series) : undefined}
+                />
               ))}
             </div>
           </section>

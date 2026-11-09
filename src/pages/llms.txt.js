@@ -1,5 +1,6 @@
 import { getCollection } from "astro:content";
 import { site } from "../data/site";
+import { collectSeries, seriesHref } from "../lib/blog.js";
 import { localeOf, postSlug } from "../lib/i18n.js";
 
 function blogUrl(base, post) {
@@ -41,6 +42,13 @@ export async function GET(context) {
   out.push(`- [关于](${base}/about/): ${site.name}，Agent engineer · OPC`);
   out.push(`- [About](${base}/en/about/): English about`);
   out.push(`- [博客](${base}/blog/): 全部文章归档（按分类）`);
+  const zhSeries = collectSeries(
+    posts.filter((p) => localeOf(p) === "zh"),
+    { min: 2 }
+  );
+  for (const s of zhSeries) {
+    out.push(`- [专栏 · ${s.name}](${base}${seriesHref("zh", s.name)}): ${s.count} 篇，按学习顺序`);
+  }
   out.push(`- [项目](${base}/projects/): 开源项目`);
   out.push(`- [Smart Tab Pilot](https://biubiuhu.github.io/smart-tab-pilot/): Chrome 扩展，精确 URL 去重 + 任务导航图（仓库：https://github.com/BiuBiuHu/smart-tab-pilot）`);
   out.push(`- [OPC Skills](${base}/projects/opc-skills/): BiuBiuHu 的 OPC 交付 Codex Skill 模板（非 opc.dev）`);

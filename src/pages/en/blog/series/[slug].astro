@@ -1,0 +1,36 @@
+---
+import Base from "../../../../layouts/Base.astro";
+import SeriesPage from "../../../../components/SeriesPage.astro";
+import { getCollection } from "astro:content";
+import { collectSeries, seriesHref } from "../../../../lib/blog.js";
+
+export async function getStaticPaths() {
+  const all = await getCollection("blog");
+  const en = all.filter((p) => p.data.lang === "en" && !p.data.draft);
+  const zhSlugs = new Set(
+    collectSeries(
+      all.filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft),
+      { min: 1 }
+    ).map((s) => s.slug)
+  );
+  return collectSeries(en, { min: 1 }).map((series) => ({
+    params: { slug: series.slug },
+    props: { series, hasZh: zhSlugs.has(series.slug) }
+  }));
+}
+
+const { series, hasZh } = Astro.props;
+const altLocaleUrl = hasZh ? seriesHref("zh", series.name) : "/blog/";
+const localeUrls = {
+  zh: hasZh ? seriesHref("zh", series.name) : "/blog/",
+  en: seriesHref("en", series.name)
+};
+---
+<Base
+  title={series.name}
+  description={`${series.count} posts in the ${series.name} column, in reading order.`}
+  altLocaleUrl={altLocaleUrl}
+  localeUrls={localeUrls}
+>
+  <SeriesPage lang="en" series={series} />
+</Base>

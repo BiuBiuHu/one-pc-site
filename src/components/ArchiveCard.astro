@@ -1,0 +1,31 @@
+---
+interface Props {
+  href: string;
+  date: string;
+  title: string;
+  excerpt?: string;
+  seriesName?: string;
+  seriesHref?: string;
+  part?: string;
+}
+
+const { href, date, title, excerpt, seriesName, seriesHref, part } = Astro.props;
+---
+<article class="post-item">
+  <div class="post-meta">
+    <div class="date">{date}</div>
+    {
+      part ? (
+        <span class="post-part">{part}</span>
+      ) : seriesName && seriesHref ? (
+        <a class="post-series" href={seriesHref}>{seriesName}</a>
+      ) : seriesName ? (
+        <span class="post-series">{seriesName}</span>
+      ) : null
+    }
+  </div>
+  <a class="post-item-body" href={href}>
+    <h3>{title}</h3>
+    {excerpt && <p class="excerpt">{excerpt}</p>}
+  </a>
+</article>
