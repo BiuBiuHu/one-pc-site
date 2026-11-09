@@ -4,6 +4,8 @@ date: 2026-11-04
 excerpt: 二方包是公司内跨团队共享的 Java jar；Maven 是让这套内部包生态运转的基建。把接口与 DTO 独立成可发布模块，依赖最少、接口稳定，再 mvn deploy。
 category: 后端
 lang: zh
+series: 前端转全栈
+seriesOrder: 8
 ---
 
 > **二方包 = 公司内部跨团队共享的 Java jar**（等同前端 `@公司scope/xxx` 私有包）；**Maven 则是让这套内部包生态得以运转的基建**（包管理 + 构建 + 仓库 + 发布）。创建要点＝把「给别人用的部分（接口 + DTO）」独立成有 Maven 坐标的模块/仓库，依赖最少化、接口稳定化，`mvn deploy` 发布到内部私服，别人用 `<dependency>` 引用。

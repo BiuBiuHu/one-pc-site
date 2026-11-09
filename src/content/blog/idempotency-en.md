@@ -4,6 +4,8 @@ date: 2026-11-02
 excerpt: "In distributed systems retries are the default; without idempotency every retry is a new write. Idempotency turns retry-safety into a built-in capability."
 category: Engineering
 lang: en
+series: Frontend to Full-Stack
+seriesOrder: 3
 ---
 
 > In one line: in a distributed system, **retries are normal** (timeout retry, MQ at-least-once, a user mashing the button). **Without idempotency, every retry is a new write** — idempotency is what makes "retry-safe" the default.

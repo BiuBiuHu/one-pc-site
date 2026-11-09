@@ -2,7 +2,7 @@
 title: 用了 Grok Bot 之后，我们为什么把安排日历迁到 Cloudflare
 date: 2026-10-29
 excerpt: Grok Bot 很快用完了 Vercel 免费部署额度。我们重新评估托管方式，放弃常驻容器、保留 PostgreSQL，把安排日历迁到 Cloudflare，也测到了部分接口变慢。
-category: 技术实践
+category: 工程
 lang: zh
 ---
 

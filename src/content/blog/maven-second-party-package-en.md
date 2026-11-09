@@ -4,6 +4,8 @@ date: 2026-11-04
 excerpt: "A second-party package is a Java jar shared across teams inside a company; Maven is the infrastructure that makes that private package ecosystem work. Split interfaces and DTOs into a publishable module, minimize dependencies, keep APIs stable, then mvn deploy."
 category: Engineering
 lang: en
+series: Frontend to Full-Stack
+seriesOrder: 8
 ---
 
 > **A second-party package is a Java jar shared across teams inside a company** (like a private `@company/scope` package on the frontend). **Maven is the infrastructure that makes that private package ecosystem work** (package management + build + repository + publish). The creation recipe: isolate what others consume (interfaces + DTOs) into a module or repo with Maven coordinates, minimize dependencies, keep the API stable, `mvn deploy` to an internal registry, and let others depend via `<dependency>`.

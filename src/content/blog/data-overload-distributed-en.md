@@ -4,6 +4,8 @@ date: 2026-10-10
 excerpt: "Sharding, read/write splitting, globally unique IDs (Snowflake), and distributed transactions often arrive together. This is a practical map of when to use each — and why cheaper moves should come first — when data volume and concurrency outgrow a single database."
 category: Engineering
 lang: en
+series: Frontend to Full-Stack
+seriesOrder: 4
 ---
 
 > A general-purpose tech explainer. The examples stay neutral — orders, users, inventory — and do not name a company, framework, or product implementation.

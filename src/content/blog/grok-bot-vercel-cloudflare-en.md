@@ -2,7 +2,7 @@
 title: "Why We Moved Anpai Calendar to Cloudflare After Starting to Use Grok Bot"
 date: 2026-10-29
 excerpt: "Grok Bot used up our Vercel deployment quota. We moved Anpai to native Cloudflare Workers, kept PostgreSQL, and found that some endpoints got slower."
-category: 技术实践
+category: Engineering
 lang: en
 ---
 

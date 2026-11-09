@@ -2,6 +2,8 @@
 import Base from "../../../layouts/Base.astro";
 import Icon from "../../../components/Icon.astro";
 import { getCollection } from "astro:content";
+import { collectSeries, EN_CATEGORY_ORDER, sortCategoryKeys } from "../../../lib/blog.js";
+import { blogHref, postSlug } from "../../../lib/i18n.js";
 
 const posts = (await getCollection("blog"))
   .filter((p) => p.data.lang === "en" && !p.data.draft)
@@ -14,7 +16,8 @@ for (const p of posts) {
   if (!groups.has(cat)) groups.set(cat, []);
   groups.get(cat).push(p);
 }
-const categories = [...groups.keys()];
+const categories = sortCategoryKeys(groups.keys(), EN_CATEGORY_ORDER);
+const seriesList = collectSeries(posts);
 
 const fmt = (d) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
@@ -25,9 +28,21 @@ const slug = (s, i) => `cat-${i}`;
   <section class="page">
     <div class="section-head">
       <span class="eyebrow"><Icon name="notebook" size={14} />Blog</span>
-      <h1 style="margin-top:14px">Archive</h1>
+      <h1 style="margin-top:8px">Archive</h1>
       <p>All posts by category, {posts.length} in total.</p>
     </div>
+
+    {seriesList.length > 0 && (
+      <div class="archive-series">
+        <div class="toc-label">Columns</div>
+        {seriesList.map((s) => (
+          <a class="archive-series-item" href={blogHref("en", postSlug(s.first.id))}>
+            {s.name}
+            <span class="toc-count">{s.count}</span>
+          </a>
+        ))}
+      </div>
+    )}
 
     <div class="archive-layout">
       <aside class="archive-toc">

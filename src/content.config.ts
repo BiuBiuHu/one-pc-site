@@ -13,6 +13,7 @@ const blog = defineCollection({
     lang: z.string().default("zh"),
     draft: z.boolean().default(false),
     series: z.string().optional(),
+    seriesOrder: z.number().optional(),
     faq: z
       .array(
         z.object({

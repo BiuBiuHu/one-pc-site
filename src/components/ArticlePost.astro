@@ -5,6 +5,7 @@ import Icon from "./Icon.astro";
 import RelatedReading from "./RelatedReading.astro";
 import { render, getCollection } from "astro:content";
 import { pickRelatedPosts, pickRelatedProject } from "../data/related.js";
+import { compareSeriesPosts } from "../lib/blog.js";
 import { blogHref, DATE_LOCALE, normalizeLocale, postSlug } from "../lib/i18n.js";
 
 interface Props {
@@ -54,7 +55,7 @@ const seriesPosts = series
           (p.data.lang ?? "zh") === locale &&
           !p.data.draft
       )
-      .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+      .sort(compareSeriesPosts)
   : [];
 const seriesShown = seriesPosts.length > 1;
 const relatedPosts = pickRelatedPosts(allPosts, post, {
@@ -106,6 +107,7 @@ const seriesUi = isEn ? { label: "Series" } : isJa ? { label: "シリーズ" } :
             </div>
           )
         }
+        {series && <div class="series-chip">{series}</div>}
         <h1>{post.data.title}</h1>
       </header>
       <div class="prose">

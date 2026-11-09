@@ -4,6 +4,8 @@ date: 2026-11-01
 excerpt: "Optimistic and pessimistic locks are opposite bets on concurrent write conflicts: validate at update when clashes are rare, or take exclusive ownership first when they are frequent."
 category: Engineering
 lang: en
+series: Frontend to Full-Stack
+seriesOrder: 2
 ---
 
 > In one line: optimistic and pessimistic locks are **two opposite bets on "concurrent write conflicts"** — one assumes clashes are rare and checks only at update time; the other assumes a clash is coming and takes exclusive ownership before it works.
