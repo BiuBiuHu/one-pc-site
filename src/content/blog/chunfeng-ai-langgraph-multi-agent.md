@@ -3,6 +3,8 @@ title: 从 Promise.all 到 LangGraph，春风 AI 多 Agent 复盘从 0 到 1
 date: 2026-11-09
 excerpt: 从春风 AI 原来的并行导师和 Tab 周报讲起，用日程实验和真实复盘串起 LangGraph 的状态、路由、并行、恢复、RAG 与流式交互。附可运行的 TypeScript 示例。
 category: Agent 开发
+series: Agent 开发
+seriesOrder: 12
 lang: zh
 draft: false
 ---
