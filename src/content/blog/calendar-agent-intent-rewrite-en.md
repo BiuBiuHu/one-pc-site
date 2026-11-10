@@ -4,7 +4,7 @@ date: 2026-08-29
 excerpt: "Rebuilding a calendar agent from real user feedback: from 530 lines of intent regex to a single large-model call, keeping the safety boundary with a state machine, tool constraints, exit validation, and real-model evaluation."
 category: Agent Development
 series: Agent Development
-seriesOrder: 2
+seriesOrder: 5
 lang: en
 ---
 

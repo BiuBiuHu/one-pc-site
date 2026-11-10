@@ -18,6 +18,33 @@ const SERIES_SLUGS = {
 
 /** Course modules for series pages that are a curriculum, not a date-sorted list. */
 export const SERIES_CURRICULUM = {
+  "agent-development": [
+    {
+      id: "intent-control",
+      title: { zh: "意图识别与控制系统", en: "Intent & Control" },
+      orders: [1, 2, 3]
+    },
+    {
+      id: "slots-practice",
+      title: { zh: "槽位、实践与出口校验", en: "Slots, Practice & Exit Validation" },
+      orders: [4, 5, 6]
+    },
+    {
+      id: "memory-retrieval",
+      title: { zh: "记忆与检索", en: "Memory & Retrieval" },
+      orders: [7, 8]
+    },
+    {
+      id: "tools-protocols",
+      title: { zh: "工具与协议", en: "Tools & Protocols" },
+      orders: [9, 10, 11]
+    },
+    {
+      id: "multi-agent",
+      title: { zh: "多 Agent 编排", en: "Multi-Agent Orchestration" },
+      orders: [12]
+    }
+  ],
   "full-stack-engineering": [
     {
       id: "language-framework",

@@ -4,7 +4,7 @@ date: 2026-10-23
 excerpt: RAG 让 Agent 能回答私有知识库里的问题；这篇从切片、Embedding、向量库讲到混合 BM25+向量+RRF、精排、OpenSearch，以及私人 RAG 的 ACL / Permissions Collapse。
 category: Agent 开发
 series: Agent 开发
-seriesOrder: 10
+seriesOrder: 8
 faq:
   - q: "RAG 解决什么问题？"
     a: "LLM 的知识受训练数据限制，有时效性和私有性两个硬限制。RAG（检索增强生成）先检索相关文档再塞进 Prompt，让模型能回答私有知识库里的问题，而不只依赖训练时的知识。"

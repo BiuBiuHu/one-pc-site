@@ -2,7 +2,7 @@
 import Base from "../../../layouts/Base.astro";
 import SeriesPage from "../../../components/SeriesPage.astro";
 import { getCollection } from "astro:content";
-import { collectSeries, seriesHref } from "../../../lib/blog.js";
+import { collectSeries, seriesCurriculumSlots, seriesHref } from "../../../lib/blog.js";
 
 export async function getStaticPaths() {
   const all = await getCollection("blog");
@@ -20,6 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { series, hasEn } = Astro.props;
+const slots = seriesCurriculumSlots(series.name);
 const altLocaleUrl = hasEn ? seriesHref("en", series.name) : "/en/blog/";
 const localeUrls = {
   zh: seriesHref("zh", series.name),
@@ -29,8 +30,8 @@ const localeUrls = {
 <Base
   title={series.name}
   description={
-    series.slug === "full-stack-engineering"
-      ? `专栏「${series.name}」，按课程模块从第一课排到第十二课，共 ${series.count} 篇。`
+    slots
+      ? `专栏「${series.name}」，按课程模块排列，共 ${series.count} 篇。`
       : `专栏「${series.name}」，按学习顺序共 ${series.count} 篇。`
   }
   altLocaleUrl={altLocaleUrl}

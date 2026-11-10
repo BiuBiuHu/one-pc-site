@@ -4,7 +4,7 @@ date: 2026-08-31
 excerpt: "After many rounds of intent recognition I realized the problem may not be classification at all — it's agent architecture. This post explains Plan + tool design: let the model understand, and let code do the work."
 category: Thoughts
 series: Agent Development
-seriesOrder: 3
+seriesOrder: 2
 lang: en
 ---
 
