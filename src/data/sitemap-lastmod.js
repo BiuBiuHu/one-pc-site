@@ -95,7 +95,9 @@ function buildLastmodLookup() {
     ["/en/services", "src/pages/en/services.astro"],
     ["/blog", "src/pages/blog/index.astro", latestZh],
     ["/en/blog", "src/pages/en/blog/index.astro", latestEn],
-    ["/ja/blog", "src/pages/ja/blog/index.astro", latestJa]
+    ["/ja/blog", "src/pages/ja/blog/index.astro", latestJa],
+    ["/series", "src/pages/series/index.astro", latestZh],
+    ["/en/series", "src/pages/en/series/index.astro", latestEn]
   ];
 
   for (const [path, file, contentDate] of staticPages) {

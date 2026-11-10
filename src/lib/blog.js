@@ -117,6 +117,36 @@ export function seriesHref(lang, name) {
   return slug ? `${prefix}/blog/series/${slug}/` : `${prefix}/blog/`;
 }
 
+export function seriesIndexHref(lang) {
+  const prefix = localePrefix(lang === "en" ? "en" : "zh");
+  return `${prefix}/series/`;
+}
+
+const SERIES_COPY = {
+  "agent-development": {
+    zh: "从意图识别与控制系统出发，经过槽位、出口校验、记忆检索，再到 MCP / A2A 与多 Agent 编排。一条可落地的 Agent 工程路径。",
+    en: "Start with intent and control, then slots, exit validation, memory and retrieval, MCP/A2A, and multi-agent orchestration. A practical Agent engineering path."
+  },
+  "full-stack-engineering": {
+    zh: "从前端视角进入 Java 与 Spring：语言与框架、工程协作、一致性与并发、性能与缓存、规模与领域建模。",
+    en: "Java and Spring from a frontend vantage: language and framework, collaboration, consistency and concurrency, performance, and domain modeling."
+  }
+};
+
+export function seriesCopy(name, lang = "zh") {
+  const copy = SERIES_COPY[seriesSlug(name)];
+  if (!copy) return "";
+  return copy[lang === "en" ? "en" : "zh"] || copy.zh;
+}
+
+/** Curriculum series only, in course-catalog order. Skips category-only posts. */
+export function collectCurriculumSeries(posts) {
+  const bySlug = new Map(collectSeries(posts, { min: 1 }).map((s) => [s.slug, s]));
+  return Object.keys(SERIES_CURRICULUM)
+    .map((slug) => bySlug.get(slug))
+    .filter(Boolean);
+}
+
 export function seriesCurriculum(name) {
   return SERIES_CURRICULUM[seriesSlug(name)] || null;
 }

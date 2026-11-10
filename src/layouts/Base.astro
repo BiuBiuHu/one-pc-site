@@ -37,11 +37,14 @@ const websiteLd = {
 };
 
 const pathKey = path.replace(/^\/(en|ja)(?=\/|$)/, "").replace(/\/+$/, "") || "/";
+const isSeriesPath = (p) => p === "/series" || p.startsWith("/blog/series");
+const isBlogPath = (p) => p.startsWith("/blog") && !p.startsWith("/blog/series");
 const NAV = isEn
   ? [
       { href: "/", label: "Home", match: (p) => p === "/" },
       { href: "/en/projects", label: "Projects", match: (p) => p.startsWith("/projects") },
-      { href: "/en/blog", label: "Blog", match: (p) => p.startsWith("/blog") },
+      { href: "/en/blog", label: "Blog", match: isBlogPath },
+      { href: "/en/series", label: "Columns", match: isSeriesPath },
       { href: "/en/services", label: "Services", match: (p) => p.startsWith("/services") },
       { href: "/en/about", label: "About", match: (p) => p.startsWith("/about") }
     ]
@@ -54,7 +57,8 @@ const NAV = isEn
     : [
         { href: "/", label: "首页", match: (p) => p === "/" },
         { href: "/projects", label: "项目", match: (p) => p.startsWith("/projects") },
-        { href: "/blog", label: "博客", match: (p) => p.startsWith("/blog") },
+        { href: "/blog", label: "博客", match: isBlogPath },
+        { href: "/series", label: "专栏", match: isSeriesPath },
         { href: "/services", label: "服务", match: (p) => p.startsWith("/services") },
         { href: "/about", label: "关于", match: (p) => p.startsWith("/about") }
       ];
@@ -203,10 +207,12 @@ const ogAlternates = Object.entries(HREFLANG)
               </>
             ) : (
               <>
-                <a href={isEn ? "/en/about" : "/about"}>{isEn ? "About" : "关于"}</a>
+                <a href={isEn ? "/en/" : "/"}>{isEn ? "Home" : "首页"}</a>
                 <a href={isEn ? "/en/projects" : "/projects"}>{isEn ? "Projects" : "项目"}</a>
                 <a href={isEn ? "/en/blog" : "/blog"}>{isEn ? "Blog" : "博客"}</a>
+                <a href={isEn ? "/en/series" : "/series"}>{isEn ? "Columns" : "专栏"}</a>
                 <a href={isEn ? "/en/services" : "/services"}>{isEn ? "Services" : "服务"}</a>
+                <a href={isEn ? "/en/about" : "/about"}>{isEn ? "About" : "关于"}</a>
               </>
             )}
             <a href={site.githubUrl} target="_blank" rel="noreferrer">GitHub</a>

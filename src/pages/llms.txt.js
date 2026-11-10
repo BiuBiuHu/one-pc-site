@@ -42,6 +42,8 @@ export async function GET(context) {
   out.push(`- [关于](${base}/about/): ${site.name}，Agent engineer · OPC`);
   out.push(`- [About](${base}/en/about/): English about`);
   out.push(`- [博客](${base}/blog/): 全部文章归档（按分类）`);
+  out.push(`- [专栏](${base}/series/): 成体系的学习路径（目前：Agent 开发、全栈工程）`);
+  out.push(`- [Columns](${base}/en/series/): Structured courses`);
   const zhSeries = collectSeries(
     posts.filter((p) => localeOf(p) === "zh"),
     { min: 2 }

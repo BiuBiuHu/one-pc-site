@@ -1,0 +1,17 @@
+---
+import Base from "../../../layouts/Base.astro";
+import SeriesIndex from "../../../components/SeriesIndex.astro";
+import { getCollection } from "astro:content";
+import { seriesIndexHref } from "../../../lib/blog.js";
+
+const posts = (await getCollection("blog")).filter((p) => p.data.lang === "en" && !p.data.draft);
+const localeUrls = { zh: seriesIndexHref("zh"), en: seriesIndexHref("en") };
+---
+<Base
+  title="Columns"
+  description="Structured learning paths: Agent Development and Full-Stack Engineering. Follow the modules in order — not another blog archive."
+  altLocaleUrl={localeUrls.zh}
+  localeUrls={localeUrls}
+>
+  <SeriesIndex lang="en" posts={posts} />
+</Base>

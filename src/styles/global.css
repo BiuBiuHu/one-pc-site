@@ -400,6 +400,57 @@ a.post-series:hover { color: var(--brand-hover); border-color: var(--brand); tex
   line-height: 1.6;
 }
 
+.series-index-card { display: flex; flex-direction: column; height: 100%; }
+.series-index-kicker {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+.series-index-card h2 { margin: 0 0 8px; font-size: 20px; }
+.series-index-card h2 a { color: inherit; }
+.series-index-card h2 a:hover { color: var(--brand); }
+.series-index-card .desc {
+  flex: none;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+.series-index-modules {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  flex: 1;
+}
+.series-index-modules li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+.series-index-mod-n {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted-2);
+}
+.series-index-card .more {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* ---------- 文章正文 + 目录侧栏 ---------- */
 .article-layout { display: grid; gap: 0; min-width: 0; }
 .article-layout.has-toc {

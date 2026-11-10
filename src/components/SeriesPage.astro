@@ -1,8 +1,8 @@
 ---
 import Icon from "./Icon.astro";
 import ArchiveCard from "./ArchiveCard.astro";
-import { groupSeriesCurriculum, seriesCurriculumSlots, seriesLessonLabel } from "../lib/blog.js";
-import { blogHref, DATE_LOCALE, postSlug } from "../lib/i18n.js";
+import { groupSeriesCurriculum, seriesCurriculumSlots, seriesIndexHref, seriesLessonLabel } from "../lib/blog.js";
+import { DATE_LOCALE, postSlug, blogHref } from "../lib/i18n.js";
 
 interface Props {
   lang: "zh" | "en";
@@ -22,7 +22,7 @@ const modules = groupSeriesCurriculum(series.posts, series.name, lang);
 const slots = seriesCurriculumSlots(series.name);
 const ui = isEn
   ? {
-      back: "Back to blog",
+      back: "Back to columns",
       eyebrow: "Column",
       blurb: modules
         ? `A ${slots}-lesson course grouped by module. ${total} lessons are in English.`
@@ -32,7 +32,7 @@ const ui = isEn
       part: (n) => `Part ${n} of ${total}`
     }
   : {
-      back: "返回博客",
+      back: "返回专栏",
       eyebrow: "专栏",
       blurb: modules ? `按课程模块排列，共 ${slots} 课。` : `按学习顺序排列，共 ${total} 篇。`,
       module: (n) => `模块 ${String(n).padStart(2, "0")}`,
@@ -44,7 +44,7 @@ const lessonOf = (post) =>
   seriesLessonLabel(series.name, post.data.seriesOrder, lang) || undefined;
 ---
 <section class="page series-page">
-  <a class="back-link" href={blogHref(lang)}>
+  <a class="back-link" href={seriesIndexHref(lang)}>
     <Icon name="arrow-left" size={15} />{ui.back}
   </a>
   <div class="section-head">
