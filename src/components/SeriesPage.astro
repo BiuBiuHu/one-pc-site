@@ -1,6 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import ArchiveCard from "./ArchiveCard.astro";
+import { groupSeriesCurriculum, seriesCurriculumSlots, seriesLessonLabel } from "../lib/blog.js";
 import { blogHref, DATE_LOCALE, postSlug } from "../lib/i18n.js";
 
 interface Props {
@@ -17,19 +18,30 @@ const isEn = lang === "en";
 const fmt = (d) =>
   d.toLocaleDateString(DATE_LOCALE[lang], { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
 const total = series.count;
+const modules = groupSeriesCurriculum(series.posts, series.name, lang);
+const slots = seriesCurriculumSlots(series.name);
 const ui = isEn
   ? {
       back: "Back to blog",
       eyebrow: "Column",
-      blurb: `${total} posts in reading order.`,
+      blurb: modules
+        ? `A ${slots}-lesson course grouped by module. ${total} lessons are in English.`
+        : `${total} posts in reading order.`,
+      module: (n) => `Module ${String(n).padStart(2, "0")}`,
+      empty: "Chinese lessons in this module are published; English translations are not available yet.",
       part: (n) => `Part ${n} of ${total}`
     }
   : {
       back: "返回博客",
       eyebrow: "专栏",
-      blurb: `按学习顺序排列，共 ${total} 篇。`,
+      blurb: modules ? `按课程模块排列，从第一课到第十二课。` : `按学习顺序排列，共 ${total} 篇。`,
+      module: (n) => `模块 ${String(n).padStart(2, "0")}`,
+      empty: "此模块的中文课已发布，英译尚未推出。",
       part: (n) => `第 ${n} / ${total} 篇`
     };
+
+const lessonOf = (post) =>
+  seriesLessonLabel(series.name, post.data.seriesOrder, lang) || undefined;
 ---
 <section class="page series-page">
   <a class="back-link" href={blogHref(lang)}>
@@ -40,15 +52,43 @@ const ui = isEn
     <h1 style="margin-top:4px">{series.name}</h1>
     <p>{ui.blurb}</p>
   </div>
-  <div class="post-list archive-posts">
-    {series.posts.map((post, i) => (
-      <ArchiveCard
-        href={blogHref(lang, postSlug(post.id))}
-        date={fmt(post.data.date)}
-        title={post.data.title}
-        excerpt={post.data.excerpt}
-        part={ui.part(i + 1)}
-      />
-    ))}
-  </div>
+  {modules ? (
+    <div class="series-modules">
+      {modules.map((mod) => (
+        <section class="series-module" id={mod.id}>
+          <header class="series-module-head">
+            <p class="series-module-kicker">{ui.module(mod.index)}</p>
+            <h2 class="series-module-title">{mod.title}</h2>
+          </header>
+          {mod.posts.length > 0 ? (
+            <div class="post-list archive-posts">
+              {mod.posts.map((post) => (
+                <ArchiveCard
+                  href={blogHref(lang, postSlug(post.id))}
+                  date={fmt(post.data.date)}
+                  title={post.data.title}
+                  excerpt={post.data.excerpt}
+                  part={lessonOf(post)}
+                />
+              ))}
+            </div>
+          ) : (
+            <p class="series-module-empty">{ui.empty}</p>
+          )}
+        </section>
+      ))}
+    </div>
+  ) : (
+    <div class="post-list archive-posts">
+      {series.posts.map((post, i) => (
+        <ArchiveCard
+          href={blogHref(lang, postSlug(post.id))}
+          date={fmt(post.data.date)}
+          title={post.data.title}
+          excerpt={post.data.excerpt}
+          part={ui.part(i + 1)}
+        />
+      ))}
+    </div>
+  )}
 </section>

@@ -4,8 +4,8 @@ date: 2026-11-09
 excerpt: 用 TypeScript / JavaScript 当迁移锚点，一次把 Java 语法、面向对象、集合、异常、泛型、Stream 讲成体系。语言篇。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 9
+series: 全栈工程
+seriesOrder: 1
 ---
 
 > **语言篇**。面向对象：已经熟练使用 TypeScript / JavaScript 的前端同学，用已有认知当「迁移锚点」，把转型后端必备的 Java 语法与面向对象一次讲成体系。

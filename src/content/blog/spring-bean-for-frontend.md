@@ -4,8 +4,8 @@ date: 2026-11-09
 excerpt: 把 Bean 和 Class 分开：登记、实例化、注入、作用域和多实现。Bean 进阶篇。教学示例已脱敏。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 11
+series: 全栈工程
+seriesOrder: 3
 ---
 
 > **Bean 进阶篇**。夹在 [框架篇](/blog/spring-boot-for-frontend/) 和 [契约篇](/blog/api-contract-for-frontend/) 之间：上一篇教你「会用 Bean」，这篇讲「Bean 到底是什么」。

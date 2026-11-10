@@ -4,8 +4,8 @@ date: 2026-11-01
 excerpt: 用前端能懂的类比，讲清事务 ACID、隔离级别、MVCC、Spring 事务失效，以及跨服务后的兜底思路。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 1
+series: 全栈工程
+seriesOrder: 6
 ---
 
 > **读者**：前端工程师（同一条学习路线〔本文〕→ 锁 → 幂等 → DDD → [查询优化 / 分库分表](/blog/db-query-performance)）

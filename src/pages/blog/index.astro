@@ -2,7 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import ArchiveCard from "../../components/ArchiveCard.astro";
 import { getCollection } from "astro:content";
-import { collectSeries, listArchiveCategories, seriesHref, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
+import { collectSeries, listArchiveCategories, seriesHref, seriesLessonLabel, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
 
 const posts = (await getCollection("blog"))
   .filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft)
@@ -69,6 +69,7 @@ const slug = (s, i) => `cat-${i}`;
                   excerpt={post.data.excerpt}
                   seriesName={post.data.series}
                   seriesHref={post.data.series ? seriesHref("zh", post.data.series) : undefined}
+                  part={seriesLessonLabel(post.data.series, post.data.seriesOrder, "zh") || undefined}
                 />
               ))}
               {(groups.get(cat) || []).length === 0 && (

@@ -4,8 +4,8 @@ date: 2026-11-02
 excerpt: 分布式里重试是常态；没有幂等，每次重试都是一次新写入。幂等就是把「重试安全」变成默认能力。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 3
+series: 全栈工程
+seriesOrder: 8
 ---
 
 > 一句话：分布式里「重试」是常态（超时重试、MQ at-least-once、用户狂点），**没有幂等，每次重试都是一次新写入**——幂等就是把「重试安全」变成默认能力。

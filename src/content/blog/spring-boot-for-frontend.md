@@ -4,8 +4,8 @@ date: 2026-11-09
 excerpt: 用前端认知理解 IoC、Bean、MVC、MyBatis、事务和 AOP，并落到一份可对照的 Spring Boot 分段示例。框架篇。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 10
+series: 全栈工程
+seriesOrder: 2
 ---
 
 > **框架篇**。上一篇打通了 [Java 语言](/blog/java-language-for-frontend/)。这一篇把视角从「写 Java」抬到「用框架搭后端」。

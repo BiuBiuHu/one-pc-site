@@ -6,7 +6,7 @@ import RelatedReading from "./RelatedReading.astro";
 import SeriesNav from "./SeriesNav.astro";
 import { render, getCollection } from "astro:content";
 import { pickRelatedPosts, pickRelatedProject } from "../data/related.js";
-import { compareSeriesPosts, seriesHref } from "../lib/blog.js";
+import { compareSeriesPosts, seriesHref, seriesLessonLabel } from "../lib/blog.js";
 import { blogHref, DATE_LOCALE, normalizeLocale, postSlug } from "../lib/i18n.js";
 
 interface Props {
@@ -66,10 +66,11 @@ const relatedPosts = pickRelatedPosts(allPosts, post, {
   skipSeries: seriesShown
 });
 const relatedProject = pickRelatedProject(post, lang);
+const lessonLabel = series ? seriesLessonLabel(series, post.data.seriesOrder, locale) : "";
 const seriesUi = isEn
   ? {
       label: "Series",
-      part: seriesShown ? `Part ${seriesIndex} of ${seriesPosts.length}` : ""
+      part: lessonLabel || (seriesShown ? `Part ${seriesIndex} of ${seriesPosts.length}` : "")
     }
   : isJa
     ? {
@@ -78,7 +79,7 @@ const seriesUi = isEn
       }
     : {
         label: "专栏",
-        part: seriesShown ? `第 ${seriesIndex} / ${seriesPosts.length} 篇` : ""
+        part: lessonLabel || (seriesShown ? `第 ${seriesIndex} / ${seriesPosts.length} 篇` : "")
       };
 ---
 <section class="page">

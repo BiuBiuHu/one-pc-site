@@ -28,7 +28,11 @@ const localeUrls = {
 ---
 <Base
   title={series.name}
-  description={`${series.count} posts in the ${series.name} column, in reading order.`}
+  description={
+    series.slug === "full-stack-engineering"
+      ? `${series.name}: a 12-lesson course grouped by module. ${series.count} lessons are in English.`
+      : `${series.count} posts in the ${series.name} column, in reading order.`
+  }
   altLocaleUrl={altLocaleUrl}
   localeUrls={localeUrls}
 >

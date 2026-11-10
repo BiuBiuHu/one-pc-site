@@ -4,8 +4,8 @@ date: 2026-11-03
 excerpt: "Cut boundaries first, then model: walk a cash-loan withdrawal through strategic design, the tactical six-pack, and the four-layer architecture so business rules live in the domain, not Controllers and tables."
 category: Engineering
 lang: en
-series: Frontend to Full-Stack
-seriesOrder: 7
+series: Full-Stack Engineering
+seriesOrder: 12
 ---
 
 > Goal: understand DDD **strategic design** and **tactical design**, learn how to draw a domain-model diagram, and land a real business with the **DDD four-layer architecture**.

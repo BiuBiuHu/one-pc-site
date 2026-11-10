@@ -82,6 +82,11 @@
     { "source": "/blog/series/intent-recognition", "destination": "/blog/series/agent-development", "permanent": true },
     { "source": "/blog/series/intent-recognition/", "destination": "/blog/series/agent-development", "permanent": true },
     { "source": "/en/blog/series/intent-recognition", "destination": "/en/blog/series/agent-development", "permanent": true },
-    { "source": "/en/blog/series/intent-recognition/", "destination": "/en/blog/series/agent-development", "permanent": true }
+    { "source": "/en/blog/series/intent-recognition/", "destination": "/en/blog/series/agent-development", "permanent": true },
+
+    { "source": "/blog/series/frontend-to-full-stack", "destination": "/blog/series/full-stack-engineering", "permanent": true },
+    { "source": "/blog/series/frontend-to-full-stack/", "destination": "/blog/series/full-stack-engineering", "permanent": true },
+    { "source": "/en/blog/series/frontend-to-full-stack", "destination": "/en/blog/series/full-stack-engineering", "permanent": true },
+    { "source": "/en/blog/series/frontend-to-full-stack/", "destination": "/en/blog/series/full-stack-engineering", "permanent": true }
   ]
 }

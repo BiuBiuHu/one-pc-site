@@ -7,11 +7,44 @@ export const EN_CATEGORY_ORDER = ["Engineering", "Agent Development", "Thoughts"
 
 /** Stable slugs so ZH/EN counterparts of the same column share a URL segment. */
 const SERIES_SLUGS = {
-  前端转全栈: "frontend-to-full-stack",
-  "Frontend to Full-Stack": "frontend-to-full-stack",
+  全栈工程: "full-stack-engineering",
+  "Full-Stack Engineering": "full-stack-engineering",
+  前端转全栈: "full-stack-engineering",
+  "Frontend to Full-Stack": "full-stack-engineering",
   "Agent 开发": "agent-development",
   "Agent Development": "agent-development",
   意图识别: "agent-development"
+};
+
+/** Course modules for series pages that are a curriculum, not a date-sorted list. */
+export const SERIES_CURRICULUM = {
+  "full-stack-engineering": [
+    {
+      id: "language-framework",
+      title: { zh: "语言与框架基础", en: "Language & Framework" },
+      orders: [1, 2, 3, 4]
+    },
+    {
+      id: "engineering-practice",
+      title: { zh: "工程协作", en: "Engineering Practice" },
+      orders: [5]
+    },
+    {
+      id: "consistency",
+      title: { zh: "一致性与并发", en: "Consistency & Concurrency" },
+      orders: [6, 7, 8]
+    },
+    {
+      id: "performance",
+      title: { zh: "性能与缓存", en: "Performance & Caching" },
+      orders: [9, 10]
+    },
+    {
+      id: "scale-domain",
+      title: { zh: "规模与领域建模", en: "Scale & Domain Modeling" },
+      orders: [11, 12]
+    }
+  ]
 };
 
 export function sortCategoryKeys(keys, preferred = []) {
@@ -55,6 +88,61 @@ export function seriesHref(lang, name) {
   const slug = seriesSlug(name);
   const prefix = localePrefix(lang === "en" ? "en" : "zh");
   return slug ? `${prefix}/blog/series/${slug}/` : `${prefix}/blog/`;
+}
+
+export function seriesCurriculum(name) {
+  return SERIES_CURRICULUM[seriesSlug(name)] || null;
+}
+
+export function seriesCurriculumSlots(name) {
+  const modules = seriesCurriculum(name);
+  if (!modules) return 0;
+  return Math.max(...modules.flatMap((m) => m.orders));
+}
+
+const ZH_LESSON = [
+  "",
+  "第一课",
+  "第二课",
+  "第三课",
+  "第四课",
+  "第五课",
+  "第六课",
+  "第七课",
+  "第八课",
+  "第九课",
+  "第十课",
+  "第十一课",
+  "第十二课"
+];
+
+/** UI label for a course slot. Empty when the series is not a curriculum. Never mutates titles. */
+export function seriesLessonLabel(name, order, lang = "zh") {
+  if (!seriesCurriculum(name) || order == null) return "";
+  const n = Number(order);
+  if (!Number.isFinite(n) || n < 1) return "";
+  if (lang === "en") return `Lesson ${n}`;
+  return ZH_LESSON[n] || `第${n}课`;
+}
+
+/** Group series posts into course modules by seriesOrder. Never sorts by date. */
+export function groupSeriesCurriculum(posts, name, lang = "zh") {
+  const modules = seriesCurriculum(name);
+  if (!modules) return null;
+  const byOrder = new Map();
+  for (const post of posts) {
+    const order = post.data.seriesOrder;
+    if (order == null || byOrder.has(order)) continue;
+    byOrder.set(order, post);
+  }
+  const locale = lang === "en" ? "en" : "zh";
+  return modules.map((mod, index) => ({
+    id: mod.id,
+    index: index + 1,
+    title: mod.title[locale] || mod.title.zh,
+    orders: mod.orders,
+    posts: mod.orders.map((order) => byOrder.get(order)).filter(Boolean)
+  }));
 }
 
 /** Series in the given collection. Default min=2 for archive strips. */

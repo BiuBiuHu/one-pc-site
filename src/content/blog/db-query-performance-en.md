@@ -4,8 +4,8 @@ date: 2026-11-03
 excerpt: "Fix slow queries with indexes first, and shard only when that is not enough: use B+ trees, covering indexes, and EXPLAIN to speed up in-table lookups, then sharding and routing when volume demands it."
 category: Engineering
 lang: en
-series: Frontend to Full-Stack
-seriesOrder: 5
+series: Full-Stack Engineering
+seriesOrder: 9
 ---
 
 > Slow queries have two paths — **first use indexes to make in-table queries fast; only when the data volume is truly large, split the table with database and table sharding**. This post goes from the basics up: indexes first, then sharding, then how the two work together.

@@ -4,8 +4,8 @@ date: 2026-11-01
 excerpt: "Use frontend-familiar analogies to unpack transaction ACID, isolation levels, MVCC, Spring transaction pitfalls, and the fallbacks you need once work leaves a single service."
 category: Engineering
 lang: en
-series: Frontend to Full-Stack
-seriesOrder: 1
+series: Full-Stack Engineering
+seriesOrder: 6
 ---
 
 > **Readers**: Frontend engineers (same learning path [This post] → Locks → Idempotency → DDD → [Query performance / sharding](/en/blog/db-query-performance))

@@ -4,8 +4,8 @@ date: 2026-11-09
 excerpt: Learn Redis for real work—data structures, TTL/persistence/eviction, replication/Sentinel/Cluster, cache pitfalls and consistency, distributed locks, queues/rate limits, plus a cross-region cache case study and self-check.
 category: Engineering
 lang: en
-series: Frontend to Full-Stack
-seriesOrder: 6
+series: Full-Stack Engineering
+seriesOrder: 10
 ---
 
 > **Who this is for**: Frontend and backend engineers who have "heard of Redis" and want to actually use it in production.

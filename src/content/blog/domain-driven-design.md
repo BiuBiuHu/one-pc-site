@@ -4,8 +4,8 @@ date: 2026-11-03
 excerpt: 先切边界再建模：用现金贷提现贯穿战略设计、战术六件套与四层架构，让业务规则回到领域，而不是散落在 Controller 和表结构里。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 7
+series: 全栈工程
+seriesOrder: 12
 ---
 
 > 目标：理解 DDD 的**战略设计**与**战术设计**，掌握领域模型图的画法，学会用 **DDD 四层架构**落地一个真实业务。

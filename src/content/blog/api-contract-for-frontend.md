@@ -4,8 +4,8 @@ date: 2026-11-09
 excerpt: 用脱敏后的教学示例把响应信封、错误码、分页、鉴权回跳和 UNKNOWN 未决态讲清楚。契约篇。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 12
+series: 全栈工程
+seriesOrder: 4
 ---
 
 > **契约篇**。前面三篇分别是 [语言](/blog/java-language-for-frontend/)、[框架](/blog/spring-boot-for-frontend/)、[Bean](/blog/spring-bean-for-frontend/)。这一篇不再堆新概念，而是把请求从页面打到门面再回来的**协议**讲清楚。

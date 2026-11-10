@@ -4,8 +4,8 @@ date: 2026-11-09
 excerpt: 把 Redis 从「听过」学到能在业务里用：五大结构、TTL/持久化/过期与淘汰、主从哨兵 Cluster、缓存三大故障与一致性、分布式锁与队列限流，附跨区缓存复盘与自测。
 category: 后端
 lang: zh
-series: 前端转全栈
-seriesOrder: 6
+series: 全栈工程
+seriesOrder: 10
 ---
 
 > **学习对象**：想把 Redis 从"听过"学到"能在业务里用"的前端/后端。

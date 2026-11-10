@@ -15,13 +15,16 @@ const { href, date, title, excerpt, seriesName, seriesHref, part } = Astro.props
   <div class="post-meta">
     <div class="date">{date}</div>
     {
-      part ? (
-        <span class="post-part">{part}</span>
-      ) : seriesName && seriesHref ? (
-        <a class="post-series" href={seriesHref}>{seriesName}</a>
-      ) : seriesName ? (
-        <span class="post-series">{seriesName}</span>
-      ) : null
+      (part || seriesName) && (
+        <div class="post-meta-tags">
+          {part ? <span class="post-part">{part}</span> : null}
+          {seriesName && seriesHref ? (
+            <a class="post-series" href={seriesHref}>{seriesName}</a>
+          ) : seriesName ? (
+            <span class="post-series">{seriesName}</span>
+          ) : null}
+        </div>
+      )
     }
   </div>
   <a class="post-item-body" href={href}>
