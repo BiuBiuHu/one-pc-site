@@ -1,12 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import {
-  collectCurriculumSeries,
-  seriesCopy,
-  seriesCurriculum,
-  seriesCurriculumSlots,
-  seriesHref
-} from "../lib/blog.js";
+import SeriesCards from "./SeriesCards.astro";
 
 interface Props {
   lang: "zh" | "en";
@@ -15,35 +9,16 @@ interface Props {
 
 const { lang, posts } = Astro.props;
 const isEn = lang === "en";
-const locale = isEn ? "en" : "zh";
-const seriesList = collectCurriculumSeries(posts).map((series) => {
-  const modules = seriesCurriculum(series.name) || [];
-  return {
-    ...series,
-    blurb: seriesCopy(series.name, lang),
-    slots: seriesCurriculumSlots(series.name),
-    modules: modules.map((mod) => mod.title[locale] || mod.title.zh),
-    href: seriesHref(lang, series.name)
-  };
-});
 const ui = isEn
   ? {
       eyebrow: "Columns",
       title: "Columns",
-      blurb: "Structured learning paths — not another blog archive. Follow the modules in order.",
-      kicker: (slots, count, mods) =>
-        count < slots
-          ? `${slots} lessons · ${count} in English · ${mods} modules`
-          : `${slots} lessons · ${mods} modules`,
-      cta: "Enter the course"
+      blurb: "Structured learning paths — not another blog archive. Follow the modules in order."
     }
   : {
       eyebrow: "专栏",
       title: "专栏",
-      blurb: "这里只放已经成体系的学习路径。按课程模块往下读，不是另一份博客归档。",
-      kicker: (slots, count, mods) =>
-        count < slots ? `${slots} 课 · 已有 ${count} 篇 · ${mods} 个模块` : `${slots} 课 · ${mods} 个模块`,
-      cta: "进入课程"
+      blurb: "这里只放已经成体系的学习路径。按课程模块往下读，不是另一份博客归档。"
     };
 ---
 <section class="page series-index">
@@ -52,26 +27,5 @@ const ui = isEn
     <h1 style="margin-top:4px">{ui.title}</h1>
     <p>{ui.blurb}</p>
   </div>
-  <div class="grid cols-2">
-    {seriesList.map((series) => (
-      <article class="card hover series-index-card">
-        <p class="series-index-kicker">{ui.kicker(series.slots, series.count, series.modules.length)}</p>
-        <h2>
-          <a href={series.href}>{series.name}</a>
-        </h2>
-        <p class="desc">{series.blurb}</p>
-        <ol class="series-index-modules">
-          {series.modules.map((title, i) => (
-            <li>
-              <span class="series-index-mod-n">{String(i + 1).padStart(2, "0")}</span>
-              {title}
-            </li>
-          ))}
-        </ol>
-        <a class="more" href={series.href}>
-          {ui.cta} <Icon name="arrow-right" size={15} />
-        </a>
-      </article>
-    ))}
-  </div>
+  <SeriesCards lang={lang} posts={posts} />
 </section>
