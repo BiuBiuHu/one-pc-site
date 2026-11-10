@@ -1,6 +1,5 @@
 ---
 import Base from "../../../layouts/Base.astro";
-import Icon from "../../../components/Icon.astro";
 import ArchiveCard from "../../../components/ArchiveCard.astro";
 import { getCollection } from "astro:content";
 import { collectSeries, EN_CATEGORY_ORDER, listArchiveCategories, seriesHref } from "../../../lib/blog.js";
@@ -26,11 +25,10 @@ const slug = (s, i) => `cat-${i}`;
 ---
 <Base title="Blog" altLocaleUrl="/blog/">
   <section class="page">
-    <div class="section-head">
-      <span class="eyebrow"><Icon name="notebook" size={14} />Blog</span>
-      <h1 style="margin-top:0">Archive</h1>
-      <p>All posts by category, {posts.length} in total.</p>
-    </div>
+    <header class="archive-head">
+      <h1>Archive</h1>
+      <p class="archive-count">{posts.length} posts</p>
+    </header>
 
     <div class="archive-layout">
       <aside class="archive-toc">

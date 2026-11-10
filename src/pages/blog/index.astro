@@ -1,6 +1,5 @@
 ---
 import Base from "../../layouts/Base.astro";
-import Icon from "../../components/Icon.astro";
 import ArchiveCard from "../../components/ArchiveCard.astro";
 import { getCollection } from "astro:content";
 import { collectSeries, listArchiveCategories, seriesHref, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
@@ -26,11 +25,10 @@ const slug = (s, i) => `cat-${i}`;
 ---
 <Base title="博客" altLocaleUrl="/en/blog/">
   <section class="page">
-    <div class="section-head">
-      <span class="eyebrow"><Icon name="notebook" size={14} />博客</span>
-      <h1 style="margin-top:0">目录与归档</h1>
-      <p>按分类归档的全部文章，共 {posts.length} 篇。</p>
-    </div>
+    <header class="archive-head">
+      <h1>目录与归档</h1>
+      <p class="archive-count">{posts.length} 篇</p>
+    </header>
 
     <div class="archive-layout">
       <aside class="archive-toc">

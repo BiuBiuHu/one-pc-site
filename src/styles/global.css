@@ -128,10 +128,7 @@ main.main { flex: 1; }
 
 /* ---------- 区块 ---------- */
 .section-head { margin-bottom: 18px; }
-.page .section-head + .archive-layout { margin-top: 0; }
-.page:has(.archive-layout) .section-head,
 .page.series-page .section-head { margin-bottom: 4px; }
-.page:has(.archive-layout) .section-head h1,
 .page.series-page .section-head h1 { margin-bottom: 2px; }
 .page.series-page .back-link { margin-bottom: 12px; }
 .section-head h1,
@@ -252,6 +249,28 @@ main.main { flex: 1; }
 .post-item .excerpt { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.6; }
 
 /* ---------- 博客归档（目录 + 分类） ---------- */
+.archive-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  margin: 0 0 14px;
+  min-width: 0;
+}
+.archive-head h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  min-width: 0;
+}
+.archive-count {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.25;
+  white-space: nowrap;
+}
 .archive-layout {
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
