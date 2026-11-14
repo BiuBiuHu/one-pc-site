@@ -2,7 +2,7 @@
 import Base from "../../../layouts/Base.astro";
 import SeriesPage from "../../../components/SeriesPage.astro";
 import { getCollection } from "astro:content";
-import { collectSeries, seriesCurriculumSlots, seriesHref } from "../../../lib/blog.js";
+import { collectSeries, isCurriculumSeries, seriesCurriculumSlots, seriesHref } from "../../../lib/blog.js";
 
 export async function getStaticPaths() {
   const all = await getCollection("blog");
@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   );
   return collectSeries(zh, { min: 1 }).map((series) => ({
     params: { slug: series.slug },
-    props: { series, hasEn: enSlugs.has(series.slug) }
+    props: { series, hasEn: enSlugs.has(series.slug) || isCurriculumSeries(series.name) }
   }));
 }
 

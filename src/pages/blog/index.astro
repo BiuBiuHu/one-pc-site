@@ -2,7 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import ArchiveCard from "../../components/ArchiveCard.astro";
 import { getCollection } from "astro:content";
-import { collectSeries, listArchiveCategories, seriesHref, seriesLessonLabel, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
+import { collectCurriculumSeries, listArchiveCategories, seriesHref, seriesLessonLabel, ZH_CATEGORY_ORDER } from "../../lib/blog.js";
 
 const posts = (await getCollection("blog"))
   .filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft)
@@ -16,7 +16,7 @@ for (const p of posts) {
   groups.get(cat).push(p);
 }
 const categories = listArchiveCategories(groups, ZH_CATEGORY_ORDER);
-const seriesList = collectSeries(posts);
+const seriesList = collectCurriculumSeries(posts, "zh");
 
 const fmt = (d) =>
   d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");

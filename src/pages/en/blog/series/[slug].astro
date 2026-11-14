@@ -2,18 +2,16 @@
 import Base from "../../../../layouts/Base.astro";
 import SeriesPage from "../../../../components/SeriesPage.astro";
 import { getCollection } from "astro:content";
-import { collectSeries, seriesCurriculumSlots, seriesHref } from "../../../../lib/blog.js";
+import { collectCurriculumSeries, collectSeries, seriesCurriculumSlots, seriesHref } from "../../../../lib/blog.js";
 
 export async function getStaticPaths() {
   const all = await getCollection("blog");
   const en = all.filter((p) => p.data.lang === "en" && !p.data.draft);
-  const zhSlugs = new Set(
-    collectSeries(
-      all.filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft),
-      { min: 1 }
-    ).map((s) => s.slug)
-  );
-  return collectSeries(en, { min: 1 }).map((series) => ({
+  const zh = all.filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft);
+  const zhSlugs = new Set(collectSeries(zh, { min: 1 }).map((s) => s.slug));
+  const bySlug = new Map(collectCurriculumSeries(en, "en").map((s) => [s.slug, s]));
+  for (const s of collectSeries(en, { min: 1 })) bySlug.set(s.slug, s);
+  return [...bySlug.values()].map((series) => ({
     params: { slug: series.slug },
     props: { series, hasZh: zhSlugs.has(series.slug) }
   }));

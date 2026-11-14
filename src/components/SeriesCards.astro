@@ -16,7 +16,7 @@ interface Props {
 const { lang, posts } = Astro.props;
 const isEn = lang === "en";
 const locale = isEn ? "en" : "zh";
-const seriesList = collectCurriculumSeries(posts).map((series) => {
+const seriesList = collectCurriculumSeries(posts, lang).map((series) => {
   const modules = seriesCurriculum(series.name) || [];
   return {
     ...series,
@@ -29,9 +29,11 @@ const seriesList = collectCurriculumSeries(posts).map((series) => {
 const ui = isEn
   ? {
       kicker: (slots, count, mods) =>
-        count < slots
-          ? `${slots} lessons · ${count} in English · ${mods} modules`
-          : `${slots} lessons · ${mods} modules`,
+        count === 0
+          ? `${slots} lessons · Chinese only · ${mods} modules`
+          : count < slots
+            ? `${slots} lessons · ${count} in English · ${mods} modules`
+            : `${slots} lessons · ${mods} modules`,
       cta: "Enter the course"
     }
   : {

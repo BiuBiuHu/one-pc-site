@@ -25,7 +25,9 @@ const ui = isEn
       back: "Back to columns",
       eyebrow: "Column",
       blurb: modules
-        ? `A ${slots}-lesson course grouped by module. ${total} lessons are in English.`
+        ? total === 0
+          ? `A ${slots}-lesson course grouped by module. Published in Chinese; English translations are not available yet.`
+          : `A ${slots}-lesson course grouped by module. ${total} lessons are in English.`
         : `${total} posts in reading order.`,
       module: (n) => `Module ${String(n).padStart(2, "0")}`,
       empty: "Chinese lessons in this module are published; English translations are not available yet.",

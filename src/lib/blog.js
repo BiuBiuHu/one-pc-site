@@ -2,8 +2,8 @@ import { localePrefix } from "./i18n.js";
 
 const SERIES_ORDER_FALLBACK = Number.MAX_SAFE_INTEGER;
 
-export const ZH_CATEGORY_ORDER = ["后端", "AI 工程提效", "Agent 开发", "思考", "好文共读", "玩转流量"];
-export const EN_CATEGORY_ORDER = ["Engineering", "Agent Development", "Thoughts", "Traffic & Growth"];
+export const ZH_CATEGORY_ORDER = ["后端", "AI 工程提效", "Agent 开发", "WebView 与客户端", "思考", "好文共读", "玩转流量"];
+export const EN_CATEGORY_ORDER = ["Engineering", "Agent Development", "WebView & Native", "Thoughts", "Traffic & Growth"];
 
 /** Stable slugs so ZH/EN counterparts of the same column share a URL segment. */
 const SERIES_SLUGS = {
@@ -13,7 +13,9 @@ const SERIES_SLUGS = {
   "Frontend to Full-Stack": "full-stack-engineering",
   "Agent 开发": "agent-development",
   "Agent Development": "agent-development",
-  意图识别: "agent-development"
+  意图识别: "agent-development",
+  "WebView 与客户端": "webview-and-native",
+  "WebView & Native": "webview-and-native"
 };
 
 /** Course modules for series pages that are a curriculum, not a date-sorted list. */
@@ -71,7 +73,40 @@ export const SERIES_CURRICULUM = {
       title: { zh: "规模与领域建模", en: "Scale & Domain Modeling" },
       orders: [11, 12]
     }
+  ],
+  "webview-and-native": [
+    {
+      id: "cognition-architecture",
+      title: { zh: "认知与架构", en: "Cognition & Architecture" },
+      orders: [1, 2]
+    },
+    {
+      id: "dual-webview",
+      title: { zh: "双端 WebView", en: "Native WebViews" },
+      orders: [3, 4]
+    },
+    {
+      id: "bridge-storage-network",
+      title: { zh: "桥、存储与网络", en: "Bridge, Storage & Network" },
+      orders: [5, 6, 7]
+    },
+    {
+      id: "offline-perf-security",
+      title: { zh: "离线包、性能与安全", en: "Offline Pack, Performance & Security" },
+      orders: [8, 9, 10]
+    },
+    {
+      id: "debug-frontier",
+      title: { zh: "排障与前沿", en: "Debugging & Frontiers" },
+      orders: [11, 12]
+    }
   ]
+};
+
+const SERIES_NAMES = {
+  "agent-development": { zh: "Agent 开发", en: "Agent Development" },
+  "full-stack-engineering": { zh: "全栈工程", en: "Full-Stack Engineering" },
+  "webview-and-native": { zh: "WebView 与客户端", en: "WebView & Native" }
 };
 
 export function sortCategoryKeys(keys, preferred = []) {
@@ -130,6 +165,10 @@ const SERIES_COPY = {
   "full-stack-engineering": {
     zh: "从前端视角进入 Java 与 Spring：语言与框架、工程协作、一致性与并发、性能与缓存、规模与领域建模。",
     en: "Java and Spring from a frontend vantage: language and framework, collaboration, consistency and concurrency, performance, and domain modeling."
+  },
+  "webview-and-native": {
+    zh: "从「把 WebView 当容器/浏览器」讲清内核、进程、桥、双网络栈、缓存、安全与排障。一条写给前端的客户端容器路径。",
+    en: "From treating WebView as just a browser to kernel, process model, JSBridge, dual network stacks, cache, security, and incident response. A container path for frontend engineers. Chinese course; English translation is not available yet."
   }
 };
 
@@ -139,12 +178,25 @@ export function seriesCopy(name, lang = "zh") {
   return copy[lang === "en" ? "en" : "zh"] || copy.zh;
 }
 
-/** Curriculum series only, in course-catalog order. Skips category-only posts. */
-export function collectCurriculumSeries(posts) {
+export function isCurriculumSeries(name) {
+  return Boolean(SERIES_CURRICULUM[seriesSlug(name)]);
+}
+
+/** Curriculum series in catalog order. Includes empty locale shells so EN can show a Chinese-only course. */
+export function collectCurriculumSeries(posts, lang = "zh") {
+  const locale = lang === "en" ? "en" : "zh";
   const bySlug = new Map(collectSeries(posts, { min: 1 }).map((s) => [s.slug, s]));
-  return Object.keys(SERIES_CURRICULUM)
-    .map((slug) => bySlug.get(slug))
-    .filter(Boolean);
+  return Object.keys(SERIES_CURRICULUM).map((slug) => {
+    const found = bySlug.get(slug);
+    if (found) return found;
+    return {
+      name: SERIES_NAMES[slug][locale],
+      slug,
+      count: 0,
+      first: null,
+      posts: []
+    };
+  });
 }
 
 export function seriesCurriculum(name) {
