@@ -77,7 +77,7 @@ export const SERIES_CURRICULUM = {
   "webview-and-native": [
     {
       id: "cognition-architecture",
-      title: { zh: "认知与架构", en: "Cognition & Architecture" },
+      title: { zh: "从差异到原理", en: "From differences to the model" },
       orders: [1, 2]
     },
     {
@@ -167,8 +167,8 @@ const SERIES_COPY = {
     en: "Java and Spring from a frontend vantage: language and framework, collaboration, consistency and concurrency, performance, and domain modeling."
   },
   "webview-and-native": {
-    zh: "从「把 WebView 当容器/浏览器」讲清内核、进程、桥、双网络栈、缓存、安全与排障。一条写给前端的客户端容器路径。",
-    en: "From treating WebView as just a browser to kernel, process model, JSBridge, dual network stacks, cache, security, and incident response. A container path for frontend engineers. Chinese course; English translation is not available yet."
+    zh: "这是写给前端同学的课，帮你掌握客户端相关的知识。页面跑在 App 里时，登录丢失、桥调不通、白屏，往往不是 H5 写错了，而是容器在起作用。",
+    en: "A course for frontend engineers who need to understand the native side. When your page runs inside an App, a lost login, a silent JSBridge, or a white screen often comes from the container, not from your H5."
   }
 };
 
