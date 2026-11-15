@@ -4,7 +4,7 @@ date: 2026-09-07
 excerpt: "How to build hybrid retrieval for agent memory: dense + lexical recall fused with RRF, plus an async write path and four-state governance so retrieval stays accurate without slowing chat."
 category: Agent Development
 series: Agent Development
-seriesOrder: 7
+seriesOrder: 8
 ogImage: /images/agent-memory-system.png
 lang: en
 ---

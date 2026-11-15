@@ -29,22 +29,22 @@ export const SERIES_CURRICULUM = {
     {
       id: "slots-practice",
       title: { zh: "槽位、实践与出口校验", en: "Slots, Practice & Exit Validation" },
-      orders: [4, 5, 6]
+      orders: [4, 5, 6, 7]
     },
     {
       id: "memory-retrieval",
-      title: { zh: "记忆与检索", en: "Memory & Retrieval" },
-      orders: [7, 8]
+      title: { zh: "记忆、检索与会话压缩", en: "Memory, Retrieval & Compaction" },
+      orders: [8, 9, 10]
     },
     {
       id: "tools-protocols",
-      title: { zh: "工具与协议", en: "Tools & Protocols" },
-      orders: [9, 10, 11]
+      title: { zh: "工具、协议与生产化", en: "Tools, Protocols & Production" },
+      orders: [11, 12, 13, 14, 15]
     },
     {
       id: "multi-agent",
       title: { zh: "多 Agent 编排", en: "Multi-Agent Orchestration" },
-      orders: [12]
+      orders: [16, 17]
     }
   ],
   "full-stack-engineering": [
@@ -159,8 +159,8 @@ export function seriesIndexHref(lang) {
 
 const SERIES_COPY = {
   "agent-development": {
-    zh: "从意图识别与控制系统出发，经过槽位、出口校验、记忆检索，再到 MCP / A2A 与多 Agent 编排。一条可落地的 Agent 工程路径。",
-    en: "Start with intent and control, then slots, exit validation, memory and retrieval, MCP/A2A, and multi-agent orchestration. A practical Agent engineering path."
+    zh: "从意图识别与控制系统出发，经过槽位与出口校验、记忆检索与会话压缩，再到 MCP / A2A、生产化与多 Agent 编排。一条可落地的 Agent 工程路径。",
+    en: "Start with intent and control, then slots, exit validation, memory, retrieval and conversation compaction, then MCP/A2A, productionization, and multi-agent orchestration. A practical Agent engineering path."
   },
   "full-stack-engineering": {
     zh: "从前端视角进入 Java 与 Spring：语言与框架、工程协作、一致性与并发、性能与缓存、规模与领域建模。",
@@ -222,7 +222,12 @@ const ZH_LESSON = [
   "第九课",
   "第十课",
   "第十一课",
-  "第十二课"
+  "第十二课",
+  "第十三课",
+  "第十四课",
+  "第十五课",
+  "第十六课",
+  "第十七课"
 ];
 
 /** UI label for a course slot. Empty when the series is not a curriculum. Never mutates titles. */

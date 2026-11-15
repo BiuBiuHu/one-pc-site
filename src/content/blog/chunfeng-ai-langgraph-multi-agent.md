@@ -5,7 +5,7 @@ updated: 2026-11-10
 excerpt: 用同一轮周复盘推演 LangGraph 的状态更新、条件路由、并行分派、结果合并和单任务重试，再看检查点如何支撑下一轮追问。附可运行的 TypeScript 示例。
 category: Agent 开发
 series: Agent 开发
-seriesOrder: 12
+seriesOrder: 16
 lang: zh
 draft: false
 ---

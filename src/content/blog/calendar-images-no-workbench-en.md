@@ -3,6 +3,8 @@ title: "I Gave Up the Ops Workbench and Generated a Thousand Calendar Images wit
 date: 2026-08-23
 excerpt: "I batch-generated a thousand calendar images with a skill and dropped the ops workbench. In the AI era, if you can finish something by talking, don't fall back into the old 'build a system' mindset — minimal investment is how things actually ship."
 category: Agent Development
+series: Agent Development
+seriesOrder: 7
 lang: en
 ---
 

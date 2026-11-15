@@ -4,6 +4,8 @@ date: 2026-11-15
 updated: 2026-11-15
 excerpt: "春风的 Web 语音入口让用户在聊天中直接安排日历：豆包负责听和说，语音网关负责连接与轮次，日历请求交给已有的日历 Agent。"
 category: Agent 开发
+series: Agent 开发
+seriesOrder: 17
 ogImage: /images/chunfeng-web-voice-calendar-agent.png
 lang: zh
 draft: false
