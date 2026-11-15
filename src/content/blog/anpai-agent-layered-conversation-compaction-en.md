@@ -5,7 +5,6 @@ excerpt: "Anpai compresses conversation history in layers so an agent can follow
 category: Agent Development
 series: Agent Development
 seriesOrder: 10
-ogImage: /images/anpai-agent-compaction/01-request-en.png
 lang: en
 draft: false
 ---

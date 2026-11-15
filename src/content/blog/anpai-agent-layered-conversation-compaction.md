@@ -5,7 +5,6 @@ excerpt: "安派用多层摘要压缩会话历史，让 Agent 接住连续追问
 category: Agent 开发
 series: Agent 开发
 seriesOrder: 10
-ogImage: /images/anpai-agent-compaction/01-request-zh.png
 lang: zh
 draft: false
 ---
