@@ -4,7 +4,7 @@ date: 2026-05-07
 excerpt: "The real gap isn't model quality, it's engineering: observability, regression, cost, permission, and failure recovery. This post walks through the five things you must add to go from demo to production, and the trap each one hides."
 category: Agent Development
 series: Agent Development
-seriesOrder: 15
+seriesOrder: 16
 ogImage: /images/ai-rnd-prod-01.png
 lang: en
 ---

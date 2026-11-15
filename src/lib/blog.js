@@ -39,12 +39,12 @@ export const SERIES_CURRICULUM = {
     {
       id: "tools-protocols",
       title: { zh: "工具、协议与生产化", en: "Tools, Protocols & Production" },
-      orders: [11, 12, 13, 14, 15]
+      orders: [11, 12, 13, 14, 15, 16]
     },
     {
       id: "multi-agent",
       title: { zh: "多 Agent 编排", en: "Multi-Agent Orchestration" },
-      orders: [16, 17]
+      orders: [17, 18]
     }
   ],
   "full-stack-engineering": [
@@ -227,7 +227,8 @@ const ZH_ARTICLE = [
   "第十四篇",
   "第十五篇",
   "第十六篇",
-  "第十七篇"
+  "第十七篇",
+  "第十八篇"
 ];
 
 /** UI label for a column slot. Empty when the series is not a curriculum. Never mutates titles. */
