@@ -18,7 +18,7 @@ const SERIES_SLUGS = {
   "WebView & Native": "webview-and-native"
 };
 
-/** Course modules for series pages that are a curriculum, not a date-sorted list. */
+/** Thematic groups for series pages that follow a reading order, not a date-sorted list. */
 export const SERIES_CURRICULUM = {
   "agent-development": [
     {
@@ -182,7 +182,7 @@ export function isCurriculumSeries(name) {
   return Boolean(SERIES_CURRICULUM[seriesSlug(name)]);
 }
 
-/** Curriculum series in catalog order. Includes empty locale shells so EN can show a Chinese-only course. */
+/** Curriculum series in catalog order. Includes empty locale shells so EN can show a Chinese-only column. */
 export function collectCurriculumSeries(posts, lang = "zh") {
   const locale = lang === "en" ? "en" : "zh";
   const bySlug = new Map(collectSeries(posts, { min: 1 }).map((s) => [s.slug, s]));
@@ -209,37 +209,37 @@ export function seriesCurriculumSlots(name) {
   return Math.max(...modules.flatMap((m) => m.orders));
 }
 
-const ZH_LESSON = [
+const ZH_ARTICLE = [
   "",
-  "第一课",
-  "第二课",
-  "第三课",
-  "第四课",
-  "第五课",
-  "第六课",
-  "第七课",
-  "第八课",
-  "第九课",
-  "第十课",
-  "第十一课",
-  "第十二课",
-  "第十三课",
-  "第十四课",
-  "第十五课",
-  "第十六课",
-  "第十七课"
+  "第一篇",
+  "第二篇",
+  "第三篇",
+  "第四篇",
+  "第五篇",
+  "第六篇",
+  "第七篇",
+  "第八篇",
+  "第九篇",
+  "第十篇",
+  "第十一篇",
+  "第十二篇",
+  "第十三篇",
+  "第十四篇",
+  "第十五篇",
+  "第十六篇",
+  "第十七篇"
 ];
 
-/** UI label for a course slot. Empty when the series is not a curriculum. Never mutates titles. */
-export function seriesLessonLabel(name, order, lang = "zh") {
+/** UI label for a column slot. Empty when the series is not a curriculum. Never mutates titles. */
+export function seriesArticleLabel(name, order, lang = "zh") {
   if (!seriesCurriculum(name) || order == null) return "";
   const n = Number(order);
   if (!Number.isFinite(n) || n < 1) return "";
-  if (lang === "en") return `Lesson ${n}`;
-  return ZH_LESSON[n] || `第${n}课`;
+  if (lang === "en") return `Article ${n}`;
+  return ZH_ARTICLE[n] || `第${n}篇`;
 }
 
-/** Group series posts into course modules by seriesOrder. Never sorts by date. */
+/** Group series posts into thematic modules by seriesOrder. Never sorts by date. */
 export function groupSeriesCurriculum(posts, name, lang = "zh") {
   const modules = seriesCurriculum(name);
   if (!modules) return null;

@@ -30,16 +30,16 @@ const ui = isEn
   ? {
       kicker: (slots, count, mods) =>
         count === 0
-          ? `${slots} lessons · Chinese only · ${mods} modules`
+          ? `${slots} articles · Chinese only · ${mods} groups`
           : count < slots
-            ? `${slots} lessons · ${count} in English · ${mods} modules`
-            : `${slots} lessons · ${mods} modules`,
-      cta: "Enter the course"
+            ? `${slots} articles · ${count} in English · ${mods} groups`
+            : `${slots} articles · ${mods} groups`,
+      cta: "Open the column"
     }
   : {
       kicker: (slots, count, mods) =>
-        count < slots ? `${slots} 课 · 已有 ${count} 篇 · ${mods} 个模块` : `${slots} 课 · ${mods} 个模块`,
-      cta: "进入课程"
+        count < slots ? `${slots} 篇 · 已有 ${count} 篇 · ${mods} 个分组` : `${slots} 篇 · ${mods} 个分组`,
+      cta: "进入专栏"
     };
 ---
 <div class="grid cols-2">

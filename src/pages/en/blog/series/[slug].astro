@@ -29,8 +29,12 @@ const localeUrls = {
   title={series.name}
   description={
     slots
-      ? `${series.name}: a ${slots}-lesson course grouped by module. ${series.count} lessons are in English.`
-      : `${series.count} posts in the ${series.name} column, in reading order.`
+      ? series.count === 0
+        ? `${series.name}: ${slots} articles grouped by theme. Published in Chinese; English versions are not available yet.`
+        : series.count < slots
+          ? `${series.name}: ${slots} articles grouped by theme. ${series.count} are in English.`
+          : `${series.name}: ${slots} articles grouped by theme.`
+      : `${series.count} articles in the ${series.name} column, in reading order.`
   }
   altLocaleUrl={altLocaleUrl}
   localeUrls={localeUrls}
