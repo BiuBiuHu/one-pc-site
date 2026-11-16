@@ -2,7 +2,7 @@
 title: 个人站如何获取流量：从技术 SEO 到内容工程、多语言的一手实操
 date: 2026-09-07
 excerpt: 给个人站做流量，不是「发帖等收录」，而是四件事：技术地基（sitemap/rss/结构化数据，让内容能被找到）、内容工程（选题+写作流水线，让内容值得被搜）、GEO（llms.txt+可引用内容，让 AI 引擎引用你）、多语言（中英双语，触达更大的市场）。这篇是我的完整实操记录。
-category: 思考
+category: 玩转流量
 ogImage: /images/personal-site-traffic.png
 ---
 
