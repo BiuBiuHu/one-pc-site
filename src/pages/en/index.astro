@@ -7,15 +7,55 @@ import Icon from "../../components/Icon.astro";
 import { getFeaturedProjects } from "../../data/projects.en";
 import { services } from "../../data/services.en";
 import { getCollection } from "astro:content";
-import { collectCurriculumSeries } from "../../lib/blog.js";
+import { collectCurriculumSeries, seriesCopy, seriesHref } from "../../lib/blog.js";
+import { blogHref, postSlug } from "../../lib/i18n.js";
 
 const featured = getFeaturedProjects(4);
 const allPosts = (await getCollection("blog"))
   .filter((p) => p.data.lang === "en" && !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const latest = allPosts.slice(0, 3);
-const topServices = services.slice(0, 2);
+const postsBySlug = new Map(allPosts.map((post) => [postSlug(post.id), post]));
 const columns = collectCurriculumSeries(allPosts, "en");
+const fullStack = columns.find((series) => series.slug === "full-stack-engineering");
+const loop = postsBySlug.get("loop-engineering");
+const locks = postsBySlug.get("optimistic-pessimistic-lock");
+
+// Curated English entry points (recent GSC-impression URLs), not a recency sort.
+const startHere = [
+  loop && {
+    href: blogHref("en", "loop-engineering"),
+    label: "Loop Engineering",
+    kicker: loop.data.category,
+    title: loop.data.title,
+    excerpt: loop.data.excerpt
+  },
+  locks && {
+    href: blogHref("en", "optimistic-pessimistic-lock"),
+    label: "Optimistic vs Pessimistic Locks",
+    kicker: locks.data.series || locks.data.category,
+    title: locks.data.title,
+    excerpt: locks.data.excerpt
+  },
+  fullStack && {
+    href: seriesHref("en", fullStack.name),
+    label: fullStack.name,
+    kicker: "Column",
+    title: fullStack.name,
+    excerpt: seriesCopy(fullStack.name, "en")
+  },
+  {
+    href: "/en/projects/",
+    label: "Projects",
+    kicker: "Projects",
+    title: "What I build",
+    excerpt: "Open source projects I maintain around AI and developer productivity."
+  }
+].filter(Boolean);
+const startHereHrefs = new Set(startHere.map((item) => item.href));
+const latest = allPosts
+  .filter((post) => !startHereHrefs.has(blogHref("en", postSlug(post.id))))
+  .slice(0, 3);
+const topServices = services.slice(0, 2);
 
 const fmt = (d) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
@@ -41,10 +81,10 @@ const fmt = (d) =>
           structured columns, daily thoughts, and ready-to-use AI services. Feel free to explore and reach out.
         </p>
         <div class="hero-actions">
-          <a class="btn primary" href="/en/projects">See projects <Icon name="arrow-right" size={16} /></a>
-          <a class="btn ghost" href="/en/blog">Read posts</a>
-          <a class="btn ghost" href="/en/series">Browse columns</a>
-          <a class="btn ghost" href="/en/services">See services</a>
+          <a class="btn primary" href="/en/projects/">See projects <Icon name="arrow-right" size={16} /></a>
+          <a class="btn ghost" href="/en/blog/">Read posts</a>
+          <a class="btn ghost" href="/en/series/">Browse columns</a>
+          <a class="btn ghost" href="/en/services/">See services</a>
         </div>
         <div class="hero-tags">
           <span class="tag">Astro</span>
@@ -55,24 +95,40 @@ const fmt = (d) =>
       </div>
 
       <aside class="hero-card">
-        <p class="label">What I do</p>
-        <h3>Open source + Writing + Services</h3>
-        <p>Build capabilities through open source, share thinking through writing, turn capabilities into usable services.</p>
-        <div class="hero-stats">
-          <div class="stat"><strong>{featured.length}+</strong><span>Featured</span></div>
-          <div class="stat"><strong>{columns.length}</strong><span>Columns</span></div>
-          <div class="stat"><strong>{allPosts.length}</strong><span>Posts</span></div>
-          <div class="stat"><strong>{services.length}</strong><span>Services</span></div>
-        </div>
+        <p class="label">Start here</p>
+        <h3>Featured English pages</h3>
+        <p>A shorter path than the full archive: two posts, one column, and the project index.</p>
+        <nav class="hero-start" aria-label="Featured English pages">
+          {startHere.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
       </aside>
     </div>
 
     <div class="stack-vertical" style="margin-top:56px">
+      <section id="start-here">
+        <div class="section-head">
+          <h2>Featured reading</h2>
+          <p>English pages worth opening first — two posts, one column, and the project index.</p>
+          <a class="more" href="/en/blog/">All English posts <Icon name="arrow-right" size={15} /></a>
+        </div>
+        <div class="post-list">
+          {startHere.map((item) => (
+            <a class="post-item" href={item.href}>
+              <div class="date">{item.kicker}</div>
+              <h3>{item.title}</h3>
+              <p class="excerpt">{item.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <section>
         <div class="section-head">
           <h2>Featured projects</h2>
           <p>Open source projects I maintain, mostly around AI and developer productivity.</p>
-          <a class="more" href="/en/projects">All projects <Icon name="arrow-right" size={15} /></a>
+          <a class="more" href="/en/projects/">All projects <Icon name="arrow-right" size={15} /></a>
         </div>
         <div class="grid cols-3">
           {featured.map((p) => <ProjectCard project={p} />)}
@@ -83,7 +139,7 @@ const fmt = (d) =>
         <div class="section-head">
           <h2>Columns</h2>
           <p>Structured columns, grouped by theme — not another post list.</p>
-          <a class="more" href="/en/series">All columns <Icon name="arrow-right" size={15} /></a>
+          <a class="more" href="/en/series/">All columns <Icon name="arrow-right" size={15} /></a>
         </div>
         <SeriesCards lang="en" posts={allPosts} />
       </section>
@@ -92,11 +148,11 @@ const fmt = (d) =>
         <div class="section-head">
           <h2>Latest posts</h2>
           <p>Thoughts on AI development, indie dev, and engineering.</p>
-          <a class="more" href="/en/blog">All posts <Icon name="arrow-right" size={15} /></a>
+          <a class="more" href="/en/blog/">All posts <Icon name="arrow-right" size={15} /></a>
         </div>
         <div class="post-list">
           {latest.map((post) => (
-            <a class="post-item" href={`/en/blog/${post.id.replace(/-en$/, "")}`}>
+            <a class="post-item" href={blogHref("en", postSlug(post.id))}>
               <div class="date">{fmt(post.data.date)}</div>
               <h3>{post.data.title}</h3>
               <p class="excerpt">{post.data.excerpt}</p>
@@ -109,7 +165,7 @@ const fmt = (d) =>
         <div class="section-head">
           <h2>Services</h2>
           <p>Use these capabilities directly, or ask for something custom.</p>
-          <a class="more" href="/en/services">All services <Icon name="arrow-right" size={15} /></a>
+          <a class="more" href="/en/services/">All services <Icon name="arrow-right" size={15} /></a>
         </div>
         <div class="grid cols-2">
           {topServices.map((s) => (
@@ -119,7 +175,7 @@ const fmt = (d) =>
               <p class="summary">{s.summary}</p>
               <a
                 class="btn ghost sm"
-                href={s.cta.external ? s.cta.href : "/en/services"}
+                href={s.cta.external ? s.cta.href : "/en/services/"}
                 target={s.cta.external ? "_blank" : undefined}
                 rel={s.cta.external ? "noopener noreferrer" : undefined}
               >Learn more <Icon name="arrow-up-right" size={14} /></a>

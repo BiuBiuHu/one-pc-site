@@ -206,6 +206,20 @@ main.main { flex: 1; }
 .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 4px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
 .hero-stats .stat strong { display: block; font-size: 22px; font-weight: 700; color: var(--text); }
 .hero-stats .stat span { font-size: 12px; color: var(--muted); }
+.hero-start {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--border);
+}
+.hero-start a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+.hero-start a:hover { color: var(--brand); text-decoration: none; }
 
 /* ---------- 项目卡 ---------- */
 .project-card { display: flex; flex-direction: column; height: 100%; }
