@@ -25,8 +25,23 @@ const projectList = [
     languageColor: "#f1e05a",
     repo: "https://github.com/BiuBiuHu/smart-tab-pilot",
     homepage: "https://biubiuhu.github.io/smart-tab-pilot/",
+    store: "https://chromewebstore.google.com/detail/smart-tab-pilot/acnhnhllaloccmnmdjcgmkmpbkpdegfd",
     tags: ["Chrome", "效率", "AI"],
     status: "active",
+    featured: true
+  },
+  {
+    name: "OpenBot",
+    tagline: "用 SSH 把你的 Linux 服务器交给 Agent",
+    description:
+      "自托管 Alpha：Agent 在你自己的 Linux 服务器上执行命令、读写文件、操作 Chromium，并可从可视桌面观察或接管。自带模型 Key；当前面向单用户、可信环境。",
+    language: "TypeScript",
+    languageColor: "#3178c6",
+    stars: 0,
+    repo: "https://github.com/BiuBiuHu/OpenBot",
+    homepage: "",
+    tags: ["Agent", "SSH", "自托管"],
+    status: "wip",
     featured: true
   },
   {

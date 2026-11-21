@@ -233,12 +233,16 @@ main.main { flex: 1; }
 .project-card .tagline { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
 .project-card .desc { flex: 1; font-size: 14px; color: var(--text-2); line-height: 1.6; margin: 0 0 14px; }
 .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-.project-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 14px; border-top: 1px solid var(--border); }
+.project-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px 12px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--border); }
+.project-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 2px 12px; min-width: 0; }
 .status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--green); background: var(--green-soft); border-radius: 999px; padding: 4px 10px; }
 .status.wip { color: var(--amber); background: var(--amber-soft); }
 .status .pulse { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.repo-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.repo-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); min-height: 44px; padding: 8px 2px; }
 .repo-link:hover { color: var(--brand); }
+@media (max-width: 640px) {
+  .project-actions { justify-content: flex-start; width: 100%; }
+}
 
 /* ---------- 服务卡 ---------- */
 .service-card { display: flex; flex-direction: column; height: 100%; }

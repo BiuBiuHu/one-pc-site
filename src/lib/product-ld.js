@@ -63,6 +63,10 @@ function productNode({ project, isEn, lang, authorUrl, pageUrl }) {
 
   const sameAs = [];
   if (project.homepage) sameAs.push(project.homepage);
+  if (project.store) {
+    node.installUrl = project.store;
+    if (!sameAs.includes(project.store)) sameAs.push(project.store);
+  }
   if (project.repo) {
     node.codeRepository = project.repo;
     if (!sameAs.includes(project.repo)) sameAs.push(project.repo);

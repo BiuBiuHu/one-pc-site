@@ -10,7 +10,7 @@ import { getCollection } from "astro:content";
 import { collectCurriculumSeries, seriesCopy, seriesHref } from "../../lib/blog.js";
 import { blogHref, postSlug } from "../../lib/i18n.js";
 
-const featured = getFeaturedProjects(4);
+const featured = getFeaturedProjects(5);
 const allPosts = (await getCollection("blog"))
   .filter((p) => p.data.lang === "en" && !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());

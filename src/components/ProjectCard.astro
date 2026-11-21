@@ -6,23 +6,55 @@ const { project } = Astro.props;
 const isEn = Astro.currentLocale === "en";
 const isWip = project.status === "wip";
 const hubHref = hubPathForProject(project.name, isEn);
-// 标题与页脚共用目标：有 hub 进独立页，否则仓库优先于官网
 const repoFull = githubRepoSlug(project.repo);
 const isRepo = !!repoFull;
-const linkHref = hubHref || (isRepo ? project.repo : project.homepage || "#");
-const linkIcon = hubHref ? "arrow-right" : isRepo ? "github" : "external-link";
-const linkLabel = hubHref
+const homepageHref = project.homepage || "";
+const storeHref = project.store
   ? isEn
-    ? "Learn more"
-    : "了解更多"
-  : isRepo
-    ? isEn
-      ? "Repository"
-      : "仓库"
-    : isEn
-      ? "Visit"
-      : "访问";
-const linkExternal = !hubHref;
+    ? project.store
+    : `${project.store}${project.store.includes("?") ? "&" : "?"}hl=zh-CN`
+  : "";
+// 标题：独立介绍页优先，否则官网，再否则仓库
+const titleHref = hubHref || homepageHref || (isRepo ? project.repo : "#");
+const titleExternal = !hubHref;
+const actions = [];
+if (hubHref) {
+  actions.push({
+    href: hubHref,
+    label: isEn ? "Learn more" : "了解更多",
+    icon: "arrow-right",
+    external: false,
+    aria: isEn ? `Learn more about ${project.name}` : `了解 ${project.name}`
+  });
+}
+if (homepageHref && !hubHref) {
+  const onlyHome = !storeHref && !isRepo;
+  actions.push({
+    href: homepageHref,
+    label: onlyHome ? (isEn ? "Visit" : "访问") : isEn ? "Website" : "官网",
+    icon: "external-link",
+    external: true,
+    aria: isEn ? `${project.name} official website` : `${project.name} 官网`
+  });
+}
+if (storeHref) {
+  actions.push({
+    href: storeHref,
+    label: isEn ? "Chrome Web Store" : "Chrome 商店",
+    icon: "external-link",
+    external: true,
+    aria: isEn ? `Install ${project.name} from the Chrome Web Store` : `从 Chrome 商店安装 ${project.name}`
+  });
+}
+if (isRepo && !hubHref) {
+  actions.push({
+    href: project.repo,
+    label: isEn ? "GitHub" : "GitHub",
+    icon: "github",
+    external: true,
+    aria: isEn ? `${project.name} GitHub repository` : `${project.name} GitHub 仓库`
+  });
+}
 const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开发中" : "维护中");
 ---
 <article class="card hover project-card">
@@ -38,9 +70,9 @@ const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开
 
   <h3>
     <a
-      href={linkHref}
-      target={linkExternal ? "_blank" : undefined}
-      rel={linkExternal ? "noreferrer" : undefined}
+      href={titleHref}
+      target={titleExternal ? "_blank" : undefined}
+      rel={titleExternal ? "noopener noreferrer" : undefined}
     >{project.name}</a>
   </h3>
   <p class="tagline">{project.tagline}</p>
@@ -55,14 +87,19 @@ const statusText = isEn ? (isWip ? "In progress" : "Maintained") : (isWip ? "开
       <span class="pulse"></span>
       {statusText}
     </span>
-    <a
-      class="repo-link"
-      href={linkHref}
-      target={linkExternal ? "_blank" : undefined}
-      rel={linkExternal ? "noreferrer" : undefined}
-    >
-      <Icon name={linkIcon} size={14} />
-      {linkLabel}
-    </a>
+    <div class="project-actions">
+      {actions.map((action) => (
+        <a
+          class="repo-link"
+          href={action.href}
+          target={action.external ? "_blank" : undefined}
+          rel={action.external ? "noopener noreferrer" : undefined}
+          aria-label={action.aria}
+        >
+          <Icon name={action.icon} size={14} />
+          {action.label}
+        </a>
+      ))}
+    </div>
   </div>
 </article>

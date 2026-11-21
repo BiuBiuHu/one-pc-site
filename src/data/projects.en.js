@@ -25,8 +25,23 @@ const projectList = [
     languageColor: "#f1e05a",
     repo: "https://github.com/BiuBiuHu/smart-tab-pilot",
     homepage: "https://biubiuhu.github.io/smart-tab-pilot/",
+    store: "https://chromewebstore.google.com/detail/smart-tab-pilot/acnhnhllaloccmnmdjcgmkmpbkpdegfd",
     tags: ["Chrome", "Productivity", "AI"],
     status: "active",
+    featured: true
+  },
+  {
+    name: "OpenBot",
+    tagline: "SSH your own machine so the agent has a computer",
+    description:
+      "Self-hosted alpha: the agent runs commands, reads and writes files, and drives Chromium on your Linux server, with a visible desktop you can watch or take over. Bring your own model key. Intended for a single user in a trusted environment.",
+    language: "TypeScript",
+    languageColor: "#3178c6",
+    stars: 0,
+    repo: "https://github.com/BiuBiuHu/OpenBot",
+    homepage: "",
+    tags: ["Agent", "SSH", "Self-hosted"],
+    status: "wip",
     featured: true
   },
   {

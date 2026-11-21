@@ -9,7 +9,7 @@ import { services } from "../data/services";
 import { getCollection } from "astro:content";
 import { collectCurriculumSeries } from "../lib/blog.js";
 
-const featured = getFeaturedProjects(4);
+const featured = getFeaturedProjects(5);
 const allPosts = (await getCollection("blog"))
   .filter((p) => (p.data.lang ?? "zh") === "zh" && !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
