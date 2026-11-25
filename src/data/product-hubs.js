@@ -1,5 +1,14 @@
-// peak-lake 上只给 GitHub-first 的 OPC Skills 做实体页。
+// peak-lake 上给 OPC Skills 做实体页（官网 + GitHub）。
 // Anpai.Life / Smart Tab Pilot / AI Gateway 已有官网，不在本站再做产品页。
+
+export const OPC_SKILLS_REPO = "https://github.com/BiuBiuHu/opc-skills";
+
+// 中文 / 日文走官网中文页；英文走英文页。官网没有独立日文站。
+export const OPC_SKILLS_SITE = {
+  zh: "https://biubiuhu.github.io/opc-skills/zh/",
+  en: "https://biubiuhu.github.io/opc-skills/",
+  ja: "https://biubiuhu.github.io/opc-skills/zh/"
+};
 
 export const HUB_SLUG_BY_NAME = {
   "OPC Skills": "opc-skills"
@@ -34,9 +43,9 @@ export const opcSkillsHub = {
     ja: "BiuBiuHu / One PC のOPC納品向けCodex Skillテンプレート"
   },
   tldr: {
-    zh: "把需求澄清到发布门禁串成可复用工作流的 Codex Skill 模板。仓库在 github.com/BiuBiuHu/opc-skills，与 ReScienceLab / opc.dev 无关。",
-    en: "A Codex skill template that chains clarification through release gates. The repo is github.com/BiuBiuHu/opc-skills — not ReScienceLab / opc.dev.",
-    ja: "要件の見極めからリリース門禁までを再利用ワークフローにしたCodex Skillテンプレート。リポジトリは github.com/BiuBiuHu/opc-skills。ReScienceLab / opc.dev とは無関係。"
+    zh: "把需求澄清到发布门禁串成可复用工作流的 Codex Skill 模板。官网 biubiuhu.github.io/opc-skills，仓库 github.com/BiuBiuHu/opc-skills，与 ReScienceLab / opc.dev 无关。",
+    en: "A Codex skill template that chains clarification through release gates. Official site: biubiuhu.github.io/opc-skills. Repo: github.com/BiuBiuHu/opc-skills — not ReScienceLab / opc.dev.",
+    ja: "要件の見極めからリリース門禁までを再利用ワークフローにしたCodex Skillテンプレート。公式サイトは biubiuhu.github.io/opc-skills、リポジトリは github.com/BiuBiuHu/opc-skills。ReScienceLab / opc.dev とは無関係。"
   },
   problem: {
     zh: [
@@ -74,19 +83,24 @@ export const opcSkillsHub = {
   install: {
     heading: { zh: "安装", en: "Install", ja: "インストール" },
     lead: {
-      zh: "把仓库放到 Codex 能发现的 skills 目录，例如：",
-      en: "Clone it into a skills directory Codex can see, for example:",
-      ja: "Codex が見つけられる skills ディレクトリに置く。例："
+      zh: "推荐用官方 CLI 安装到 Codex 能发现的 skills 目录：",
+      en: "Install with the official CLI into a skills directory Codex can see:",
+      ja: "公式 CLI で、Codex が見つけられる skills ディレクトリへ入れる："
     },
-    code: "mkdir -p ~/.codex/skills\ngit clone https://github.com/BiuBiuHu/opc-skills.git ~/.codex/skills/opc-skills",
+    code: "npx opc-skills install\nnpx opc-skills update",
     after: {
-      zh: "也可以克隆到别处，再软链到 ~/.codex/skills/opc-skills。在对话里说「启动 OPC Skills」或「用 opc-skills 分析这个需求」即可触发。完整规则以仓库里的 SKILL.md 为准。",
-      en: "Or clone it elsewhere and symlink to ~/.codex/skills/opc-skills. In Codex, say “Start OPC Skills” or “Use opc-skills to analyze this requirement.” SKILL.md in the repo is the source of rules.",
-      ja: "別の場所に clone して ~/.codex/skills/opc-skills へシンボリックリンクしてもよい。会話で「OPC Skills を起動」または「opc-skills でこの要件を分析して」と言えば起動する。ルールの正本はリポジトリの SKILL.md。"
+      zh: "install 会按需创建 ~/.codex/skills。已安装时用 update 更新。也可以手动 git clone 到 ~/.codex/skills/opc-skills，或克隆到别处再软链过去。在对话里说「启动 OPC Skills」或「用 opc-skills 分析这个需求」即可触发。完整规则以仓库里的 SKILL.md 为准。",
+      en: "install creates ~/.codex/skills if needed. Use update to refresh an existing install. You can also git clone into ~/.codex/skills/opc-skills, or clone elsewhere and symlink. In Codex, say “Start OPC Skills” or “Use opc-skills to analyze this requirement.” SKILL.md in the repo is the source of rules.",
+      ja: "install は必要なら ~/.codex/skills を作る。既存インストールの更新は update。手動で ~/.codex/skills/opc-skills に git clone してもよいし、別の場所からシンボリックリンクしてもよい。会話で「OPC Skills を起動」または「opc-skills でこの要件を分析して」と言えば起動する。ルールの正本はリポジトリの SKILL.md。"
     }
   },
+  site: {
+    href: OPC_SKILLS_SITE,
+    external: true,
+    label: { zh: "打开官网", en: "Open the official site", ja: "公式サイトを開く" }
+  },
   cta: {
-    href: "https://github.com/BiuBiuHu/opc-skills",
+    href: OPC_SKILLS_REPO,
     external: true,
     label: { zh: "打开 GitHub 仓库", en: "Open the GitHub repo", ja: "GitHub リポジトリを開く" }
   },

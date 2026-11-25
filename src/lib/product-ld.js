@@ -2,6 +2,7 @@ import { personNode } from "../data/site.js";
 import { hubPathForProject } from "../data/product-hubs.js";
 import { inLanguageOf } from "./i18n.js";
 import { opcSkillsJsonLd } from "./opc-skills-ld.js";
+import { projectHomepageHref } from "./project-links.js";
 
 const PRODUCT_NAMES = ["Anpai.Life", "Smart Tab Pilot", "OPC Skills", "AI Gateway"];
 
@@ -51,7 +52,8 @@ function productNode({ project, isEn, lang, authorUrl, pageUrl }) {
     return node;
   }
 
-  const productUrl = project.homepage || project.repo || undefined;
+  const homepageHref = projectHomepageHref(project, locale);
+  const productUrl = homepageHref || project.repo || undefined;
   const node = {
     "@type": "SoftwareApplication",
     name: project.name,
@@ -62,7 +64,7 @@ function productNode({ project, isEn, lang, authorUrl, pageUrl }) {
   };
 
   const sameAs = [];
-  if (project.homepage) sameAs.push(project.homepage);
+  if (homepageHref) sameAs.push(homepageHref);
   if (project.store) {
     node.installUrl = project.store;
     if (!sameAs.includes(project.store)) sameAs.push(project.store);

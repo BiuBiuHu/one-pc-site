@@ -1,4 +1,5 @@
 import { hydrateProjectStars } from "../lib/github-stars";
+import { OPC_SKILLS_SITE } from "./product-hubs";
 
 // Open source projects data (English)
 // stars is a last-resort fallback when the build-time GitHub fetch misses
@@ -53,7 +54,7 @@ const projectList = [
     languageColor: "#89e051",
     stars: 12,
     repo: "https://github.com/BiuBiuHu/opc-skills",
-    homepage: "",
+    homepage: OPC_SKILLS_SITE,
     tags: ["Skill", "Delivery Pipeline", "Agent"],
     status: "active",
     featured: true
