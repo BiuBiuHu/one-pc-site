@@ -8,24 +8,41 @@ interface Props {
   posts: any[];
   currentId: string;
   lang: "zh" | "en" | "ja";
-  compact?: boolean;
 }
 
-const { series, label, posts, currentId, lang, compact = false } = Astro.props;
+const { series, label, posts, currentId, lang } = Astro.props;
+const index = posts.findIndex((p) => p.id === currentId);
+const prev = index > 0 ? posts[index - 1] : null;
+const next = index >= 0 && index < posts.length - 1 ? posts[index + 1] : null;
+const isEn = lang === "en";
+const isJa = lang === "ja";
+const ui = isEn
+  ? { prev: "Previous", next: "Next", catalog: "Column index", nav: "Column" }
+  : isJa
+    ? { prev: "前の記事", next: "次の記事", catalog: "シリーズ一覧", nav: "シリーズ" }
+    : { prev: "上一篇", next: "下一篇", catalog: "专栏目录", nav: "专栏" };
 ---
-<nav class:list={["series-nav", { "series-nav-top": compact }]} aria-label={`${label} · ${series}`}>
-  <div class="series-label">
-    <a href={seriesHref(lang, series)}>{label} · {series}</a>
+<nav class="series-pager" aria-label={`${ui.nav} · ${series}`}>
+  <div class="series-pager-head">
+    <a class="series-pager-catalog" href={seriesHref(lang, series)}>
+      {label} · {series}
+      <span class="series-pager-catalog-hint">{ui.catalog}</span>
+    </a>
   </div>
-  <ol class="series-list">
-    {posts.map((p) => {
-      const isCurrent = p.id === currentId;
-      const href = blogHref(lang, postSlug(p.id));
-      return (
-        <li class:list={["series-item", { current: isCurrent }]}>
-          {isCurrent ? <span>{p.data.title}</span> : <a href={href}>{p.data.title}</a>}
-        </li>
-      );
-    })}
-  </ol>
+  {(prev || next) && (
+    <div class="series-pager-links">
+      {prev && (
+        <a class="series-pager-item prev" href={blogHref(lang, postSlug(prev.id))}>
+          <span class="series-pager-dir">{ui.prev}</span>
+          <span class="series-pager-title">{prev.data.title}</span>
+        </a>
+      )}
+      {next && (
+        <a class="series-pager-item next" href={blogHref(lang, postSlug(next.id))}>
+          <span class="series-pager-dir">{ui.next}</span>
+          <span class="series-pager-title">{next.data.title}</span>
+        </a>
+      )}
+    </div>
+  )}
 </nav>

@@ -64,7 +64,7 @@ const articleOf = (post) =>
         {modules.map((mod) => (
           <a href={`#${mod.id}`}>
             <span class="series-jump-n">{String(mod.index).padStart(2, "0")}</span>
-            {mod.title}
+            <span class="series-jump-label">{mod.title}</span>
           </a>
         ))}
       </nav>

@@ -131,16 +131,6 @@ const seriesUi = isEn
         )}
         <h1>{post.data.title}</h1>
       </header>
-      {seriesShown && (
-        <SeriesNav
-          series={series}
-          label={seriesUi.label}
-          posts={seriesPosts}
-          currentId={post.id}
-          lang={locale}
-          compact
-        />
-      )}
       <div class="prose">
         <Content />
         <ArticleFaq items={faqItems} lang={lang} />
