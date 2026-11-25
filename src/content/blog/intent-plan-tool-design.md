@@ -3,7 +3,7 @@ title: 关于意图识别的思考 ---- Plan + 工具设计
 date: 2026-08-31
 excerpt: 做了很多轮意图识别之后我才发现：问题可能根本不在分类，而在 Agent 架构。这篇讲清用 Plan + 工具设计，把「听懂」交给模型、「做对」交给代码。
 category: Agent 开发
-series: Agent 开发
+series: Agent 实战
 seriesOrder: 2
 ---
 

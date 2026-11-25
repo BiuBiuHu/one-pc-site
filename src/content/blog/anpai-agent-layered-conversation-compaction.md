@@ -3,7 +3,7 @@ title: 安派 Agent 的多层会话压缩设计
 date: 2026-11-15
 excerpt: "安派用多层摘要压缩会话历史，让 Agent 接住连续追问，并在需要时回查原文。设计仍在隔离预发完善。"
 category: Agent 开发
-series: Agent 开发
+series: Agent 实战
 seriesOrder: 10
 lang: zh
 draft: false

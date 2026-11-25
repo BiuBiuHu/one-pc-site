@@ -3,7 +3,7 @@ title: A2A — Agent-to-Agent 协议
 date: 2026-10-23
 excerpt: A2A 让不同进程、组织和厂商的 Agent 用任务状态机协作；这篇讲清 Agent Card、四步流程，以及一份可跑的 TypeScript 示例。
 category: Agent 开发
-series: Agent 开发
+series: Agent 实战
 seriesOrder: 13
 faq:
   - q: "A2A 是什么？"

@@ -3,7 +3,7 @@ title: Designing Layered Conversation Compaction in Anpai
 date: 2026-11-15
 excerpt: "Anpai compresses conversation history in layers so an agent can follow a continuing discussion and still retrieve original details. The design is still being refined in isolated staging."
 category: Agent Development
-series: Agent Development
+series: Agent in Practice
 seriesOrder: 10
 lang: en
 draft: false
