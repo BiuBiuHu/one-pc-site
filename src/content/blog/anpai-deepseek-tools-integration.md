@@ -3,7 +3,7 @@ title: 安派接入 DeepSeek 工具 API 的架构与实现
 date: 2026-11-16
 excerpt: "安派把 DeepSeek 的 Search、Fetch、OCR、ASR 和 TTS 接到现有 Agent 链路上：搜索进工具循环，OCR 原文进会话归档，各回答分支共享历史与时间。"
 category: Agent 开发
-series: Agent 开发
+series: Agent 实战
 seriesOrder: 14
 lang: zh
 draft: false

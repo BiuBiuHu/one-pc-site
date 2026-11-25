@@ -3,7 +3,7 @@ title: Integrating DeepSeek Tool APIs into Anpai Architecture and Implementation
 date: 2026-11-16
 excerpt: "Anpai integrates DeepSeek Search, Fetch, OCR, ASR and TTS into the existing agent path: search runs in the tool loop, OCR text is archived, and answer paths share history and time context."
 category: Agent Development
-series: Agent Development
+series: Agent in Practice
 seriesOrder: 14
 lang: en
 draft: false

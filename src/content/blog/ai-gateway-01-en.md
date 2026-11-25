@@ -3,7 +3,7 @@ title: "Why I Built an AI Gateway: Model Routing, Cost, and Rate Limits for Indi
 date: 2026-05-07
 excerpt: "For indie developers, an AI Gateway isn't showing off — it's the smallest engineering unit that unifies model access, cost, rate limits, and stability. This post covers the five capabilities a production gateway needs, and the traps behind each."
 category: Agent Development
-series: Agent Development
+series: Agent in Practice
 seriesOrder: 15
 ogImage: /images/ai-gateway-01.png
 lang: en

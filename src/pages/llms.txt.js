@@ -42,7 +42,7 @@ export async function GET(context) {
   out.push(`- [关于](${base}/about/): ${site.name}，Agent engineer · OPC`);
   out.push(`- [About](${base}/en/about/): English about`);
   out.push(`- [博客](${base}/blog/): 全部文章归档（按分类）`);
-  out.push(`- [专栏](${base}/series/): 成体系的专栏（目前：从零手搓 AI Agent、Agent 开发、全栈工程、WebView 与客户端）`);
+  out.push(`- [专栏](${base}/series/): 成体系的专栏（目前：从零手搓 AI Agent、Agent 实战、全栈工程、WebView 与客户端）`);
   out.push(`- [Columns](${base}/en/series/): Structured columns`);
   const zhSeries = collectSeries(
     posts.filter((p) => localeOf(p) === "zh"),

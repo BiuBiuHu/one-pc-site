@@ -3,7 +3,7 @@ title: "Thinking About Intent Recognition: Plan + Tool Design"
 date: 2026-08-31
 excerpt: "After many rounds of intent recognition I realized the problem may not be classification at all — it's agent architecture. This post explains Plan + tool design: let the model understand, and let code do the work."
 category: Agent Development
-series: Agent Development
+series: Agent in Practice
 seriesOrder: 2
 lang: en
 ---

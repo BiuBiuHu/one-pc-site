@@ -3,7 +3,7 @@ title: 我们为什么删掉了 530 行意图正则：一次日历 Agent 的架�
 date: 2026-08-29
 excerpt: 用真实用户问题重构日历 Agent：从 530 行意图正则走向一次大模型调用，并用状态机、工具约束、出口校验和真模型评测守住安全边界。
 category: Agent 开发
-series: Agent 开发
+series: Agent 实战
 seriesOrder: 5
 ---
 

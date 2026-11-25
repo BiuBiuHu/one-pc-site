@@ -11,10 +11,13 @@ const SERIES_SLUGS = {
   "Full-Stack Engineering": "full-stack-engineering",
   前端转全栈: "full-stack-engineering",
   "Frontend to Full-Stack": "full-stack-engineering",
+  "Agent 实战": "agent-development",
+  "Agent in Practice": "agent-development",
   "Agent 开发": "agent-development",
   "Agent Development": "agent-development",
   意图识别: "agent-development",
   "从零手搓 AI Agent": "build-an-agent-from-scratch",
+  "《从零手搓 AI Agent》": "build-an-agent-from-scratch",
   "Build an Agent from Scratch": "build-an-agent-from-scratch",
   "WebView 与客户端": "webview-and-native",
   "WebView & Native": "webview-and-native"
@@ -154,7 +157,7 @@ export const SERIES_CURRICULUM = {
 
 const SERIES_NAMES = {
   "build-an-agent-from-scratch": { zh: "从零手搓 AI Agent", en: "Build an Agent from Scratch" },
-  "agent-development": { zh: "Agent 开发", en: "Agent Development" },
+  "agent-development": { zh: "Agent 实战", en: "Agent in Practice" },
   "full-stack-engineering": { zh: "全栈工程", en: "Full-Stack Engineering" },
   "webview-and-native": { zh: "WebView 与客户端", en: "WebView & Native" }
 };

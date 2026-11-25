@@ -67,6 +67,8 @@ const SLUG_PROJECT = {
 };
 
 const SERIES_PROJECT = {
+  "Agent 实战": "anpai",
+  "Agent in Practice": "anpai",
   "Agent 开发": "anpai",
   "Agent Development": "anpai",
   意图识别: "anpai"
