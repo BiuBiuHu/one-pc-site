@@ -54,8 +54,19 @@ const ui =
     </div>
 
     <div class="hero-actions about-actions">
+      {hub.site && (
+        <a
+          class="btn primary"
+          href={pick(hub.site.href)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {pick(hub.site.label)}
+          <Icon name="arrow-up-right" size={16} />
+        </a>
+      )}
       <a
-        class="btn primary"
+        class={hub.site ? "btn ghost" : "btn primary"}
         href={hub.cta.href}
         target="_blank"
         rel="noreferrer"

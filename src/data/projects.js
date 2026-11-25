@@ -1,4 +1,5 @@
 import { hydrateProjectStars } from "../lib/github-stars";
+import { OPC_SKILLS_SITE } from "./product-hubs";
 
 // 开源项目数据 —— 改成你的真实项目
 // stars 是构建期拉不到 GitHub 时的占位；有 repo 的项目会在构建时写入真实 stargazers_count
@@ -53,7 +54,7 @@ const projectList = [
     languageColor: "#89e051",
     stars: 12,
     repo: "https://github.com/BiuBiuHu/opc-skills",
-    homepage: "",
+    homepage: OPC_SKILLS_SITE,
     tags: ["Skill", "研发流水线", "Agent"],
     status: "active",
     featured: true

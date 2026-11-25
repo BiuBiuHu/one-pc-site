@@ -2,13 +2,16 @@
 import Icon from "./Icon.astro";
 import { githubRepoSlug } from "../lib/github-stars";
 import { hubPathForProject } from "../data/product-hubs";
+import { projectHomepageHref } from "../lib/project-links";
+import { normalizeLocale } from "../lib/i18n.js";
 const { project } = Astro.props;
-const isEn = Astro.currentLocale === "en";
+const locale = normalizeLocale(Astro.currentLocale);
+const isEn = locale === "en";
 const isWip = project.status === "wip";
-const hubHref = hubPathForProject(project.name, isEn);
+const hubHref = hubPathForProject(project.name, locale);
 const repoFull = githubRepoSlug(project.repo);
 const isRepo = !!repoFull;
-const homepageHref = project.homepage || "";
+const homepageHref = projectHomepageHref(project, locale);
 const storeHref = project.store
   ? isEn
     ? project.store
@@ -27,8 +30,8 @@ if (hubHref) {
     aria: isEn ? `Learn more about ${project.name}` : `了解 ${project.name}`
   });
 }
-if (homepageHref && !hubHref) {
-  const onlyHome = !storeHref && !isRepo;
+if (homepageHref) {
+  const onlyHome = !hubHref && !storeHref && !isRepo;
   actions.push({
     href: homepageHref,
     label: onlyHome ? (isEn ? "Visit" : "访问") : isEn ? "Website" : "官网",
@@ -46,7 +49,7 @@ if (storeHref) {
     aria: isEn ? `Install ${project.name} from the Chrome Web Store` : `从 Chrome 商店安装 ${project.name}`
   });
 }
-if (isRepo && !hubHref) {
+if (isRepo) {
   actions.push({
     href: project.repo,
     label: isEn ? "GitHub" : "GitHub",
