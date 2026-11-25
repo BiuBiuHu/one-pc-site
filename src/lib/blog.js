@@ -14,12 +14,61 @@ const SERIES_SLUGS = {
   "Agent 开发": "agent-development",
   "Agent Development": "agent-development",
   意图识别: "agent-development",
+  "从零手搓 AI Agent": "build-an-agent-from-scratch",
+  "Build an Agent from Scratch": "build-an-agent-from-scratch",
   "WebView 与客户端": "webview-and-native",
   "WebView & Native": "webview-and-native"
 };
 
 /** Thematic groups for series pages that follow a reading order, not a date-sorted list. */
 export const SERIES_CURRICULUM = {
+  "build-an-agent-from-scratch": [
+    {
+      id: "foundations",
+      title: { zh: "卷一 · 打地基：Agent 基础四件套", en: "Volume 1 · Foundations" },
+      orders: [1, 2, 3, 4, 5]
+    },
+    {
+      id: "demystify",
+      title: { zh: "卷二 · 去魔法：手写底层实现", en: "Volume 2 · Write the stack by hand" },
+      orders: [6, 7, 8]
+    },
+    {
+      id: "engineering",
+      title: { zh: "卷三 · 工程化：从玩具到产品", en: "Volume 3 · From toy to product" },
+      orders: [9, 10, 11, 12, 13, 14, 15, 16, 17]
+    },
+    {
+      id: "advanced-sdk",
+      title: { zh: "卷四 · 进阶能力与 SDK 源码精读", en: "Volume 4 · Advanced skills & SDK" },
+      orders: [18, 19, 20, 21, 22, 23]
+    },
+    {
+      id: "async-enterprise",
+      title: { zh: "卷五 · 异步架构与企业级升级", en: "Volume 5 · Async & enterprise" },
+      orders: [24, 25, 26, 27, 28, 29]
+    },
+    {
+      id: "production-quality",
+      title: { zh: "卷六 · 生产级质量保障", en: "Volume 6 · Production quality" },
+      orders: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+    },
+    {
+      id: "ai-coding",
+      title: { zh: "卷七 · AI Coding 新范式", en: "Volume 7 · AI coding harness" },
+      orders: [41, 42, 43]
+    },
+    {
+      id: "interop",
+      title: { zh: "卷八 · Agent 互操作协议", en: "Volume 8 · Interop protocols" },
+      orders: [44, 45, 46, 47, 48]
+    },
+    {
+      id: "appendix",
+      title: { zh: "附录 · Agent 架构七题", en: "Appendix · Seven architecture cards" },
+      orders: [49, 50, 51, 52, 53, 54, 55]
+    }
+  ],
   "agent-development": [
     {
       id: "intent-control",
@@ -104,6 +153,7 @@ export const SERIES_CURRICULUM = {
 };
 
 const SERIES_NAMES = {
+  "build-an-agent-from-scratch": { zh: "从零手搓 AI Agent", en: "Build an Agent from Scratch" },
   "agent-development": { zh: "Agent 开发", en: "Agent Development" },
   "full-stack-engineering": { zh: "全栈工程", en: "Full-Stack Engineering" },
   "webview-and-native": { zh: "WebView 与客户端", en: "WebView & Native" }
@@ -158,6 +208,10 @@ export function seriesIndexHref(lang) {
 }
 
 const SERIES_COPY = {
+  "build-an-agent-from-scratch": {
+    zh: "从一次 API 调用开始，到企业级 Agent 系统：多轮对话、手写底层、工程化、异步架构、生产级质量，再到互操作协议。开篇词加 54 课，八卷加附录，边写代码边学。",
+    en: "From a single API call to a production-grade Agent system: conversation, hand-written internals, engineering, async architecture, production quality, and interop protocols. An opening essay plus 54 lessons. Published in Chinese; English versions are not available yet."
+  },
   "agent-development": {
     zh: "从意图识别与控制系统出发，经过槽位与出口校验、记忆检索与会话压缩，再到 MCP / A2A、生产化与多 Agent 编排。一条可落地的 Agent 工程路径。",
     en: "Start with intent and control, then slots, exit validation, memory, retrieval and conversation compaction, then MCP/A2A, productionization, and multi-agent orchestration. A practical Agent engineering path."
