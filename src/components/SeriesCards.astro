@@ -2,11 +2,12 @@
 import Icon from "./Icon.astro";
 import {
   collectCurriculumSeries,
+  groupSeriesCurriculum,
   seriesCopy,
-  seriesCurriculum,
   seriesCurriculumSlots,
   seriesHref
 } from "../lib/blog.js";
+import { blogHref, postSlug } from "../lib/i18n.js";
 
 interface Props {
   lang: "zh" | "en";
@@ -15,18 +16,38 @@ interface Props {
 
 const { lang, posts } = Astro.props;
 const isEn = lang === "en";
-const locale = isEn ? "en" : "zh";
+/** 55-article column stays group-only on the card; the three shorter columns list posts. */
+const CARD_ARTICLE_LIMIT = 10;
+const CARD_ARTICLE_SLUGS = new Set([
+  "agent-development",
+  "full-stack-engineering",
+  "webview-and-native"
+]);
 const seriesList = collectCurriculumSeries(posts, lang).map((series) => {
-  const modules = seriesCurriculum(series.name) || [];
+  const grouped = groupSeriesCurriculum(series.posts, series.name, lang) || [];
+  const href = seriesHref(lang, series.name);
+  const listArticles = CARD_ARTICLE_SLUGS.has(series.slug);
+  const articleItems = listArticles
+    ? grouped
+        .flatMap((mod) =>
+          mod.posts.map((post) => ({
+            title: post.data.title,
+            href: blogHref(lang, postSlug(post.id))
+          }))
+        )
+        .slice(0, CARD_ARTICLE_LIMIT)
+    : [];
+  const groupItems = grouped.map((mod) => ({
+    title: mod.title,
+    href: `${href}#${mod.id}`
+  }));
   return {
     ...series,
     blurb: seriesCopy(series.name, lang),
     slots: seriesCurriculumSlots(series.name),
-    modules: modules.map((mod) => ({
-      id: mod.id,
-      title: mod.title[locale] || mod.title.zh
-    })),
-    href: seriesHref(lang, series.name)
+    groupCount: grouped.length,
+    items: articleItems.length ? articleItems : groupItems,
+    href
   };
 });
 const ui = isEn
@@ -48,17 +69,17 @@ const ui = isEn
 <div class="grid cols-2">
   {seriesList.map((series) => (
     <article class="card hover series-index-card">
-      <p class="series-index-kicker">{ui.kicker(series.slots, series.count, series.modules.length)}</p>
+      <p class="series-index-kicker">{ui.kicker(series.slots, series.count, series.groupCount)}</p>
       <h2>
         <a href={series.href}>{series.name}</a>
       </h2>
       <p class="desc">{series.blurb}</p>
       <ol class="series-index-modules">
-        {series.modules.map((mod, i) => (
+        {series.items.map((item, i) => (
           <li>
-            <a href={`${series.href}#${mod.id}`}>
+            <a href={item.href}>
               <span class="series-index-mod-n">{String(i + 1).padStart(2, "0")}</span>
-              {mod.title}
+              {item.title}
             </a>
           </li>
         ))}

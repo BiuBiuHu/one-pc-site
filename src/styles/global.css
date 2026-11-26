@@ -530,7 +530,6 @@ a.post-series:hover { color: var(--brand-hover); border-color: var(--brand); tex
   padding: 0;
   display: grid;
   gap: 8px;
-  flex: 1;
 }
 .series-index-modules li {
   font-size: 14px;
