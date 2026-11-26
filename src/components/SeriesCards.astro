@@ -17,6 +17,7 @@ interface Props {
 const { lang, posts } = Astro.props;
 const isEn = lang === "en";
 /** 55-article column stays group-only on the card; the three shorter columns list posts. */
+const CARD_ARTICLE_LIMIT = 10;
 const CARD_ARTICLE_SLUGS = new Set([
   "agent-development",
   "full-stack-engineering",
@@ -27,12 +28,14 @@ const seriesList = collectCurriculumSeries(posts, lang).map((series) => {
   const href = seriesHref(lang, series.name);
   const listArticles = CARD_ARTICLE_SLUGS.has(series.slug);
   const articleItems = listArticles
-    ? grouped.flatMap((mod) =>
-        mod.posts.map((post) => ({
-          title: post.data.title,
-          href: blogHref(lang, postSlug(post.id))
-        }))
-      )
+    ? grouped
+        .flatMap((mod) =>
+          mod.posts.map((post) => ({
+            title: post.data.title,
+            href: blogHref(lang, postSlug(post.id))
+          }))
+        )
+        .slice(0, CARD_ARTICLE_LIMIT)
     : [];
   const groupItems = grouped.map((mod) => ({
     title: mod.title,
