@@ -13,6 +13,7 @@ const projectList = [
     languageColor: "#3178c6",
     repo: "",
     homepage: "https://www.anpai.life/",
+    webApp: "https://web.anpai.life/",
     tags: ["Productivity", "Cross-platform", "AI"],
     status: "active",
     featured: true
@@ -47,9 +48,9 @@ const projectList = [
   },
   {
     name: "OPC Skills",
-    tagline: "BiuBiuHu / One PC Codex skill template for OPC delivery",
+    tagline: "Skill pack for coding agents doing OPC delivery",
     description:
-      "BiuBiuHu's Codex skill template for OPC / C-end and B-end delivery (github.com/BiuBiuHu/opc-skills) — not ReScienceLab / opc.dev. It chains requirement clarification, product design, B-side ops pages, architecture governance, development, testing, integration, and release gates into one reusable workflow — so agents keep making correct calls in complex business contexts.",
+      "BiuBiuHu's skill pack for coding agents (Codex, Cursor, Claude, and others that can load it) at github.com/BiuBiuHu/opc-skills — not ReScienceLab / opc.dev. It is for shipping C-end products together with B-side consoles, chaining requirement clarification, product design, B-side ops pages, architecture governance, development, testing, integration, and release gates into one reusable workflow — so agents keep making correct calls in complex business contexts.",
     language: "Shell",
     languageColor: "#89e051",
     stars: 12,

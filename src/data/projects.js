@@ -13,6 +13,7 @@ const projectList = [
     languageColor: "#3178c6",
     repo: "",
     homepage: "https://www.anpai.life/",
+    webApp: "https://web.anpai.life/",
     tags: ["效率", "跨端", "AI"],
     status: "active",
     featured: true
@@ -47,9 +48,9 @@ const projectList = [
   },
   {
     name: "OPC Skills",
-    tagline: "BiuBiuHu / One PC 的 OPC 交付 Codex Skill 模板",
+    tagline: "面向编程 Agent 的 OPC 交付 Skill 包",
     description:
-      "BiuBiuHu（github.com/BiuBiuHu/opc-skills）维护的 Codex Skill 模板，面向 OPC / C 端与 B 端交付，与 ReScienceLab 的 opc.dev 不是同一项目。把需求澄清、产品设计、B 端运营页、架构治理、研发、测试、联调、发布门禁串成一套可复用工作流，让 Agent 在复杂业务里持续做正确判断。",
+      "BiuBiuHu（github.com/BiuBiuHu/opc-skills）维护的 Skill 包，给 Codex、Cursor、Claude 以及能加载它的其他编程 Agent 用，面向 OPC / C 端产品与 B 端工作台一起交付，与 ReScienceLab 的 opc.dev 不是同一项目。把需求澄清、产品设计、B 端运营页、架构治理、研发、测试、联调、发布门禁串成一套可复用工作流，让 Agent 在复杂业务里持续做正确判断。",
     language: "Shell",
     languageColor: "#89e051",
     stars: 12,

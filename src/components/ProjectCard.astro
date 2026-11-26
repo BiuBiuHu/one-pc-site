@@ -12,6 +12,7 @@ const hubHref = hubPathForProject(project.name, locale);
 const repoFull = githubRepoSlug(project.repo);
 const isRepo = !!repoFull;
 const homepageHref = projectHomepageHref(project, locale);
+const webAppHref = project.webApp || "";
 const storeHref = project.store
   ? isEn
     ? project.store
@@ -31,13 +32,22 @@ if (hubHref) {
   });
 }
 if (homepageHref) {
-  const onlyHome = !hubHref && !storeHref && !isRepo;
+  const onlyHome = !hubHref && !webAppHref && !storeHref && !isRepo;
   actions.push({
     href: homepageHref,
     label: onlyHome ? (isEn ? "Visit" : "访问") : isEn ? "Website" : "官网",
     icon: "external-link",
     external: true,
     aria: isEn ? `${project.name} official website` : `${project.name} 官网`
+  });
+}
+if (webAppHref) {
+  actions.push({
+    href: webAppHref,
+    label: isEn ? "Web app" : "Web 端",
+    icon: "external-link",
+    external: true,
+    aria: isEn ? `${project.name} web app` : `${project.name} Web 端`
   });
 }
 if (storeHref) {

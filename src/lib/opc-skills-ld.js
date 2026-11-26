@@ -8,10 +8,10 @@ export function opcSkillsJsonLd({ isEn, lang, authorUrl, pageUrl }) {
   const siteUrl = OPC_SKILLS_SITE[normalizeLocale(locale)] || OPC_SKILLS_SITE.en;
   const description =
     locale === "en"
-      ? "BiuBiuHu / One PC Codex skill template for OPC (C-end and B-end) delivery. Not affiliated with ReScienceLab or opc.dev."
+      ? "BiuBiuHu / One PC skill pack for coding agents (Codex, Cursor, Claude, and others that can load it). For shipping C-end products with B-side consoles. Not affiliated with ReScienceLab or opc.dev."
       : locale === "ja"
-        ? "BiuBiuHu / One PC の Codex Skill テンプレート。OPC（C向け・B向け）納品向け。ReScienceLab / opc.dev とは別プロジェクト。"
-        : "BiuBiuHu / One PC 的 Codex Skill 模板，面向 OPC（C 端与 B 端）交付。与 ReScienceLab / opc.dev 不是同一项目。";
+        ? "BiuBiuHu / One PC のコーディングAgent向けSkillパック（Codex、Cursor、Claude、および読み込める他のAgent）。OPC（C向けプロダクトとB向け運用台）納品向け。ReScienceLab / opc.dev とは別プロジェクト。"
+        : "BiuBiuHu / One PC 的编程 Agent Skill 包（Codex、Cursor、Claude 以及能加载它的其他 Agent），面向 OPC（C 端产品与 B 端工作台）交付。与 ReScienceLab / opc.dev 不是同一项目。";
   const sameAs = [siteUrl, OPC_SKILLS_REPO];
   if (pageUrl && !sameAs.includes(pageUrl)) sameAs.push(pageUrl);
   return {
