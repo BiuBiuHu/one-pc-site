@@ -53,7 +53,7 @@ export async function GET(context) {
   }
   out.push(`- [项目](${base}/projects/): 开源项目`);
   out.push(`- [Smart Tab Pilot](https://biubiuhu.github.io/smart-tab-pilot/): Chrome 扩展，精确 URL 去重 + 任务导航图（仓库：https://github.com/BiuBiuHu/smart-tab-pilot）`);
-  out.push(`- [OPC Skills](${base}/projects/opc-skills/): BiuBiuHu 的 OPC 交付 Codex Skill 模板（非 opc.dev）；官网 https://biubiuhu.github.io/opc-skills/zh/ ，仓库 https://github.com/BiuBiuHu/opc-skills`);
+  out.push(`- [OPC Skills](${base}/projects/opc-skills/): BiuBiuHu 的 OPC 交付 Skill 包（Codex / Cursor / Claude 等编程 Agent 可用，非 opc.dev）；官网 https://biubiuhu.github.io/opc-skills/zh/ ，仓库 https://github.com/BiuBiuHu/opc-skills`);
   out.push(`- [OPC Skills (EN)](${base}/en/projects/opc-skills/): OPC Skills landing; official site https://biubiuhu.github.io/opc-skills/`);
   out.push(`- [服务](${base}/services/): 可直接使用的服务`);
   out.push("");

@@ -26,26 +26,26 @@ export const opcSkillsHub = {
   slug: "opc-skills",
   projectName: "OPC Skills",
   title: {
-    zh: "OPC Skills：BiuBiuHu 的 OPC 交付 Codex Skill 模板",
-    en: "OPC Skills: BiuBiuHu's Codex skill template for OPC delivery",
-    ja: "OPC Skills：BiuBiuHuのOPC納品向けCodex Skillテンプレート"
+    zh: "OPC Skills：面向编程 Agent 的 OPC 交付 Skill 包",
+    en: "OPC Skills: a skill pack for coding agents doing OPC delivery",
+    ja: "OPC Skills：コーディングAgent向けのOPC納品Skillパック"
   },
   description: {
-    zh: "BiuBiuHu / One PC 的 opc-skills：面向 OPC / C 端与 B 端交付的 Codex Skill 模板。与 ReScienceLab 的 opc.dev 不是同一项目。",
-    en: "BiuBiuHu / One PC opc-skills: a Codex skill template for OPC / C-end and B-end delivery. Not ReScienceLab or opc.dev.",
-    ja: "BiuBiuHu / One PC の opc-skills。OPC / C向け・B向け納品のためのCodex Skillテンプレート。ReScienceLab の opc.dev とは別プロジェクト。"
+    zh: "BiuBiuHu / One PC 的 opc-skills：给 Codex、Cursor、Claude 以及能加载它的其他编程 Agent 用，面向 OPC / C 端产品与 B 端工作台一起交付。与 ReScienceLab 的 opc.dev 不是同一项目。",
+    en: "BiuBiuHu / One PC opc-skills: a skill pack for coding agents (Codex, Cursor, Claude, and others that can load it) to ship C-end products with B-side consoles. Not ReScienceLab or opc.dev.",
+    ja: "BiuBiuHu / One PC の opc-skills。Codex、Cursor、Claude、および読み込める他のコーディングAgent向け。OPC / C向けプロダクトとB向け運用台を一緒に納品する。ReScienceLab の opc.dev とは別プロジェクト。"
   },
   h1: { zh: "OPC Skills", en: "OPC Skills", ja: "OPC Skills" },
-  eyebrow: { zh: "Codex Skill", en: "Codex Skill", ja: "Codex Skill" },
+  eyebrow: { zh: "Skill 包", en: "Skill pack", ja: "Skillパック" },
   tagline: {
-    zh: "BiuBiuHu / One PC 的 OPC 交付 Codex Skill 模板",
-    en: "BiuBiuHu / One PC Codex skill template for OPC delivery",
-    ja: "BiuBiuHu / One PC のOPC納品向けCodex Skillテンプレート"
+    zh: "面向编程 Agent 的 OPC 交付 Skill 包",
+    en: "Skill pack for coding agents doing OPC delivery",
+    ja: "コーディングAgent向けのOPC納品Skillパック"
   },
   tldr: {
-    zh: "把需求澄清到发布门禁串成可复用工作流的 Codex Skill 模板。官网 biubiuhu.github.io/opc-skills，仓库 github.com/BiuBiuHu/opc-skills，与 ReScienceLab / opc.dev 无关。",
-    en: "A Codex skill template that chains clarification through release gates. Official site: biubiuhu.github.io/opc-skills. Repo: github.com/BiuBiuHu/opc-skills — not ReScienceLab / opc.dev.",
-    ja: "要件の見極めからリリース門禁までを再利用ワークフローにしたCodex Skillテンプレート。公式サイトは biubiuhu.github.io/opc-skills、リポジトリは github.com/BiuBiuHu/opc-skills。ReScienceLab / opc.dev とは無関係。"
+    zh: "把需求澄清到发布门禁串成可复用工作流的 Skill 包，Codex、Cursor、Claude 等能加载它的编程 Agent 都可以用。官网 biubiuhu.github.io/opc-skills，仓库 github.com/BiuBiuHu/opc-skills，与 ReScienceLab / opc.dev 无关。",
+    en: "A skill pack that chains clarification through release gates. Coding agents that can load it — Codex, Cursor, Claude, and others — can use it. Official site: biubiuhu.github.io/opc-skills. Repo: github.com/BiuBiuHu/opc-skills — not ReScienceLab / opc.dev.",
+    ja: "要件の見極めからリリース門禁までを再利用ワークフローにしたSkillパック。Codex、Cursor、Claude など読み込めるコーディングAgentで使える。公式サイトは biubiuhu.github.io/opc-skills、リポジトリは github.com/BiuBiuHu/opc-skills。ReScienceLab / opc.dev とは無関係。"
   },
   problem: {
     zh: [
@@ -63,15 +63,15 @@ export const opcSkillsHub = {
   },
   solution: {
     zh: [
-      "OPC Skills 是 BiuBiuHu 维护的 Codex Skill 模板（github.com/BiuBiuHu/opc-skills），面向 OPC / C 端与 B 端交付。",
+      "OPC Skills 是 BiuBiuHu 维护的 Skill 包（github.com/BiuBiuHu/opc-skills），给 Codex、Cursor、Claude 以及能加载它的其他编程 Agent 用，面向 OPC / C 端产品与 B 端工作台一起交付。",
       "它把需求澄清、产品设计、B 端运营页、架构治理、研发、测试、联调、发布门禁串成一套可复用工作流，让 Agent 在复杂业务里持续做正确判断。"
     ],
     en: [
-      "OPC Skills is BiuBiuHu's Codex skill template (github.com/BiuBiuHu/opc-skills) for OPC / C-end and B-end delivery.",
+      "OPC Skills is BiuBiuHu's skill pack (github.com/BiuBiuHu/opc-skills) for coding agents — Codex, Cursor, Claude, and others that can load it — to ship C-end products together with B-side consoles.",
       "It chains requirement clarification, product design, B-side ops pages, architecture governance, development, testing, integration, and release gates into one reusable workflow — so agents keep making correct calls in complex business contexts."
     ],
     ja: [
-      "OPC Skills は BiuBiuHu が保守する Codex Skill テンプレート（github.com/BiuBiuHu/opc-skills）。対象は OPC / C向け・B向け納品。",
+      "OPC Skills は BiuBiuHu が保守する Skillパック（github.com/BiuBiuHu/opc-skills）。Codex、Cursor、Claude、および読み込める他のコーディングAgent向け。対象は OPC / C向けプロダクトとB向け運用台の同時納品。",
       "要件の見極め、プロダクト設計、B向け運用ページ、アーキテクチャ統治、開発、テスト、結合、リリース門禁を一本の再利用ワークフローにする。複雑な業務でも Agent が正しい判断を続けられるようにする。"
     ]
   },
@@ -83,15 +83,15 @@ export const opcSkillsHub = {
   install: {
     heading: { zh: "安装", en: "Install", ja: "インストール" },
     lead: {
-      zh: "推荐用官方 CLI 安装到 Codex 能发现的 skills 目录：",
-      en: "Install with the official CLI into a skills directory Codex can see:",
-      ja: "公式 CLI で、Codex が見つけられる skills ディレクトリへ入れる："
+      zh: "推荐用官方 CLI 安装。CLI 会写入 Codex，并同步 Cursor 与 Claude 的 skill 目录：",
+      en: "Install with the official CLI. It writes the Codex skill and syncs Cursor and Claude skill surfaces:",
+      ja: "公式 CLI で入れる。Codex に書き込み、Cursor と Claude の skill ディレクトリも同期する："
     },
     code: "npx opc-skills install\nnpx opc-skills update",
     after: {
-      zh: "install 会按需创建 ~/.codex/skills。已安装时用 update 更新。也可以手动 git clone 到 ~/.codex/skills/opc-skills，或克隆到别处再软链过去。在对话里说「启动 OPC Skills」或「用 opc-skills 分析这个需求」即可触发。完整规则以仓库里的 SKILL.md 为准。",
-      en: "install creates ~/.codex/skills if needed. Use update to refresh an existing install. You can also git clone into ~/.codex/skills/opc-skills, or clone elsewhere and symlink. In Codex, say “Start OPC Skills” or “Use opc-skills to analyze this requirement.” SKILL.md in the repo is the source of rules.",
-      ja: "install は必要なら ~/.codex/skills を作る。既存インストールの更新は update。手動で ~/.codex/skills/opc-skills に git clone してもよいし、別の場所からシンボリックリンクしてもよい。会話で「OPC Skills を起動」または「opc-skills でこの要件を分析して」と言えば起動する。ルールの正本はリポジトリの SKILL.md。"
+      zh: "install 会按需创建 ~/.codex/skills。update 会同步已有的 .agents、Cursor 与 Claude skill 目录。也可以手动 git clone 到 ~/.codex/skills/opc-skills，或克隆到别处再软链过去。在 Codex 里说「启动 OPC Skills」或「用 opc-skills 分析这个需求」即可触发。完整规则以仓库里的 SKILL.md 为准。",
+      en: "install creates ~/.codex/skills if needed. update syncs existing .agents, Cursor, and Claude skill surfaces. You can also git clone into ~/.codex/skills/opc-skills, or clone elsewhere and symlink. In Codex, say “Start OPC Skills” or “Use opc-skills to analyze this requirement.” SKILL.md in the repo is the source of rules.",
+      ja: "install は必要なら ~/.codex/skills を作る。update は既存の .agents、Cursor、Claude の skill ディレクトリを同期する。手動で ~/.codex/skills/opc-skills に git clone してもよいし、別の場所からシンボリックリンクしてもよい。Codex では「OPC Skills を起動」または「opc-skills でこの要件を分析して」と言えば起動する。ルールの正本はリポジトリの SKILL.md。"
     }
   },
   site: {

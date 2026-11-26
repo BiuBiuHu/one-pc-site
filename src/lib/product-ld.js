@@ -65,6 +65,7 @@ function productNode({ project, isEn, lang, authorUrl, pageUrl }) {
 
   const sameAs = [];
   if (homepageHref) sameAs.push(homepageHref);
+  if (project.webApp && !sameAs.includes(project.webApp)) sameAs.push(project.webApp);
   if (project.store) {
     node.installUrl = project.store;
     if (!sameAs.includes(project.store)) sameAs.push(project.store);
