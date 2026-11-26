@@ -2,11 +2,12 @@
 import Icon from "./Icon.astro";
 import {
   collectCurriculumSeries,
+  groupSeriesCurriculum,
   seriesCopy,
-  seriesCurriculum,
   seriesCurriculumSlots,
   seriesHref
 } from "../lib/blog.js";
+import { blogHref, postSlug } from "../lib/i18n.js";
 
 interface Props {
   lang: "zh" | "en";
@@ -15,16 +16,28 @@ interface Props {
 
 const { lang, posts } = Astro.props;
 const isEn = lang === "en";
-const locale = isEn ? "en" : "zh";
+/** 55-article column stays group-only on the card; the three shorter columns list posts. */
+const CARD_ARTICLE_SLUGS = new Set([
+  "agent-development",
+  "full-stack-engineering",
+  "webview-and-native"
+]);
 const seriesList = collectCurriculumSeries(posts, lang).map((series) => {
-  const modules = seriesCurriculum(series.name) || [];
+  const grouped = groupSeriesCurriculum(series.posts, series.name, lang) || [];
+  const listArticles = CARD_ARTICLE_SLUGS.has(series.slug);
   return {
     ...series,
     blurb: seriesCopy(series.name, lang),
     slots: seriesCurriculumSlots(series.name),
-    modules: modules.map((mod) => ({
+    modules: grouped.map((mod) => ({
       id: mod.id,
-      title: mod.title[locale] || mod.title.zh
+      title: mod.title,
+      posts: listArticles
+        ? mod.posts.map((post) => ({
+            title: post.data.title,
+            href: blogHref(lang, postSlug(post.id))
+          }))
+        : []
     })),
     href: seriesHref(lang, series.name)
   };
@@ -56,10 +69,19 @@ const ui = isEn
       <ol class="series-index-modules">
         {series.modules.map((mod, i) => (
           <li>
-            <a href={`${series.href}#${mod.id}`}>
+            <a class="series-index-mod" href={`${series.href}#${mod.id}`}>
               <span class="series-index-mod-n">{String(i + 1).padStart(2, "0")}</span>
               {mod.title}
             </a>
+            {mod.posts.length > 0 && (
+              <ol class="series-index-articles">
+                {mod.posts.map((post) => (
+                  <li>
+                    <a href={post.href}>{post.title}</a>
+                  </li>
+                ))}
+              </ol>
+            )}
           </li>
         ))}
       </ol>

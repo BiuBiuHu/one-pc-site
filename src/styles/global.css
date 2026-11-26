@@ -529,15 +529,14 @@ a.post-series:hover { color: var(--brand-hover); border-color: var(--brand); tex
   margin: 0 0 16px;
   padding: 0;
   display: grid;
-  gap: 8px;
-  flex: 1;
+  gap: 12px;
 }
-.series-index-modules li {
+.series-index-modules > li {
   font-size: 14px;
   color: var(--text-2);
   line-height: 1.45;
 }
-.series-index-modules a {
+.series-index-mod {
   display: flex;
   align-items: baseline;
   gap: 10px;
@@ -545,11 +544,12 @@ a.post-series:hover { color: var(--brand-hover); border-color: var(--brand); tex
   min-width: 0;
   color: inherit;
   text-decoration: none;
+  font-weight: 600;
 }
-.series-index-modules a:hover {
+.series-index-mod:hover {
   color: var(--brand);
 }
-.series-index-modules a:hover .series-index-mod-n {
+.series-index-mod:hover .series-index-mod-n {
   color: var(--brand);
 }
 .series-index-mod-n {
@@ -558,6 +558,24 @@ a.post-series:hover { color: var(--brand-hover); border-color: var(--brand); tex
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--muted-2);
+}
+.series-index-articles {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0 0 0 30px;
+  display: grid;
+  gap: 3px;
+}
+.series-index-articles a {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--muted);
+  text-decoration: none;
+}
+.series-index-articles a:hover {
+  color: var(--brand);
 }
 .series-index-card .more {
   margin-top: auto;
