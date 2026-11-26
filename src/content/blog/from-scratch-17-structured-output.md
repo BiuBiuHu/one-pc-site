@@ -1,5 +1,5 @@
 ---
-title: "第十七课：Structured Output — 结构化输出"
+title: "Structured Output — 结构化输出"
 date: 2026-11-25
 excerpt: "如何让 LLM 稳定输出符合 JSON Schema 的数据？"
 category: Agent 开发

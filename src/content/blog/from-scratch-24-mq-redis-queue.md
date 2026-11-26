@@ -1,5 +1,5 @@
 ---
-title: "第二十四课：用 Redis 实现一个任务队列"
+title: "用 Redis 实现一个任务队列"
 date: 2026-11-25
 excerpt: "用 LPUSH/BRPOP 亲手搭生产者-消费者队列？"
 category: Agent 开发

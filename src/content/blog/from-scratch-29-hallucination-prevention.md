@@ -1,5 +1,5 @@
 ---
-title: "第二十九课：幻觉防治 — 在 Agent 层面系统性杜绝幻觉"
+title: "幻觉防治 — 在 Agent 层面系统性杜绝幻觉"
 date: 2026-11-25
 excerpt: "如何在架构层面系统性切断幻觉传播链？"
 category: Agent 开发

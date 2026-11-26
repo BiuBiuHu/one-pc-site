@@ -1,5 +1,5 @@
 ---
-title: "第七课：手写 Agent Loop"
+title: "手写 Agent Loop"
 date: 2026-11-25
 excerpt: "工具调用循环背后的消息格式和 while 循环是怎样的？"
 category: Agent 开发

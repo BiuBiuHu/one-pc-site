@@ -1,5 +1,5 @@
 ---
-title: "第三十六课：Agent 测试方法论 — 单元测试、Mock LLM 与回归测试"
+title: "Agent 测试方法论 — 单元测试、Mock LLM 与回归测试"
 date: 2026-11-25
 excerpt: "输出不确定的 Agent 怎么做自动化测试？"
 category: Agent 开发

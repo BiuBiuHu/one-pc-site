@@ -1,5 +1,5 @@
 ---
-title: "第十三课：Skills 系统 — Agent 能力的模块化封装"
+title: "Skills 系统 — Agent 能力的模块化封装"
 date: 2026-11-25
 excerpt: "能力如何打包成可动态挂载的模块？"
 category: Agent 开发

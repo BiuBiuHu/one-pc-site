@@ -1,5 +1,5 @@
 ---
-title: "第二十八课：Agent SDK 设计 — 把 Agent 封装成开箱即用的 SDK"
+title: "Agent SDK 设计 — 把 Agent 封装成开箱即用的 SDK"
 date: 2026-11-25
 excerpt: "把前面所有能力收敛成一个自己的 SDK？"
 category: Agent 开发

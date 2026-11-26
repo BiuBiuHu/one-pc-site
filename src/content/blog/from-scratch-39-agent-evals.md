@@ -1,5 +1,5 @@
 ---
-title: "第三十九课：Agent Evals — 量化评估 Agent 的质量"
+title: "Agent Evals — 量化评估 Agent 的质量"
 date: 2026-11-25
 excerpt: "如何用数据判断改动是变好还是变坏？"
 category: Agent 开发

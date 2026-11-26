@@ -1,5 +1,5 @@
 ---
-title: "第四课：工具调用（Tool Use）"
+title: "工具调用（Tool Use）"
 date: 2026-11-25
 excerpt: "如何让 Agent 从「只会聊天」变成「能干活」？"
 category: Agent 开发

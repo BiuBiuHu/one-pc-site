@@ -1,5 +1,5 @@
 ---
-title: "第 47 课：A2A — Agent-to-Agent 协议"
+title: "A2A — Agent-to-Agent 协议"
 date: 2026-11-25
 excerpt: "不同厂商的 Agent 怎么互相发现和协作？"
 category: Agent 开发

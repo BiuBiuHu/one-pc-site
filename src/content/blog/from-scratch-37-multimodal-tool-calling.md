@@ -1,5 +1,5 @@
 ---
-title: "第三十七课：多模态工具调用 — 让 Agent 看懂图片"
+title: "多模态工具调用 — 让 Agent 看懂图片"
 date: 2026-11-25
 excerpt: "如何让 Agent 看懂截图并调用工具修复？"
 category: Agent 开发

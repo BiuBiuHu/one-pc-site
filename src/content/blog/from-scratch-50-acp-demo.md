@@ -1,5 +1,5 @@
 ---
-title: "第 50 课：用 ACP 驱动 Claude Code（实战 Demo）"
+title: "用 ACP 驱动 Claude Code（实战 Demo）"
 date: 2026-11-25
 excerpt: "用 ACP 驱动真实编码 Agent 跑起来。"
 category: Agent 开发

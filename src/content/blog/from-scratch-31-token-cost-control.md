@@ -1,5 +1,5 @@
 ---
-title: "第三十一课：Token 成本控制 — 量化消耗、设定预算、防止超支"
+title: "Token 成本控制 — 量化消耗、设定预算、防止超支"
 date: 2026-11-25
 excerpt: "如何量化消耗、设预算、防账单爆炸？"
 category: Agent 开发

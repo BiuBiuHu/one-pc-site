@@ -1,5 +1,5 @@
 ---
-title: "第十九课：Reflection — Agent 自我反思"
+title: "Reflection — Agent 自我反思"
 date: 2026-11-25
 excerpt: "如何让 Agent 自我评估并修正输出？"
 category: Agent 开发

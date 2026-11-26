@@ -1,5 +1,5 @@
 ---
-title: "第十五课：UI 界面如何展示 AI 的执行和思考过程"
+title: "UI 界面如何展示 AI 的执行和思考过程"
 date: 2026-11-25
 excerpt: "如何实时展示「思考 → 调工具 → 回复」全过程？"
 category: Agent 开发

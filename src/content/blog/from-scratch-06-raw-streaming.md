@@ -1,5 +1,5 @@
 ---
-title: "第六课：手写流式输出"
+title: "手写流式输出"
 date: 2026-11-25
 excerpt: "SSE 是什么？流式数据怎么从服务器传过来？"
 category: Agent 开发

@@ -1,5 +1,5 @@
 ---
-title: "第三课：流式输出（Streaming）"
+title: "流式输出（Streaming）"
 date: 2026-11-25
 excerpt: "如何让回复像 ChatGPT 一样逐字出现？"
 category: Agent 开发

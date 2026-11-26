@@ -1,5 +1,5 @@
 ---
-title: "第十二课：MCP — Model Context Protocol"
+title: "MCP — Model Context Protocol"
 date: 2026-11-25
 excerpt: "工具复用的痛点，MCP 是怎么解决的？"
 category: Agent 开发

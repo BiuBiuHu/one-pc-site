@@ -1,5 +1,5 @@
 ---
-title: "第二十七课：Remote Gateway — 远程驱动本地 Agent"
+title: "Remote Gateway — 远程驱动本地 Agent"
 date: 2026-11-25
 excerpt: "如何从手机/网页远程驱动本地编码 Agent 干活？"
 category: Agent 开发

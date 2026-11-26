@@ -1,5 +1,5 @@
 ---
-title: "第十课：多 Agent 协作（Multi-Agent Collaboration）"
+title: "多 Agent 协作（Multi-Agent Collaboration）"
 date: 2026-11-25
 excerpt: "一个 Agent 不够用时，多个 Agent 怎么分工？"
 category: Agent 开发

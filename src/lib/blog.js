@@ -212,7 +212,7 @@ export function seriesIndexHref(lang) {
 
 const SERIES_COPY = {
   "build-an-agent-from-scratch": {
-    zh: "从一次 API 调用开始，到企业级 Agent 系统：多轮对话、手写底层、工程化、异步架构、生产级质量，再到互操作协议。开篇词加 54 课，八卷加附录，边写代码边学。",
+    zh: "从一次 API 调用开始，到企业级 Agent 系统：多轮对话、手写底层、工程化、异步架构、生产级质量，再到互操作协议。开篇词加 54 篇，八卷加附录，边写代码边学。",
     en: "From a single API call to a production-grade Agent system: conversation, hand-written internals, engineering, async architecture, production quality, and interop protocols. An opening essay plus 54 lessons. Published in Chinese; English versions are not available yet."
   },
   "agent-development": {

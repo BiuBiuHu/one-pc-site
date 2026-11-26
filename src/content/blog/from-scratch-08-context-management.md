@@ -1,5 +1,5 @@
 ---
-title: "第八课：上下文管理（Context Management）"
+title: "上下文管理（Context Management）"
 date: 2026-11-25
 excerpt: "历史越来越长超出 Token 限制怎么办？"
 category: Agent 开发
