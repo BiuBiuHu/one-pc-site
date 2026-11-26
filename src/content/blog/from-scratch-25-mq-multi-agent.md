@@ -1,5 +1,5 @@
 ---
-title: "第二十五课：异步多 Agent 系统"
+title: "异步多 Agent 系统"
 date: 2026-11-25
 excerpt: "多个 Agent Worker 如何并行消费任务？"
 category: Agent 开发

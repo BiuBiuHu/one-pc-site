@@ -1,5 +1,5 @@
 ---
-title: "第十六课：Hooks / Middleware — Agent 生命周期钩子与 Human-in-the-Loop"
+title: "Hooks / Middleware — Agent 生命周期钩子与 Human-in-the-Loop"
 date: 2026-11-25
 excerpt: "高风险操作如何让人类审批介入？"
 category: Agent 开发

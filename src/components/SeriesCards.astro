@@ -22,7 +22,10 @@ const seriesList = collectCurriculumSeries(posts, lang).map((series) => {
     ...series,
     blurb: seriesCopy(series.name, lang),
     slots: seriesCurriculumSlots(series.name),
-    modules: modules.map((mod) => mod.title[locale] || mod.title.zh),
+    modules: modules.map((mod) => ({
+      id: mod.id,
+      title: mod.title[locale] || mod.title.zh
+    })),
     href: seriesHref(lang, series.name)
   };
 });
@@ -51,10 +54,12 @@ const ui = isEn
       </h2>
       <p class="desc">{series.blurb}</p>
       <ol class="series-index-modules">
-        {series.modules.map((title, i) => (
+        {series.modules.map((mod, i) => (
           <li>
-            <span class="series-index-mod-n">{String(i + 1).padStart(2, "0")}</span>
-            {title}
+            <a href={`${series.href}#${mod.id}`}>
+              <span class="series-index-mod-n">{String(i + 1).padStart(2, "0")}</span>
+              {mod.title}
+            </a>
           </li>
         ))}
       </ol>

@@ -1,5 +1,5 @@
 ---
-title: "第 48 课：ACP — Agent Client Protocol"
+title: "ACP — Agent Client Protocol"
 date: 2026-11-25
 excerpt: "编辑器和编码 Agent 之间如何实时通信？"
 category: Agent 开发

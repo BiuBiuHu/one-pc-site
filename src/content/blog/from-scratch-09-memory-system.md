@@ -1,5 +1,5 @@
 ---
-title: "第九课：记忆系统（Memory System）"
+title: "记忆系统（Memory System）"
 date: 2026-11-25
 excerpt: "如何让 Agent 记住跨会话的信息？"
 category: Agent 开发

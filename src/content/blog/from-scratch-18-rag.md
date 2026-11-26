@@ -1,5 +1,5 @@
 ---
-title: "第十八课：RAG — 检索增强生成"
+title: "RAG — 检索增强生成"
 date: 2026-11-25
 excerpt: "如何让 Agent 回答私有知识库的问题？"
 category: Agent 开发

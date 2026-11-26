@@ -1,5 +1,5 @@
 ---
-title: "第一课：从单次对话到多轮对话"
+title: "从单次对话到多轮对话"
 date: 2026-11-25
 excerpt: "为什么 LLM 每次都要带上完整对话历史？"
 category: Agent 开发

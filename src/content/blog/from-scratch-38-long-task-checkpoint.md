@@ -1,5 +1,5 @@
 ---
-title: "第三十八课：长任务断点续传 — 让 Agent 从中断处恢复"
+title: "长任务断点续传 — 让 Agent 从中断处恢复"
 date: 2026-11-25
 excerpt: "执行 30 分钟的任务崩了，如何从断点继续？"
 category: Agent 开发

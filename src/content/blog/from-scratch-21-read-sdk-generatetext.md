@@ -1,5 +1,5 @@
 ---
-title: "第二十一课：generateText 源码解析"
+title: "generateText 源码解析"
 date: 2026-11-25
 excerpt: "Provider 抽象层是什么设计模式？"
 category: Agent 开发

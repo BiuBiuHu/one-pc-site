@@ -1,5 +1,5 @@
 ---
-title: "第三十课：真正的流式 Agent Loop — streamText + 工具调用的完美结合"
+title: "真正的流式 Agent Loop — streamText + 工具调用的完美结合"
 date: 2026-11-25
 excerpt: "伪流式和真流式的本质区别是什么？"
 category: Agent 开发

@@ -1,5 +1,5 @@
 ---
-title: "第五课：手写 OpenAI API 调用"
+title: "手写 OpenAI API 调用"
 date: 2026-11-25
 excerpt: "SDK 的 generateText 底层到底发了什么请求？"
 category: Agent 开发

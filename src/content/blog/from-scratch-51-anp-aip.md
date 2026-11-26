@@ -1,5 +1,5 @@
 ---
-title: "第 51 课：更多 Agent 互操作协议（ANP / AIP）"
+title: "更多 Agent 互操作协议（ANP / AIP）"
 date: 2026-11-25
 excerpt: "还有更多的 Agent 互操作尝试吗？"
 category: Agent 开发

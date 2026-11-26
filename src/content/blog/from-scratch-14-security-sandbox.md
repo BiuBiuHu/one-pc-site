@@ -1,5 +1,5 @@
 ---
-title: "第十四课：Agent 安全 — 权限控制与沙箱隔离"
+title: "Agent 安全 — 权限控制与沙箱隔离"
 date: 2026-11-25
 excerpt: "Agent 能碰文件系统，怎么防止它做不该做的事？"
 category: Agent 开发

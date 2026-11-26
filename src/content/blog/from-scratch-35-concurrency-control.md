@@ -1,5 +1,5 @@
 ---
-title: "第三十五课：并发控制与限流 — 让 Agent 服务多用户而不崩溃"
+title: "并发控制与限流 — 让 Agent 服务多用户而不崩溃"
 date: 2026-11-25
 excerpt: "多用户并发时如何不被 API 限流打崩？"
 category: Agent 开发

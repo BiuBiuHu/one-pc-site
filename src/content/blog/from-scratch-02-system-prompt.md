@@ -1,5 +1,5 @@
 ---
-title: "第二课：系统提示词（System Prompt）"
+title: "系统提示词（System Prompt）"
 date: 2026-11-25
 excerpt: "如何给 Agent 赋予角色和行为规范？"
 category: Agent 开发

@@ -1,5 +1,5 @@
 ---
-title: "第二十二课：streamText 源码解析"
+title: "streamText 源码解析"
 date: 2026-11-25
 excerpt: "AsyncIterator 背压是怎么实现的？"
 category: Agent 开发

@@ -1,5 +1,5 @@
 ---
-title: "第十一课：Rules 系统 — System Prompt 的工程化管理"
+title: "Rules 系统 — System Prompt 的工程化管理"
 date: 2026-11-25
 excerpt: "行为约束如何从硬编码变成可组合的规则模块？"
 category: Agent 开发

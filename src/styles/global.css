@@ -533,12 +533,24 @@ a.post-series:hover { color: var(--brand-hover); border-color: var(--brand); tex
   flex: 1;
 }
 .series-index-modules li {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
   font-size: 14px;
   color: var(--text-2);
   line-height: 1.45;
+}
+.series-index-modules a {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+.series-index-modules a:hover {
+  color: var(--brand);
+}
+.series-index-modules a:hover .series-index-mod-n {
+  color: var(--brand);
 }
 .series-index-mod-n {
   flex: none;

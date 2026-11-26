@@ -1,5 +1,5 @@
 ---
-title: "第二十课：Planning — 任务规划"
+title: "Planning — 任务规划"
 date: 2026-11-25
 excerpt: "面对复杂任务，如何先规划再执行？"
 category: Agent 开发

@@ -1,5 +1,5 @@
 ---
-title: "第三十四课：Prompt 版本管理 — 把 System Prompt 当代码来管理"
+title: "Prompt 版本管理 — 把 System Prompt 当代码来管理"
 date: 2026-11-25
 excerpt: "Prompt 如何像代码一样版本化、A/B 测试？"
 category: Agent 开发

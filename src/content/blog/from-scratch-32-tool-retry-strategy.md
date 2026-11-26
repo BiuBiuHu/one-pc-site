@@ -1,5 +1,5 @@
 ---
-title: "第三十二课：工具调用错误重试策略 — 让 Agent 在失败中自愈"
+title: "工具调用错误重试策略 — 让 Agent 在失败中自愈"
 date: 2026-11-25
 excerpt: "不同类型的失败该用什么重试策略？"
 category: Agent 开发

@@ -1,5 +1,5 @@
 ---
-title: "第三十三课：Agent 可观测性 — Trace、Span 与日志链路追踪"
+title: "Agent 可观测性 — Trace、Span 与日志链路追踪"
 date: 2026-11-25
 excerpt: "生产出问题时，如何追踪一次请求的完整链路？"
 category: Agent 开发

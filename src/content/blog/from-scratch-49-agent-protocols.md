@@ -1,5 +1,5 @@
 ---
-title: "第 49 课：MCP / ACP / A2A 三协议总对比"
+title: "MCP / ACP / A2A 三协议总对比"
 date: 2026-11-25
 excerpt: "MCP / ACP / A2A 各自解决什么问题？"
 category: Agent 开发
